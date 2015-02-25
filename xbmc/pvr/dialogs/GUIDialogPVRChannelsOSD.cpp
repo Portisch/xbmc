@@ -40,6 +40,7 @@ using namespace std::chrono_literals;
 CGUIDialogPVRChannelsOSD::CGUIDialogPVRChannelsOSD()
 : CGUIDialogPVRItemsViewBase(WINDOW_DIALOG_PVR_OSD_CHANNELS, "DialogPVRChannelsOSD.xml")
 {
+  m_loadType = LOAD_ON_GUI_INIT;
 }
 
 CGUIDialogPVRChannelsOSD::~CGUIDialogPVRChannelsOSD()
