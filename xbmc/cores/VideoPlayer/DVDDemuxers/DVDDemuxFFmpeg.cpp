@@ -1396,6 +1396,9 @@ CDemuxStream* CDVDDemuxFFmpeg::AddStream(int streamIdx)
         st->fAspect = SelectAspect(pStream, st->bForcedAspect) * pStream->codec->width / pStream->codec->height;
         st->iOrientation = 0;
         st->iBitsPerPixel = pStream->codec->bits_per_coded_sample;
+#ifdef HAS_DS_PLAYER
+        st->iCodecTag = pStream->codec->codec_tag;
+#endif
 
         AVDictionaryEntry *rtag = av_dict_get(pStream->metadata, "rotate", NULL, 0);
         if (rtag) 

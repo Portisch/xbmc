@@ -48,6 +48,9 @@ CDVDClock::CDVDClock()
   m_systemOffset = m_videoRefClock->GetTime();
   m_systemFrequency = CurrentHostFrequency();
   m_systemUsed = m_systemFrequency;
+#ifdef HAS_DS_PLAYER
+  m_timeBase = DVD_TIME_BASE;
+#endif
 }
 
 CDVDClock::~CDVDClock()
@@ -268,12 +271,12 @@ bool CDVDClock::GetClockInfo(int& MissedVblanks, double& ClockSpeed, double& Ref
 
 double CDVDClock::SystemToAbsolute(int64_t system)
 {
-  return DVD_TIME_BASE * (double)(system - m_systemOffset) / m_systemFrequency;
+  return m_timeBase * (double)(system - m_systemOffset) / m_systemFrequency;
 }
 
 int64_t CDVDClock::AbsoluteToSystem(double absolute)
 {
-  return (int64_t)(absolute / DVD_TIME_BASE * m_systemFrequency) + m_systemOffset;
+  return (int64_t)(absolute / m_timeBase * m_systemFrequency) + m_systemOffset;
 }
 
 double CDVDClock::SystemToPlaying(int64_t system)
@@ -298,7 +301,7 @@ double CDVDClock::SystemToPlaying(int64_t system)
   else
     current = system;
 
-  return DVD_TIME_BASE * (double)(current - m_startClock + m_systemAdjust) / m_systemUsed + m_iDisc;
+  return m_timeBase * (double)(current - m_startClock + m_systemAdjust) / m_systemUsed + m_iDisc;
 }
 
 double CDVDClock::GetClockSpeed()

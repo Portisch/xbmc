@@ -395,6 +395,10 @@ bool CDVDFileInfo::DemuxerToStreamDetails(CDVDInputStream *pInputStream, CDVDDem
       p->m_strStereoMode = ((CDemuxStreamVideo *)stream)->stereo_mode;
       p->m_strLanguage = ((CDemuxStreamVideo *)stream)->language;
 
+#ifdef HAS_DS_PLAYER
+      p->m_iFourcc = ((CDemuxStreamVideo *) stream)->iCodecTag;
+#endif
+
       // stack handling
       if (URIUtils::IsStack(path))
       {

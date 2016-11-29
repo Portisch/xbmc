@@ -37,6 +37,17 @@
 
 class CVideoReferenceClock;
 
+#ifdef HAS_DS_PLAYER
+//Time base from directshow is a 100 nanosec unit
+#define DS_TIME_BASE 1E7
+
+#define DS_TIME_TO_SEC(x)  ((double)(x / DS_TIME_BASE))
+#define DS_TIME_TO_MSEC(x) ((double)(x * 1000 / DS_TIME_BASE))
+#define SEC_TO_DS_TIME(x)  ((__int64)(x * DS_TIME_BASE))
+#define MSEC_TO_DS_TIME(x) ((__int64)(x * DS_TIME_BASE / 1000))
+#define SEC_TO_MSEC(x)     ((double)(x * 1E3))
+#endif
+
 class CDVDClock
 {
 public:
@@ -74,6 +85,12 @@ public:
   void SetVsyncAdjust(double adjustment);
   double GetVsyncAdjust();
 
+#ifdef HAS_DS_PLAYER
+  // Allow a different time base (DirectShow for example use a 100 ns time base)
+  void SetTimeBase(int64_t timeBase) { m_timeBase = timeBase; }
+  int64_t GetTimeBase() { return m_timeBase; }
+#endif
+
   void Pause(bool pause);
 
 protected:
@@ -94,6 +111,9 @@ protected:
   int64_t m_systemFrequency;
   int64_t m_systemOffset;
   CCriticalSection m_systemsection;
+#ifdef HAS_DS_PLAYER
+  int64_t m_timeBase;
+#endif
 
   int64_t m_systemAdjust;
   int64_t m_lastSystemTime;

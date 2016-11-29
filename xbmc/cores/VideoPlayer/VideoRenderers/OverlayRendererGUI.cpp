@@ -156,7 +156,9 @@ COverlayText::~COverlayText()
 void COverlayText::PrepareRender(const std::string &font, int color, int height, int style,
                                  const std::string &fontcache, const std::string &fontbordercache)
 {
+#ifndef HAS_DS_PLAYER
   if (!m_layout)
+#endif
     m_layout = GetFontLayout(font, color, height, style, fontcache, fontbordercache);
 
   if (m_layout == NULL)
