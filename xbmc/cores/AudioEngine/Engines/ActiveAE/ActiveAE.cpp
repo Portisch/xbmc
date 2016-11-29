@@ -38,6 +38,10 @@ using namespace ActiveAE;
 #define MAX_WATER_LEVEL 0.2   // buffered time after stream stages in seconds
 #define MAX_BUFFER_TIME 0.1   // max time of a buffer in seconds
 
+#ifdef HAS_DS_PLAYER
+#include "Application.h"
+#endif
+
 void CEngineStats::Reset(unsigned int sampleRate, bool pcm)
 {
   CSingleLock lock(m_lock);
@@ -2863,6 +2867,10 @@ AEAudioFormat CActiveAE::GetCurrentSinkFormat()
 
 void CActiveAE::OnLostDisplay()
 {
+#ifdef HAS_DS_PLAYER
+  if (g_application.GetCurrentPlayer() == "DSPlayer")
+    return;
+#endif
   Message *reply;
   if (m_controlPort.SendOutMessageSync(CActiveAEControlProtocol::DISPLAYLOST,
                                                  &reply,
@@ -2883,6 +2891,10 @@ void CActiveAE::OnLostDisplay()
 
 void CActiveAE::OnResetDisplay()
 {
+#ifdef HAS_DS_PLAYER
+  if (g_application.GetCurrentPlayer() == "DSPlayer")
+    return;
+#endif
   m_controlPort.SendOutMessage(CActiveAEControlProtocol::DISPLAYRESET);
 }
 
