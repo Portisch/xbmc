@@ -63,6 +63,9 @@ public:
   std::string m_strCodec;
   std::string m_strStereoMode;
   std::string m_strLanguage;
+#ifdef HAS_DS_PLAYER
+  unsigned long m_iFourcc;
+#endif
 };
 
 class CStreamDetailAudio : public CStreamDetail
@@ -118,6 +121,9 @@ public:
   void SetVideoDuration(int idx, const int duration);
   std::string GetStereoMode(int idx = 0) const;
   std::string GetVideoLanguage(int idx = 0) const;
+#ifdef HAS_DS_PLAYER
+  std::string GetVideoFourcc(int idx = 0) const;
+#endif
 
   std::string GetAudioCodec(int idx = 0) const;
   std::string GetAudioLanguage(int idx = 0) const;

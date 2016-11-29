@@ -25,8 +25,16 @@
 #include <vector>
 
 #include "settings/dialogs/GUIDialogSettingsManualBase.h"
+#ifdef HAS_DS_PLAYER
+#include "cores/DSPlayer/Dialogs/GUIDialogMadvrSettingsBase.h"
+#include "DSPropertyPage.h"
+#endif
 
+#ifdef HAS_DS_PLAYER
+class CGUIDialogVideoSettings : public CGUIDialogMadvrSettingsBase
+#else
 class CGUIDialogVideoSettings : public CGUIDialogSettingsManualBase
+#endif
 {
 public:
   CGUIDialogVideoSettings();
@@ -51,4 +59,10 @@ protected:
 private:
   int m_videoStream;
   bool m_viewModeChanged;
+#ifdef HAS_DS_PLAYER
+  CDSPropertyPage* m_pDSPropertyPage;
+  int m_scalingMethod;
+  int m_dsStats;
+#endif
+
 };

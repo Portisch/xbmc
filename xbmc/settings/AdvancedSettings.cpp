@@ -163,6 +163,10 @@ void CAdvancedSettings::Initialize()
   m_mediacodecForceSoftwareRendring = false;
 
   m_videoDefaultLatency = 0.0;
+#ifdef HAS_DS_PLAYER
+  m_videoDefaultAuxLatency = 0.0;
+  m_videoDefaultAuxDeviceName = "";
+#endif
 
   m_musicUseTimeSeeking = true;
   m_musicTimeSeekForward = 10;
@@ -365,6 +369,12 @@ void CAdvancedSettings::Initialize()
 
   m_jsonOutputCompact = true;
   m_jsonTcpPort = 9090;
+
+#ifdef HAS_DS_PLAYER
+  m_bDSPlayerFastChannelSwitching = true;
+  m_bDSPlayerUseUNCPathsForLiveTV = false;
+  m_bIgnoreSystemAppcommand = false;
+#endif
 
   m_enableMultimediaKeys = false;
 
@@ -617,6 +627,12 @@ void CAdvancedSettings::ParseSettingsFile(const std::string &file)
           override.fpsmax = fpsmax;
         }
 
+#ifdef HAS_DS_PLAYER
+        std::string ignore;
+        if (XMLUtils::GetString(pRefreshOverride, "ignore", ignore))
+          override.ignore = ignore;
+#endif
+
         float refresh;
         if (XMLUtils::GetFloat(pRefreshOverride, "refresh", refresh))
         {
@@ -692,6 +708,9 @@ void CAdvancedSettings::ParseSettingsFile(const std::string &file)
     if (pVideoLatency)
     {
       float refresh, refreshmin, refreshmax, delay;
+#ifdef HAS_DS_PLAYER
+      float auxDelay;
+#endif
       TiXmlElement* pRefreshVideoLatency = pVideoLatency->FirstChildElement("refresh");
 
       while (pRefreshVideoLatency)
@@ -712,6 +731,12 @@ void CAdvancedSettings::ParseSettingsFile(const std::string &file)
         if (XMLUtils::GetFloat(pRefreshVideoLatency, "delay", delay, -600.0f, 600.0f))
           videolatency.delay = delay;
 
+#ifdef HAS_DS_PLAYER
+        if (!XMLUtils::GetFloat(pRefreshVideoLatency, "auxdelay", auxDelay, -600.0f, 600.0f))
+          XMLUtils::GetFloat(pVideoLatency, "auxdelay", auxDelay, -600.0f, 600.0f);
+        videolatency.auxDelay = auxDelay;
+#endif
+
         if (videolatency.refreshmin > 0.0f && videolatency.refreshmax >= videolatency.refreshmin)
           m_videoRefreshLatency.push_back(videolatency);
         else
@@ -722,6 +747,12 @@ void CAdvancedSettings::ParseSettingsFile(const std::string &file)
 
       // Get default global display latency
       XMLUtils::GetFloat(pVideoLatency, "delay", m_videoDefaultLatency, -600.0f, 600.0f);
+
+#ifdef HAS_DS_PLAYER
+      // Get default global display additional auxiliar latency
+      XMLUtils::GetFloat(pVideoLatency, "auxdelay", m_videoDefaultAuxLatency, -600.0f, 600.0f);
+      XMLUtils::GetString(pVideoLatency, "auxdevicename", m_videoDefaultAuxDeviceName);
+#endif
     }
   }
 
@@ -1158,6 +1189,26 @@ void CAdvancedSettings::ParseSettingsFile(const std::string &file)
     XMLUtils::GetString(pDatabase, "ciphers", m_databaseEpg.ciphers);
     XMLUtils::GetBoolean(pDatabase, "compression", m_databaseEpg.compression);
   }
+#ifdef HAS_DS_PLAYER
+  pDatabase = pRootElement->FirstChildElement("dsplayerdatabase");
+  if (pDatabase)
+  {
+    XMLUtils::GetString(pDatabase, "type", m_databaseDSPlayer.type);
+    XMLUtils::GetString(pDatabase, "host", m_databaseDSPlayer.host);
+    XMLUtils::GetString(pDatabase, "port", m_databaseDSPlayer.port);
+    XMLUtils::GetString(pDatabase, "user", m_databaseDSPlayer.user);
+    XMLUtils::GetString(pDatabase, "pass", m_databaseDSPlayer.pass);
+    XMLUtils::GetString(pDatabase, "name", m_databaseDSPlayer.name);
+  }
+  
+  pElement = pRootElement->FirstChildElement("dsplayer");
+  if (pElement)
+  {
+    XMLUtils::GetBoolean(pElement, "fastchannelswitching", m_bDSPlayerFastChannelSwitching);
+    XMLUtils::GetBoolean(pElement, "useuncpathsforlivetv", m_bDSPlayerUseUNCPathsForLiveTV);
+    XMLUtils::GetBoolean(pElement, "ignoresystemappcommand", m_bIgnoreSystemAppcommand);
+  }
+#endif
 
   pElement = pRootElement->FirstChildElement("enablemultimediakeys");
   if (pElement)
@@ -1338,6 +1389,27 @@ float CAdvancedSettings::GetDisplayLatency(float refreshrate)
 
   return delay; // in seconds
 }
+
+#ifdef HAS_DS_PLAYER
+float CAdvancedSettings::GetDisplayAuxDelay(float refreshrate)
+{
+  float delay = m_videoDefaultAuxLatency / 1000.0f;
+  for (int i = 0; i < (int)m_videoRefreshLatency.size(); i++)
+  {
+    RefreshVideoLatency& videolatency = m_videoRefreshLatency[i];
+    if (refreshrate >= videolatency.refreshmin && refreshrate <= videolatency.refreshmax)
+    { 
+      delay = videolatency.auxDelay / 1000.0f;
+    }
+  }
+  return delay;
+}
+
+std::string CAdvancedSettings::GetAuxDeviceName()
+{
+  return m_videoDefaultAuxDeviceName;
+}
+#endif
 
 void CAdvancedSettings::SetDebugMode(bool debug)
 {

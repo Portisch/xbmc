@@ -509,6 +509,17 @@ bool CGUIWindowPVRBase::PlayFile(CFileItem *item, bool bPlayMinimized /* = false
       if ((g_PVRManager.IsPlayingTV() || g_PVRManager.IsPlayingRadio()) &&
          (channel->IsRadio() == g_PVRManager.IsPlayingRadio()))
       {
+#ifdef HAS_DS_PLAYER
+        if (g_advancedSettings.m_bDSPlayerFastChannelSwitching && g_application.GetCurrentPlayer() == "DSPlayer")
+        {
+          /* Workaround for MediaPortal addon, running in ffmpeg mode. */
+          // Clear StreamURL field - this will allow fast channel switching 
+          // for MediaPortal addon, running in ffmpeg mode.
+          PVR_CLIENT pvrClient;
+          if (g_PVRClients->GetPlayingClient(pvrClient) && pvrClient->GetBackendName().find("MediaPortal TV-server") != std::string::npos)
+            channel->SetStreamURL("");
+        }
+#endif
         if (channel->StreamURL().empty())
           bSwitchSuccessful = g_application.m_pPlayer->SwitchChannel(channel);
       }

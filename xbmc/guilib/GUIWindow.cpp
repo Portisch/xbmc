@@ -145,6 +145,7 @@ bool CGUIWindow::LoadXML(const std::string &strPath, const std::string &strLower
       SetID(WINDOW_INVALID);
       return false;
     }
+
     m_windowXMLRootElement = (TiXmlElement*)xmlDoc.RootElement()->Clone();
   }
   else

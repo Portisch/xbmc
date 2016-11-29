@@ -423,6 +423,45 @@ const std::string CSettings::SETTING_SOURCE_VIDEOS = "source.videos";
 const std::string CSettings::SETTING_SOURCE_MUSIC = "source.music";
 const std::string CSettings::SETTING_SOURCE_PICTURES = "source.pictures";
 
+#ifdef HAS_DS_PLAYER
+const std::string CSettings::SETTING_DSPLAYER_RULES = "dsplayer.rules";
+const std::string CSettings::SETTING_DSPLAYER_FILTERS = "dsplayer.filters";
+const std::string CSettings::SETTING_DSPLAYER_PLAYCORE = "dsplayer.playercore";
+const std::string CSettings::SETTING_DSPLAYER_LAVSPLITTER = "dsplayer.lavsplitter";
+const std::string CSettings::SETTING_DSPLAYER_LAVVIDEO = "dsplayer.lavvideo";
+const std::string CSettings::SETTING_DSPLAYER_LAVAUDIO = "dsplayer.lavaudio";
+const std::string CSettings::SETTING_DSPLAYER_XYSUBFILTER = "dsplayer.xysubfilter";
+const std::string CSettings::SETTING_DSPLAYER_XYVSFILTER = "dsplayer.xyvsfilter";
+const std::string CSettings::SETTING_DSPLAYER_DEFAULTVIDEOPLAYER = "dsplayer.defaultvideoplayer";
+const std::string CSettings::SETTING_DSPLAYER_AUTOFILTERSETTINGS = "dsplayer.autofiltersettings";
+const std::string CSettings::SETTING_DSPLAYER_CHANGEREFRESHWITH = "videoplayer.changerefreshwith";
+const std::string CSettings::SETTING_DSPLAYER_LASTTVSHOWSELECT = "videolibrary.lasttvshowsselect";
+const std::string CSettings::SETTING_DSPLAYER_MANAGEMADVRWITHKODI = "dsplayer.madvrsettingswithkodi";
+const std::string CSettings::SETTING_DSPLAYER_DELAYMADVRPLAYBACK = "dsplayer.delaymadvrplayback";
+const std::string CSettings::SETTING_DSPLAYER_EXCLUSIVEMODE = "dsplayer.exclusivemode";
+const std::string CSettings::SETTING_DSPLAYER_EXITMADVRFULLSCREEN = "dsplayer.exitmadvrfullscreen";
+const std::string CSettings::SETTING_DSPLAYER_WAITKODIRENDERING = "dsplayer.waitkodirendering";
+const std::string CSettings::SETTING_DSPLAYER_MINTITLELENGTH = "dsplayer.mintitlelength";
+const std::string CSettings::SETTING_DSPLAYER_SHOWBDTITLECHOICE = "dsplayer.showbdtitlechoice";
+const std::string CSettings::SETTING_DSPLAYER_BDAUTOLOADINDEX = "dsplayer.bdautoloadindex";
+const std::string CSettings::SETTING_DSPLAYER_SHOWSPLITTERDETAIL = "dsplayer.showsplitterdetail";
+const std::string CSettings::SETTING_DSPLAYER_VIDEOSUBSEX = "dsplayer.videosubsexpandedselector";
+const std::string CSettings::SETTING_DSPLAYER_VIDEOAUDIOEX = "dsplayer.videoaudioexpandedselector";
+const std::string CSettings::SETTING_DSPLAYER_VIDEORENDERER = "dsplayer.videorenderer";
+const std::string CSettings::SETTING_DSPLAYER_AUDIORENDERER = "dsplayer.audiorenderer";
+const std::string CSettings::SETTING_DSPLAYER_FILTERSMANAGEMENT = "dsplayer.filtersmanagement";
+const std::string CSettings::SETTING_DSPLAYER_PREFAUDIOCODEC = "dsplayer.prefaudiocodec";
+const std::string CSettings::SETTING_DSPLAYER_EXSUBTITLELANGUAGE = "dsplayer.exsubtitlelanguage";
+const std::string CSettings::SETTING_DSPLAYER_OSDINTOACTIVEAREA = "dsplayer.osdintoactivearea";
+const std::string CSettings::SETTING_DSPLAYER_DEFINEDSAREA = "dsplayer.definedsarea";
+const std::string CSettings::SETTING_DSPLAYER_DSAREALEFT = "dsplayer.dsarealeft";
+const std::string CSettings::SETTING_DSPLAYER_DSAREARIGHT = "dsplayer.dsarearight";
+const std::string CSettings::SETTING_DSPLAYER_DSAREATOP = "dsplayer.dsareatop";
+const std::string CSettings::SETTING_DSPLAYER_DSAREABOTTOM = "dsplayer.dsareabottom";
+const std::string CSettings::SETTING_DSPLAYER_COPYACTIVERECT = "dsplayer.copyactiverect";
+const std::string CSettings::SETTING_DSPLAYER_DSAREARESET = "dsplayer.dsareareset";
+#endif
+
 CSettings::CSettings()
   : m_initialized(false)
 {

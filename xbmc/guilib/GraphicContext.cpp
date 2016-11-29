@@ -31,6 +31,9 @@
 #include "TextureManager.h"
 #include "input/InputManager.h"
 #include "GUIWindowManager.h"
+#ifdef HAS_DS_PLAYER
+#include "DSRendererCallback.h"
+#endif
 
 using namespace KODI::MESSAGING;
 
@@ -736,6 +739,39 @@ void CGraphicContext::GetGUIScaling(const RESOLUTION_INFO &res, float &scaleX, f
 
     if(!g_guiSkinzoom) // lookup gui setting if we didn't have it already
       g_guiSkinzoom = (CSettingInt*)CSettings::GetInstance().GetSetting(CSettings::SETTING_LOOKANDFEEL_SKINZOOM);
+
+#ifdef HAS_DS_PLAYER
+    int iLeft, iTop, iRight, iBottom;
+    iLeft = CSettings::GetInstance().GetInt(CSettings::SETTING_DSPLAYER_DSAREALEFT);
+    iTop = CSettings::GetInstance().GetInt(CSettings::SETTING_DSPLAYER_DSAREATOP);
+    iRight = CSettings::GetInstance().GetInt(CSettings::SETTING_DSPLAYER_DSAREARIGHT);
+    iBottom = CSettings::GetInstance().GetInt(CSettings::SETTING_DSPLAYER_DSAREABOTTOM);
+
+    if (CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_DEFINEDSAREA) && (iLeft > 0 || iTop > 0 || iRight > 0 || iBottom > 0))
+    {
+      g_guiSkinzoom = 0;
+      fToPosX = fToPosX + iLeft;
+      fToPosY = fToPosY + iTop;
+      fToWidth = fToWidth - iRight - iLeft;
+      fToHeight = fToHeight - iBottom - iTop;
+    }
+
+    if ((g_application.m_pPlayer->IsPlaying()
+      && g_application.m_pPlayer->GetCurrentPlayer() == "dsplayer")
+      && CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_OSDINTOACTIVEAREA))
+    {
+      g_guiSkinzoom = 0;
+      activeRect = CDSRendererCallback::Get()->GetActiveVideoRect();
+
+      if (activeRect.x2 - activeRect.x1 > 0 || activeRect.y2 - activeRect.y1 > 0)
+      {
+        fToPosX = activeRect.x1;
+        fToPosY = activeRect.y1;
+        fToWidth = activeRect.x2 - fToPosX;
+        fToHeight = activeRect.y2 - fToPosY;
+      }
+    }
+#endif
 
     float fZoom = 1.0f;
     if(g_guiSkinzoom)

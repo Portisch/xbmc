@@ -35,6 +35,11 @@ public:
 
   bool operator!=(const CVideoSettings &right) const;
 
+#ifdef HAS_DS_PLAYER
+  void SetDSPlayerScalingMethod(EDSSCALINGMETHOD method);
+  EDSSCALINGMETHOD GetDSPlayerScalingMethod();
+  std::string m_SubtitleExtTrackName;
+#endif
   EINTERLACEMETHOD m_InterlaceMethod;
   ESCALINGMETHOD   m_ScalingMethod;
   int m_ViewMode;   // current view mode

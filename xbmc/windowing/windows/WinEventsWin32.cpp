@@ -626,14 +626,38 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
         g_Windowing.ShowOSMouse(true);
       break;
     case WM_MOUSEMOVE:
+<<<<<<< HEAD
       newEvent.type = XBMC_MOUSEMOTION;
+=======
+#ifdef HAS_DS_PLAYER
+      if (g_application.GetCurrentPlayer() == "DSPlayer")
+      {
+        if (g_application.m_pPlayer && g_application.m_pPlayer->IsInMenu())
+        {
+          CDSPlayer::PostMessage(new CDSMsgInt(CDSMsg::PLAYER_DVD_MOUSE_MOVE, lParam), false);
+          return(0);
+        }
+      }
+#endif
+	  newEvent.type = XBMC_MOUSEMOTION;
+>>>>>>> 55a3badba5... [DSPLAYER] xbmc/ (general update to krypton)
       newEvent.motion.x = GET_X_LPARAM(lParam);
       newEvent.motion.y = GET_Y_LPARAM(lParam);
       newEvent.motion.state = 0;
       m_pEventFunc(newEvent);
       return(0);
     case WM_LBUTTONDOWN:
-    case WM_MBUTTONDOWN:
+#ifdef HAS_DS_PLAYER
+      if (g_application.GetCurrentPlayer() == "DSPlayer")
+      {
+        if (g_application.m_pPlayer && g_application.m_pPlayer->IsInMenu())
+        {
+          CDSPlayer::PostMessage(new CDSMsgInt(CDSMsg::PLAYER_DVD_MOUSE_CLICK, lParam), false);
+          return(0);
+        }
+      }
+#endif
+  	case WM_MBUTTONDOWN:
     case WM_RBUTTONDOWN:
       newEvent.type = XBMC_MOUSEBUTTONDOWN;
       newEvent.button.state = XBMC_PRESSED;
@@ -696,6 +720,10 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
       CLog::Log(LOGDEBUG, __FUNCTION__": display change event");  
       if (g_application.GetRenderGUI() && !g_Windowing.IsAlteringWindow() && GET_X_LPARAM(lParam) > 0 && GET_Y_LPARAM(lParam) > 0)  
       {
+#ifdef HAS_DS_PLAYER
+        if (g_application.m_pPlayer->GetCurrentPlayer() == "DSPlayer")
+          return(0);
+#endif
         g_Windowing.UpdateResolutions();
         if (g_advancedSettings.m_fullScreen)  
         {  

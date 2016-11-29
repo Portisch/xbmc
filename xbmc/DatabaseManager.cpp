@@ -29,6 +29,9 @@
 #include "epg/EpgDatabase.h"
 #include "settings/AdvancedSettings.h"
 #include "cores/AudioEngine/Engines/ActiveAE/AudioDSPAddons/ActiveAEDSP.h"
+#ifdef HAS_DS_PLAYER
+#include "DSPlayerDatabase.h"
+#endif
 
 using namespace EPG;
 using namespace PVR;

@@ -45,6 +45,9 @@ public:
   virtual bool OnAction(const CAction &action) override;
 
   void PlayMovie(const CFileItem *item, const std::string &player = "");
+#ifdef HAS_DS_PLAYER
+  static void GetResumeItemOffset(const CFileItem *item, int& startoffset, int& partNumber, std::string& strEdition);
+#else
   static void GetResumeItemOffset(const CFileItem *item, int& startoffset, int& partNumber);
   static bool HasResumeItemOffset(const CFileItem *item);
 

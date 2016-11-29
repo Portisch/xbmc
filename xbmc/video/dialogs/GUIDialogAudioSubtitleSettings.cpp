@@ -95,7 +95,12 @@ void CGUIDialogAudioSubtitleSettings::FrameMove()
 
     //! @todo m_settingsManager->SetBool(SETTING_SUBTITLE_ENABLE, g_application.m_pPlayer->GetSubtitleVisible());
     //   \-> Unless subtitle visibility can change on the fly, while Dialog is up, this code should be removed.
-    m_settingsManager->SetNumber(SETTING_SUBTITLE_DELAY, videoSettings.m_SubtitleDelay);
+#ifdef HAS_DS_PLAYER
+    if (m_bIsDSPlayer)
+      m_settingsManager->SetNumber(SETTING_SUBTITLE_DELAY, -videoSettings.m_SubtitleDelay);
+    else
+#endif
+      m_settingsManager->SetNumber(SETTING_SUBTITLE_DELAY, videoSettings.m_SubtitleDelay);
     //! @todo (needs special handling): m_settingsManager->SetInt(SETTING_SUBTITLE_STREAM, g_application.m_pPlayer->GetSubtitle());
   }
 
@@ -271,6 +276,10 @@ void CGUIDialogAudioSubtitleSettings::SetupView()
 void CGUIDialogAudioSubtitleSettings::InitializeSettings()
 {
   CGUIDialogSettingsManualBase::InitializeSettings();
+
+#ifdef HAS_DS_PLAYER
+  m_bIsDSPlayer = (g_application.GetCurrentPlayer() == "DSPlayer");
+#endif
 
   CSettingCategory *category = AddCategory("audiosubtitlesettings", -1);
   if (category == NULL)
@@ -457,6 +466,11 @@ void CGUIDialogAudioSubtitleSettings::AudioStreamsOptionFiller(const CSetting *s
     else
       strItem = StringUtils::Format("%s - %s", strLanguage.c_str(), info.name.c_str());
 
+#ifdef HAS_DS_PLAYER
+    if (g_application.GetCurrentPlayer() == "DSPlayer")
+      strItem = info.name;
+#endif
+
     strItem += StringUtils::Format(" (%i/%i)", i + 1, audioStreamCount);
     list.push_back(make_pair(strItem, i));
   }
@@ -489,6 +503,11 @@ void CGUIDialogAudioSubtitleSettings::SubtitleStreamsOptionFiller(const CSetting
     else
       strItem = StringUtils::Format("%s - %s", strLanguage.c_str(), info.name.c_str());
 
+#ifdef HAS_DS_PLAYER
+    if (g_application.GetCurrentPlayer() == "DSPlayer")
+      strItem = info.name;
+#endif
+
     strItem += StringUtils::Format(" (%i/%i)", i + 1, subtitleStreamCount);
 
     list.push_back(make_pair(strItem, i));
@@ -515,7 +534,24 @@ std::string CGUIDialogAudioSubtitleSettings::SettingFormatterDelay(const CSettin
   if (fValue < 0)
     return StringUtils::Format(g_localizeStrings.Get(22004).c_str(), fabs(fValue));
 
-  return StringUtils::Format(g_localizeStrings.Get(22005).c_str(), fValue);
+#ifdef HAS_DS_PLAYER
+  if (g_application.GetCurrentPlayer() == "DSPlayer")
+  {
+    if (fValue < 0)
+      return StringUtils::Format(g_localizeStrings.Get(22005).c_str(), fabs(fValue));
+
+    return StringUtils::Format(g_localizeStrings.Get(22004).c_str(), fValue);
+  }
+  else
+  {
+#endif
+    if (fValue < 0)
+      return StringUtils::Format(g_localizeStrings.Get(22004).c_str(), fabs(fValue));
+
+    return StringUtils::Format(g_localizeStrings.Get(22005).c_str(), fValue);
+#ifdef HAS_DS_PLAYER
+  }
+#endif
 }
 
 std::string CGUIDialogAudioSubtitleSettings::SettingFormatterPercentAsDecibel(const CSettingControlSlider *control, const CVariant &value, const CVariant &minimum, const CVariant &step, const CVariant &maximum)
@@ -529,3 +565,98 @@ std::string CGUIDialogAudioSubtitleSettings::SettingFormatterPercentAsDecibel(co
 
   return StringUtils::Format(formatString.c_str(), CAEUtil::PercentToGain(value.asFloat()));
 }
+
+#ifdef HAS_DS_PLAYER
+void CGUIDialogAudioSubtitleSettings::ShowAudioSelector()
+{
+  int count = g_application.m_pPlayer->GetAudioStreamCount();
+
+  if (count <= 0)
+  {
+    CGUIDialogKaiToast::QueueNotification(CGUIDialogKaiToast::Info, g_localizeStrings.Get(460), g_localizeStrings.Get(55059), 2000, false, 300);
+    return;
+  }
+
+  CGUIDialogSelect *pDlg = (CGUIDialogSelect *)g_windowManager.GetWindow(WINDOW_DIALOG_SELECT);
+  if (!pDlg)
+    return;
+
+  for (int i = 0; i < count; ++i)
+  {
+    std::string strName;
+    SPlayerAudioStreamInfo audio;
+    g_application.m_pPlayer->GetAudioStreamInfo(i, audio);
+    strName = audio.name;
+    if (strName.length() == 0)
+      strName = "Unnamed";
+
+    strName += StringUtils::Format(" (%i/%i)", i + 1, count);
+    pDlg->Add(strName);
+  }
+
+  int selected = g_application.m_pPlayer->GetAudioStream();
+
+  if (selected < 0) selected = 0;
+
+  pDlg->SetHeading(460);
+  pDlg->SetSelected(selected);
+  pDlg->Open();
+
+  selected = pDlg->GetSelectedItem();
+
+  if (selected != -1 && g_application.m_pPlayer->GetAudioStream() != selected)
+  {
+    CMediaSettings::GetInstance().GetCurrentVideoSettings().m_AudioStream = selected;
+    g_application.m_pPlayer->SetAudioStream(selected);    // Set the audio stream to the one selected
+  }
+}
+
+void CGUIDialogAudioSubtitleSettings::ShowSubsSelector()
+{
+  int count = g_application.m_pPlayer->GetSubtitleCount();
+
+  if (count <= 0)
+  {
+    CGUIDialogKaiToast::QueueNotification(CGUIDialogKaiToast::Info, g_localizeStrings.Get(462), g_localizeStrings.Get(55059), 2000, false, 300);
+    return;
+  }
+
+  CGUIDialogSelect *pDlg = (CGUIDialogSelect *)g_windowManager.GetWindow(WINDOW_DIALOG_SELECT);
+  if (!pDlg)
+    return;
+
+  for (int i = 0; i < count; ++i)
+  {
+    std::string strName;
+
+    SPlayerSubtitleStreamInfo subs;
+    g_application.m_pPlayer->GetSubtitleStreamInfo(i, subs);
+    strName = subs.name;
+    if (strName.length() == 0)
+      strName = "Unnamed";
+
+    strName += StringUtils::Format(" (%i/%i)", i + 1, count);
+    pDlg->Add(strName);
+  }
+
+  int selected = g_application.m_pPlayer->GetSubtitle();
+
+  if (selected < 0) selected = 0;
+
+  pDlg->SetHeading(462);
+  pDlg->SetSelected(selected);
+  pDlg->EnableButton(true, CMediaSettings::GetInstance().GetCurrentVideoSettings().m_SubtitleOn ? 55058 : 13397);
+  pDlg->Open();
+
+  selected = pDlg->GetSelectedItem();
+
+  if (selected != -1 && g_application.m_pPlayer->GetSubtitle() != selected)
+  {
+    g_application.m_pPlayer->SetSubtitle(selected);    // Set the subtitle stream to the one selected
+  }
+  else
+    if (pDlg->IsButtonPressed()) // Disable or enable subtitle stream.
+      g_application.OnAction(CAction(ACTION_SHOW_SUBTITLES));
+}
+
+#endif

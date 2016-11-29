@@ -639,6 +639,10 @@ bool CApplication::Create()
   update_emu_environ();//apply the GUI settings
 
   //! @todo - move to CPlatformXXX
+#ifdef HAS_DS_PLAYER // DSPlayer
+  g_dsSettings.Initialize();
+  g_dsSettings.LoadConfig();
+#endif
 #ifdef TARGET_WINDOWS
   CWIN32Util::SetThreadLocalLocale(true); // enable independent locale for each thread, see https://connect.microsoft.com/VisualStudio/feedback/details/794122
 #endif // TARGET_WINDOWS
@@ -1935,6 +1939,9 @@ void CApplication::Render()
   }
 
   // render video layer
+#ifdef HAS_DS_PLAYER   
+  if (!CDSRendererCallback::Get()->ReadyDS())
+#endif
   g_windowManager.RenderEx();
 
   g_Windowing.EndRender();
@@ -1949,6 +1956,9 @@ void CApplication::Render()
     g_infoManager.UpdateFPS();
   }
 
+#ifdef HAS_DS_PLAYER   
+  if (!CDSRendererCallback::Get()->ReadyDS())
+#endif
   g_graphicsContext.Flip(hasRendered, m_pPlayer->IsRenderingVideoLayer());
 
   CTimeUtils::UpdateFrameTime(hasRendered);
@@ -3220,6 +3230,12 @@ PlayBackRet CApplication::PlayFile(CFileItem item, const std::string& player, bo
     // Switch to default options
     CMediaSettings::GetInstance().GetCurrentVideoSettings() = CMediaSettings::GetInstance().GetDefaultVideoSettings();
     CMediaSettings::GetInstance().GetCurrentAudioSettings() = CMediaSettings::GetInstance().GetDefaultAudioSettings();
+#ifdef HAS_DS_PLAYER
+    CMediaSettings::GetInstance().GetAtStartVideoSettings() = CMediaSettings::GetInstance().GetCurrentVideoSettings();
+
+    CMediaSettings::GetInstance().GetCurrentMadvrSettings().RestoreDefaultSettings();
+    CMediaSettings::GetInstance().GetCurrentMadvrSettings().StoreSettingsAtStart();
+#endif
     // see if we have saved options in the database
 
     m_pPlayer->SetPlaySpeed(1);
@@ -3831,11 +3847,75 @@ void CApplication::LoadVideoSettings(const CFileItem& item)
 
     dbs.Close();
   }
+
+#ifdef HAS_DS_PLAYER
+  CMediaSettings::GetInstance().GetAtStartVideoSettings() = CMediaSettings::GetInstance().GetCurrentVideoSettings();
+
+  CDSPlayerDatabase dsdbs;
+  if (!dsdbs.Open())
+    return;
+
+  CFileItem fileItem = item;
+
+  if (CSettings::GetInstance().GetBool(CSettings::SETTING_MYVIDEOS_EXTRACTFLAGS) 
+    && fileItem.HasVideoInfoTag() 
+    && !fileItem.GetVideoInfoTag()->HasStreamDetails())
+  {
+    CLog::Log(LOGDEBUG, "%s - trying to extract filestream details from video file %s", __FUNCTION__, fileItem.GetPath().c_str());
+    CDVDFileInfo::GetFileStreamDetails(&fileItem);
+  }
+
+  CStreamDetails streamDetails = fileItem.GetVideoInfoTag()->m_streamDetails;
+  CMadvrSettings &madvrSettings = CMediaSettings::GetInstance().GetCurrentMadvrSettings();
+
+  madvrSettings.m_Resolution = CDSRendererCallback::Get()->VideoDimsToResolution(streamDetails.GetVideoWidth(), streamDetails.GetVideoHeight());
+  madvrSettings.m_TvShowName = fileItem.GetVideoInfoTag()->m_strShowTitle;
+
+  // Load stored files settings
+  if (dsdbs.GetVideoSettings(fileItem.GetPath().c_str(), madvrSettings))
+  {
+    CLog::Log(LOGDEBUG, "Loaded madVR for file settings for %s", fileItem.GetPath().c_str());
+  }
+  // if not present Load stored TvShowName settings
+  else if (dsdbs.GetTvShowSettings(madvrSettings.m_TvShowName, madvrSettings))
+  {
+    CLog::Log(LOGDEBUG, "Loaded madVR for tvshow %s settings for %s", madvrSettings.m_TvShowName.c_str(), fileItem.GetPath().c_str());
+  }
+  // if not present Load stored Resolution settings
+  else if (dsdbs.GetResSettings(madvrSettings.m_Resolution, madvrSettings))
+  {
+    CLog::Log(LOGDEBUG, "Loaded madVR for resolution %ip settings for %s", madvrSettings.m_Resolution, fileItem.GetPath().c_str());
+  }
+  // if not present Load stored for all setting
+  else if (dsdbs.GetResSettings(MADVR_RES_ALL, madvrSettings))
+  {
+    CLog::Log(LOGDEBUG, "Loaded madVR for all settings for %s", fileItem.GetPath().c_str());
+  }
+  // restore default settings
+  else 
+  {
+    CLog::Log(LOGDEBUG, "Restored madVR default settings for %s", fileItem.GetPath().c_str());
+    madvrSettings.RestoreDefaultSettings();
+  }
+
+  madvrSettings.StoreSettingsAtStart();
+
+  dsdbs.Close();
+  
+#endif
 }
 
 void CApplication::StopPlaying()
 {
   int iWin = g_windowManager.GetActiveWindow();
+#ifdef HAS_DS_PLAYER
+  if (GetCurrentPlayer() == "dsplayer" && m_pPlayer->IsPlaying() && !CDSRendererCallback::Get()->ReadyDS())
+  {
+    CDSRendererCallback::Get()->SetStop(true);
+    return;
+  }
+#endif
+
   if ( m_pPlayer->IsPlaying() )
   {
     m_pPlayer->CloseFile();

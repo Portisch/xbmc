@@ -56,6 +56,15 @@ enum RESOLUTION {
 //                     12 + N + ... // Other resolutions, in any order
 };
 
+#ifdef HAS_DS_PLAYER
+enum AdjustRefreshRateWithPlayer
+{
+  ADJUST_REFRESHRATE_WITH_BOTH = 0,
+  ADJUST_REFRESHRATE_WITH_DSPLAYER,
+  ADJUST_REFRESHRATE_WITH_DVDPLAYER
+};
+#endif
+
 struct OVERSCAN
 {
   int left;

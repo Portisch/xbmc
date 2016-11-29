@@ -29,6 +29,9 @@
 
 CVideoSettings::CVideoSettings()
 {
+#ifdef HAS_DS_PLAYER
+  m_SubtitleExtTrackName = "";
+#endif
   m_InterlaceMethod = VS_INTERLACEMETHOD_AUTO;
   m_ScalingMethod = VS_SCALINGMETHOD_LINEAR;
   m_ViewMode = ViewModeNormal;

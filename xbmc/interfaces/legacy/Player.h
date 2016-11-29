@@ -645,6 +645,7 @@ namespace XBMCAddon
       ///
       getAvailableAudioStreams();
 #else
+      std::vector<String>* getAvailableAudioStreamsChannels();
       std::vector<String> getAvailableAudioStreams();
 #endif
 

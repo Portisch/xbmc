@@ -380,6 +380,46 @@ public:
   static const std::string SETTING_SOURCE_MUSIC;
   static const std::string SETTING_SOURCE_PICTURES;
 
+#ifdef HAS_DS_PLAYER
+  static const std::string CSettings::SETTING_DSPLAYER_RULES;
+  static const std::string CSettings::SETTING_DSPLAYER_FILTERS;
+  static const std::string CSettings::SETTING_DSPLAYER_PLAYCORE;
+  static const std::string CSettings::SETTING_DSPLAYER_LAVSPLITTER;
+  static const std::string CSettings::SETTING_DSPLAYER_LAVVIDEO;
+  static const std::string CSettings::SETTING_DSPLAYER_LAVAUDIO;
+  static const std::string CSettings::SETTING_DSPLAYER_XYSUBFILTER;
+  static const std::string CSettings::SETTING_DSPLAYER_XYVSFILTER;
+  static const std::string CSettings::SETTING_DSPLAYER_DEFAULTVIDEOPLAYER;
+  static const std::string CSettings::SETTING_DSPLAYER_AUTOFILTERSETTINGS;
+  static const std::string CSettings::SETTING_DSPLAYER_CHANGEREFRESHWITH;
+  static const std::string CSettings::SETTING_DSPLAYER_LASTTVSHOWSELECT;
+  static const std::string CSettings::SETTING_DSPLAYER_MANAGEMADVRWITHKODI;
+  static const std::string CSettings::SETTING_DSPLAYER_DELAYMADVRPLAYBACK;
+  static const std::string CSettings::SETTING_DSPLAYER_EXCLUSIVEMODE;
+  static const std::string CSettings::SETTING_DSPLAYER_EXITMADVRFULLSCREEN;
+  static const std::string CSettings::SETTING_DSPLAYER_WAITKODIRENDERING;
+  static const std::string CSettings::SETTING_DSPLAYER_MINTITLELENGTH;
+  static const std::string CSettings::SETTING_DSPLAYER_SHOWBDTITLECHOICE;
+  static const std::string CSettings::SETTING_DSPLAYER_BDAUTOLOADINDEX;
+  static const std::string CSettings::SETTING_DSPLAYER_SHOWSPLITTERDETAIL;
+  static const std::string CSettings::SETTING_DSPLAYER_VIDEOSUBSEX;
+  static const std::string CSettings::SETTING_DSPLAYER_VIDEOAUDIOEX;
+  static const std::string CSettings::SETTING_DSPLAYER_VIDEORENDERER;
+  static const std::string CSettings::SETTING_DSPLAYER_AUDIORENDERER;
+  static const std::string CSettings::SETTING_DSPLAYER_FILTERSMANAGEMENT;
+  static const std::string CSettings::SETTING_DSPLAYER_PREFAUDIOCODEC;
+  static const std::string CSettings::SETTING_DSPLAYER_EXSUBTITLELANGUAGE;
+  static const std::string CSettings::SETTING_DSPLAYER_OSDINTOACTIVEAREA;
+  static const std::string CSettings::SETTING_DSPLAYER_DEFINEDSAREA;
+  static const std::string CSettings::SETTING_DSPLAYER_DSAREALEFT;
+  static const std::string CSettings::SETTING_DSPLAYER_DSAREARIGHT;
+  static const std::string CSettings::SETTING_DSPLAYER_DSAREATOP;
+  static const std::string CSettings::SETTING_DSPLAYER_DSAREABOTTOM;
+  static const std::string CSettings::SETTING_DSPLAYER_COPYACTIVERECT;
+  static const std::string CSettings::SETTING_DSPLAYER_DSAREARESET;
+#endif
+
+
   /*!
    \brief Creates a new settings wrapper around a new settings manager.
 

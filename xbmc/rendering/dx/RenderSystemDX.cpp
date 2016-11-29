@@ -39,6 +39,9 @@
 #include <d3d10umddi.h>
 #pragma warning(default: 4091)
 #include <algorithm>
+#ifdef HAS_DS_PLAYER
+#include "DSPlayer.h"
+#endif
 
 #ifndef _M_X64
 #pragma comment(lib, "EasyHook32.lib")

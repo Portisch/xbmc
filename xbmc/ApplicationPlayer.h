@@ -176,6 +176,18 @@ public:
   void  SetSpeed(float speed);
   bool SupportsTempo();
 
+  void  SetSpeed(int iSpeed);
+
+#ifdef HAS_DS_PLAYER
+  int  GetEditionsCount();
+  int  GetEdition();
+  void GetEditionInfo(int iEdition, std::string &strEditionName, REFERENCE_TIME *prt);
+  void SetEdition(int iEdition);
+  bool IsMatroskaEditions();
+  void ShowEditionDlg(bool playStart);
+#endif
+
+  
   protected:
     std::shared_ptr<IPlayer> GetInternal() const;
 };

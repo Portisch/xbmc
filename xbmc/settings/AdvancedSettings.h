@@ -97,6 +97,10 @@ struct RefreshOverride
   float refreshmin;
   float refreshmax;
 
+#ifdef HAS_DS_PLAYER
+  std::string ignore;
+#endif
+
   bool  fallback;
 };
 
@@ -107,6 +111,9 @@ struct RefreshVideoLatency
   float refreshmax;
 
   float delay;
+#ifdef HAS_DS_PLAYER
+  float auxDelay;
+#endif
 };
 
 typedef std::vector<TVShowRegexp> SETTINGS_TVSHOWLIST;
@@ -184,6 +191,11 @@ class CAdvancedSettings : public ISettingCallback, public ISettingsHandler
     std::vector<RefreshOverride> m_videoAdjustRefreshOverrides;
     std::vector<RefreshVideoLatency> m_videoRefreshLatency;
     float m_videoDefaultLatency;
+#ifdef HAS_DS_PLAYER
+    float m_videoDefaultAuxLatency;
+    std::string m_videoDefaultAuxDeviceName;
+#endif
+    bool m_videoDisableBackgroundDeinterlace;
     int  m_videoCaptureUseOcclusionQuery;
     bool m_DXVACheckCompatibility;
     bool m_DXVACheckCompatibilityPresent;
@@ -336,6 +348,12 @@ class CAdvancedSettings : public ISettingCallback, public ISettingsHandler
     DatabaseSettings m_databaseTV;    // advanced tv database setup
     DatabaseSettings m_databaseEpg;   /*!< advanced EPG database setup */
     DatabaseSettings m_databaseADSP;  /*!< advanced audio dsp database setup */
+#ifdef HAS_DS_PLAYER
+    DatabaseSettings m_databaseDSPlayer; // advanced DSPlayer database setup
+    bool m_bDSPlayerFastChannelSwitching; // Live TV fast channel switching (don't stop timeshift), only for MediaPortal TV-Server and ArgusTV PVR backends
+    bool m_bDSPlayerUseUNCPathsForLiveTV; // Use UNC paths for Live TV, only for MediaPortal TV-Server and ArgusTV PVR backends
+    bool m_bIgnoreSystemAppcommand;
+#endif
 
     bool m_guiVisualizeDirtyRegions;
     int  m_guiAlgorithmDirtyRegions;
@@ -353,6 +371,10 @@ class CAdvancedSettings : public ISettingCallback, public ISettingsHandler
     void ParseSettingsFile(const std::string &file);
 
     float GetDisplayLatency(float refreshrate);
+#ifdef HAS_DS_PLAYER
+    float GetDisplayAuxDelay(float refreshrate);
+    std::string GetAuxDeviceName();
+#endif
     bool m_initialized;
 
     //! \brief Returns a list of music extension for filtering in the GUI
