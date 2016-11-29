@@ -172,6 +172,8 @@ set WORKSPACE=%CD%\..\..\kodi-build
   xcopy %WORKSPACE%\system BUILD_WIN32\application\system /E /Q /I /Y /EXCLUDE:exclude.txt+exclude_dll.txt  > NUL
   xcopy %WORKSPACE%\media BUILD_WIN32\application\media /E /Q /I /Y /EXCLUDE:exclude.txt  > NUL
 
+  xcopy ..\..\system\players\dsplayer BUILD_WIN32\application\system\players\dsplayer /E /Q /I /Y /EXCLUDE:exclude.txt > NUL
+
   REM create AppxManifest.xml
   "%sed_exe%" -e s/@APP_NAME@/%APP_NAME%/g -e s/@COMPANY_NAME@/%COMPANY_NAME%/g -e s/@APP_VERSION@/%APP_VERSION%/g -e s/@VERSION_NUMBER@/%VERSION_NUMBER%/g "AppxManifest.xml.in" > "BUILD_WIN32\application\AppxManifest.xml"
 
