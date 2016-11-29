@@ -19462,6 +19462,7 @@ msgstr ""
 #: system/settings/rbp.xml
 msgctxt "#38029"
 msgid "Enable Full HD HDMI modes for stereoscopic 3D"
+
 msgstr ""
 
 #. Description of setting "Enable Full HD HDMI modes for stereoscopic 3D" with label #38029
@@ -19654,21 +19655,7 @@ msgctxt "#38111"
 msgid "This category contains other settings for the GUI interface"
 msgstr ""
 
-#empty strings from id 38112 to 38206
-
-#. Description of setting "Pictures -> Show EXIF picture information" with label #38207
-#: system/settings/settings.xml
-msgctxt "#38207"
-msgid "Show EXIF picture information"
-msgstr ""
-
-#. Help text of setting "Pictures -> Show EXIF picture information" with label #38208
-#: system/settings/settings.xml
-msgctxt "#38208"
-msgid "If EXIF information exists (date, time, camera used, etc.), it will be displayed."
-msgstr ""
-
-#empty strings from id 38209 to 38999
+#empty strings from id 38112 to 38999
 
 #: system/settings/settings.xml
 msgctxt "#39000"
@@ -19727,4 +19714,2139 @@ msgstr ""
 #: view/GUIViewState.cpp
 msgctxt "#39010"
 msgid "Select sort method"
+msgstr ""
+
+
+#. 55000-55100 reserved for DSPlayer
+msgctxt "#55000"
+msgid "DSPlayer"
+msgstr ""
+
+msgctxt "#55001"
+msgid "Video Renderer"
+msgstr ""
+
+msgctxt "#55002"
+msgid "Filters"
+msgstr ""
+
+msgctxt "#55003"
+msgid "Audio Renderer"
+msgstr ""
+
+msgctxt "#55004"
+msgid "Set all stable formats to libavcodec (ffdshow)"
+msgstr ""
+
+msgctxt "#55005"
+msgid "Nearest neighbor"
+msgstr ""
+
+msgctxt "#55006"
+msgid "Bilinear"
+msgstr ""
+
+msgctxt "#55007"
+msgid "Bilinear (PS 2.0)"
+msgstr ""
+
+msgctxt "#55008"
+msgid "Bicubic A=-0.60 (PS 2.0)"
+msgstr ""
+
+msgctxt "#55009"
+msgid "Bicubic A=-0.75 (PS 2.0)"
+msgstr ""
+
+msgctxt "#55010"
+msgid "Bicubic A=-1.00 (PS 2.0)"
+msgstr ""
+
+msgctxt "#55011"
+msgid "Stats hidden"
+msgstr ""
+
+msgctxt "#55012"
+msgid "Stats minimal"
+msgstr ""
+
+msgctxt "#55013"
+msgid "Stats medium"
+msgstr ""
+
+msgctxt "#55014"
+msgid "Stats large"
+msgstr ""
+
+msgctxt "#55015"
+msgid "Renderer stats"
+msgstr ""
+
+msgctxt "#55016"
+msgid "Shaders"
+msgstr ""
+
+msgctxt "#55017"
+msgid "Shaders list"
+msgstr ""
+
+msgctxt "#55018"
+msgid "There is no shader loaded"
+msgstr ""
+
+msgctxt "#55021"
+msgid "Filters management"
+msgstr ""
+
+msgctxt "#55022"
+msgid "Min. Blu-ray title length (min.)"
+msgstr ""
+
+msgctxt "#55023"
+msgid "Matroska Editions"
+msgstr ""
+
+msgctxt "#55024"
+msgid "Blu-ray Titles"
+msgstr ""
+
+msgctxt "#55025"
+msgid "Select Matroska Editions"
+msgstr ""
+
+msgctxt "#55026"
+msgid "Select Blu-ray Titles"
+msgstr ""
+
+msgctxt "#55027"
+msgid "Show all Blu-ray Titles"
+msgstr ""
+
+msgctxt "#55030"
+msgid "Auto start .bdmv in Blu-ray folders"
+msgstr ""
+
+msgctxt "#55031"
+msgid "Use as the default video player"
+msgstr ""
+
+msgctxt "#55032"
+msgid "Show Blu-ray titles and Matroska Editions choice dialog"
+msgstr ""
+
+#. 55050-55100 Directshow Subtitles 
+msgctxt "#55050"
+msgid "- Border line"
+msgstr ""
+
+msgctxt "#55051"
+msgid "Outline"
+msgstr ""
+
+msgctxt "#55052"
+msgid "Opaque"
+msgstr ""
+
+msgctxt "#55053"
+msgid "- Outline width"
+msgstr ""
+
+msgctxt "#55054"
+msgid "- Shadow depth"
+msgstr ""
+
+msgctxt "#55055"
+msgid "- Alpha"
+msgstr ""
+
+msgctxt "#55056"
+msgid "Font to use for text subtitles (dsplayer only) : %s"
+msgstr ""
+
+msgctxt "#55057"
+msgid "Choose a font"
+msgstr ""
+
+msgctxt "#55058"
+msgid "Disable subtitles"
+msgstr ""
+
+msgctxt "#55059"
+msgid "Subtitles not found"
+msgstr ""
+
+msgctxt "#55060"
+msgid "Use menu audio selector"
+msgstr ""
+
+msgctxt "#55061"
+msgid "Use menu subtitle selector"
+msgstr ""
+
+msgctxt "#55062"
+msgid "DSPlayer filters list..."
+msgstr ""
+
+msgctxt "#55063"
+msgid "Use in fullscreen (exclusive mode)"
+msgstr ""
+
+msgctxt "#55064"
+msgid "Manage settings with Kodi"
+msgstr ""
+
+msgctxt "#55065"
+msgid "Delay playback until render queue is full"
+msgstr ""
+
+msgctxt "#55066"
+msgid "Show stream details from selected splitter"
+msgstr ""
+
+msgctxt "#55067"
+msgid "Select last TV show on first entry"
+msgstr ""
+
+msgctxt "#55068"
+msgid "Last played TV show"
+msgstr ""
+
+msgctxt "#55069"
+msgid "Last watched TV show"
+msgstr ""
+
+msgctxt "#55070"
+msgid "Enable with player"
+msgstr ""
+
+msgctxt "#55071"
+msgid "DSPlayer"
+msgstr ""
+
+msgctxt "#55072"
+msgid "DVDPlayer"
+msgstr ""
+
+msgctxt "#55073"
+msgid "Extra Options"
+msgstr ""
+
+msgctxt "#55074"
+msgid "Force to exit from fullscreen before stop"
+msgstr ""
+
+msgctxt "#55075"
+msgid "Load and Save with DSPlayer database"
+msgstr ""
+
+msgctxt "#55076"
+msgid "Load from madVR active profile"
+msgstr ""
+
+msgctxt "#55077"
+msgid "Video decoder"
+msgstr ""
+
+msgctxt "#55078"
+msgid "Audio decoder"
+msgstr ""
+
+msgctxt "#55079"
+msgid "Splitter"
+msgstr ""
+
+msgctxt "#55080"
+msgid "Subtitle filter"
+msgstr ""
+
+msgctxt "#55081"
+msgid "Internal filters"
+msgstr ""
+
+msgctxt "#55082"
+msgid "Media rules and Filters configuration"
+msgstr ""
+
+msgctxt "#55083"
+msgid "System filters (DirectShow merits)"
+msgstr ""
+
+msgctxt "#55084"
+msgid "Extra external filter"
+msgstr ""
+
+msgctxt "#55085"
+msgid "Preferred external subtitle language"
+msgstr ""
+
+msgctxt "#55086"
+msgid "Define visible screen area"
+msgstr ""
+
+msgctxt "#55087"
+msgid "Left"
+msgstr ""
+
+msgctxt "#55088"
+msgid "Top"
+msgstr ""
+
+msgctxt "#55089"
+msgid "Right"
+msgstr ""
+
+msgctxt "#55090"
+msgid "Bottom"
+msgstr ""
+
+msgctxt "#55091"
+msgid "Move OSD into active video area"
+msgstr ""
+
+msgctxt "#55092"
+msgid "%i px"
+msgstr ""
+
+msgctxt "#55093"
+msgid "Copy from active video area"
+msgstr ""
+
+msgctxt "#55094"
+msgid "Reset to default values"
+msgstr ""
+
+msgctxt "#55095"
+msgid "Renderers"
+msgstr ""
+
+msgctxt "#55096"
+msgid "Preferred audio codec name"
+msgstr ""
+
+msgctxt "#60001"
+msgid "Media rules"
+msgstr ""
+
+msgctxt "#60002"
+msgid "Rule name"
+msgstr ""
+
+msgctxt "#60003"
+msgid "- File types"
+msgstr ""
+
+msgctxt "#60004"
+msgid "- File name"
+msgstr ""
+
+msgctxt "#60005"
+msgid "- Protocols"
+msgstr ""
+
+msgctxt "#60006"
+msgid "- Url"
+msgstr ""
+
+msgctxt "#60007"
+msgid "Source filter"
+msgstr ""
+
+msgctxt "#60008"
+msgid "Splitter filter"
+msgstr ""
+
+msgctxt "#60009"
+msgid "Video filter"
+msgstr ""
+
+msgctxt "#60010"
+msgid "Audio filter"
+msgstr ""
+
+msgctxt "#60011"
+msgid "Subs filter"
+msgstr ""
+
+msgctxt "#60012"
+msgid "Extra filter"
+msgstr ""
+
+msgctxt "#60013"
+msgid "Shader Id"
+msgstr ""
+
+msgctxt "#60014"
+msgid "Add new rule..."
+msgstr ""
+
+msgctxt "#60015"
+msgid "Add rule"
+msgstr ""
+
+msgctxt "#60016"
+msgid "Save rule changes"
+msgstr ""
+
+msgctxt "#60017"
+msgid "Delete rule"
+msgstr ""
+
+msgctxt "#60018"
+msgid "Are you sure to delete this rule?"
+msgstr ""
+
+msgctxt "#60019"
+msgid "- Video resolution"
+msgstr ""
+
+msgctxt "#60020"
+msgid "- Video codec"
+msgstr ""
+
+msgctxt "#60021"
+msgid "- Audio channels"
+msgstr ""
+
+msgctxt "#60022"
+msgid "- Audio codec"
+msgstr ""
+
+msgctxt "#60023"
+msgid "- Stage"
+msgstr ""
+
+msgctxt "#60024"
+msgid "Priority order"
+msgstr ""
+
+
+msgctxt "#61001"
+msgid "Save changes?"
+msgstr ""
+
+msgctxt "#61002"
+msgid "Do you want to save changes you made?"
+msgstr ""
+
+msgctxt "#65001"
+msgid "Filters configuration"
+msgstr ""
+
+msgctxt "#65002"
+msgid "Add new filter..."
+msgstr ""
+
+msgctxt "#65003"
+msgid "OSDName"
+msgstr ""
+
+msgctxt "#65004"
+msgid "Filter name"
+msgstr ""
+
+msgctxt "#65005"
+msgid "Filter type"
+msgstr ""
+
+msgctxt "#65006"
+msgid "Filter guid"
+msgstr ""
+
+msgctxt "#65007"
+msgid "Add filter"
+msgstr ""
+
+msgctxt "#65008"
+msgid "Save filter changes"
+msgstr ""
+
+msgctxt "#65009"
+msgid "Delete filter"
+msgstr ""
+
+msgctxt "#65010"
+msgid "System filters list"
+msgstr ""
+
+msgctxt "#65011"
+msgid "Are you sure to delete this filter?"
+msgstr ""
+
+msgctxt "#65012"
+msgid "Please fill out all required fields"
+msgstr ""
+
+msgctxt "#66001"
+msgid "DVDPlayer merits"
+msgstr ""
+
+msgctxt "#66002"
+msgid "Add new merits rule..."
+msgstr ""
+
+msgctxt "#66003"
+msgid "- Internet stream"
+msgstr ""
+
+msgctxt "#66004"
+msgid "- Remote"
+msgstr ""
+
+msgctxt "#66005"
+msgid "- Audio"
+msgstr ""
+
+msgctxt "#66006"
+msgid "- Video"
+msgstr ""
+
+msgctxt "#66007"
+msgid "- DVD"
+msgstr ""
+
+msgctxt "#66008"
+msgid "- DVD image"
+msgstr ""
+
+msgctxt "#66009"
+msgid "- DVD file"
+msgstr ""
+
+msgctxt "#66010"
+msgid "- Video aspect ratio"
+msgstr ""
+
+msgctxt "#66011"
+msgid "- Mimetypes"
+msgstr ""
+
+msgctxt "#69999"
+msgid "Write all madVR settings in debug log"
+msgstr ""
+
+msgctxt "#70000"
+msgid "Scaling algorithms..."
+msgstr ""
+
+msgctxt "#70001"
+msgid "Nearest Neighbor"
+msgstr ""
+
+msgctxt "#70002"
+msgid "Bilinear"
+msgstr ""
+
+msgctxt "#70003"
+msgid "DXVA2"
+msgstr ""
+
+msgctxt "#70004"
+msgid "Mitchel-Netravali"
+msgstr ""
+
+msgctxt "#70005"
+msgid "Bicubic (sharpness 50) (Catmul-Rom)"
+msgstr ""
+
+msgctxt "#70006"
+msgid "Bicubic (sharpness 50)"
+msgstr ""
+
+msgctxt "#70007"
+msgid "Bicubic (sharpness 60)"
+msgstr ""
+
+msgctxt "#70008"
+msgid "Bicubic (sharpness 75)"
+msgstr ""
+
+msgctxt "#70009"
+msgid "Bicubic (sharpness 100)"
+msgstr ""
+
+msgctxt "#70010"
+msgid "SoftCubic (softness 50)"
+msgstr ""
+
+msgctxt "#70011"
+msgid "SoftCubic (softness 60)"
+msgstr ""
+
+msgctxt "#70012"
+msgid "SoftCubic (softness 70)"
+msgstr ""
+
+msgctxt "#70013"
+msgid "SoftCubic (softness 80)"
+msgstr ""
+
+msgctxt "#70014"
+msgid "SoftCubic (softness 100)"
+msgstr ""
+
+msgctxt "#70015"
+msgid "Lanczos (3 taps)"
+msgstr ""
+
+msgctxt "#70016"
+msgid "Lanczos (4 taps)"
+msgstr ""
+
+msgctxt "#70017"
+msgid "Lanczos (8 taps)"
+msgstr ""
+
+msgctxt "#70018"
+msgid "Spline (3 taps)"
+msgstr ""
+
+msgctxt "#70019"
+msgid "Spline (4 taps)"
+msgstr ""
+
+msgctxt "#70020"
+msgid "Jinc"
+msgstr ""
+
+msgctxt "#70021"
+msgid "Jinc (4 taps)"
+msgstr ""
+
+msgctxt "#70022"
+msgid "Jinc (8 taps)"
+msgstr ""
+
+msgctxt "#70023"
+msgid "NNEDI3 (16 neurons)"
+msgstr ""
+
+msgctxt "#70024"
+msgid "NNEDI3 (32 neurons)"
+msgstr ""
+
+msgctxt "#70025"
+msgid "NNEDI3 (64 neurons)"
+msgstr ""
+
+msgctxt "#70026"
+msgid "NNEDI3 (128 neurons)"
+msgstr ""
+
+msgctxt "#70027"
+msgid "NNEDI3 (256 neurons)"
+msgstr ""
+
+msgctxt "#70028"
+msgid "Chroma upscaling"
+msgstr ""
+
+msgctxt "#70029"
+msgid "Image upscaling"
+msgstr ""
+
+msgctxt "#70030"
+msgid "Image downscaling"
+msgstr ""
+
+msgctxt "#70031"
+msgid "anti-ringing filter"
+msgstr ""
+
+msgctxt "#70032"
+msgid "scale in linear light"
+msgstr ""
+
+msgctxt "#70033"
+msgid "Bilateral (Old)"
+msgstr ""
+
+msgctxt "#70034"
+msgid "Super-Xbr (sharpness 25)"
+msgstr ""
+
+msgctxt "#70035"
+msgid "Super-Xbr (sharpness 50)"
+msgstr ""
+
+msgctxt "#70036"
+msgid "Super-Xbr (sharpness 75)"
+msgstr ""
+
+msgctxt "#70037"
+msgid "Super-Xbr (sharpness 100)"
+msgstr 
+
+msgctxt "#70038"
+msgid "Super-Xbr (sharpness 125)"
+msgstr ""
+
+msgctxt "#70039"
+msgid "Super-Xbr (sharpness 150)"
+msgstr 
+
+msgctxt "#70040"
+msgid "Nedi"
+msgstr ""
+
+msgctxt "#70041"
+msgid "super-res filter"
+msgstr ""
+
+msgctxt "#70042"
+msgid "Reconstruction (soft)"
+msgstr ""
+
+msgctxt "#70043"
+msgid "Reconstruction (sharp)"
+msgstr ""
+
+msgctxt "#70044"
+msgid "Reconstruction (placebo)"
+msgstr 
+
+msgctxt "#70045"
+msgid "Reconstruction (sharp AR)"
+msgstr ""
+
+msgctxt "#70046"
+msgid "Reconstruction (placebo AR)"
+msgstr ""
+
+msgctxt "#70047"
+msgid "Bicubic (sharpness 150)"
+msgstr ""
+
+msgctxt "#70048"
+msgid "SSIM 1D (strength 25)"
+msgstr ""
+
+msgctxt "#70049"
+msgid "scale in sigmoidal light"
+msgstr ""
+
+msgctxt "#70050"
+msgid "Bicubic (sharpness 125)"
+msgstr ""
+
+msgctxt "#70051"
+msgid "SSIM 1D (strength 50)"
+msgstr ""
+
+msgctxt "#70052"
+msgid "SSIM 1D (strength 75)"
+msgstr ""
+
+msgctxt "#70053"
+msgid "SSIM 1D (strength 100)"
+msgstr ""
+
+msgctxt "#70054"
+msgid "SSIM 2D (strength 25)"
+msgstr ""
+
+msgctxt "#70055"
+msgid "SSIM 2D (strength 50)"
+msgstr ""
+
+msgctxt "#70056"
+msgid "SSIM 2D (strength 75)"
+msgstr ""
+
+msgctxt "#70057"
+msgid "SSIM 2D (strength 100)"
+msgstr ""
+
+msgctxt "#70058"
+msgid "Super-Xbr (anti-bloating 25)"
+msgstr ""
+
+msgctxt "#70059"
+msgid "Super-Xbr (anti-bloating 50)"
+msgstr ""
+
+msgctxt "#70060"
+msgid "Super-Xbr (anti-bloating 75)"
+msgstr ""
+
+msgctxt "#70061"
+msgid "Super-Xbr (anti-bloating 100)"
+msgstr ""
+
+msgctxt "#70062"
+msgid "Bilateral (Soft)"
+msgstr ""
+
+msgctxt "#70063"
+msgid "Bilateral (Sharp)"
+msgstr ""
+
+msgctxt "#70064"
+msgid "NNEDI3"
+msgstr ""
+
+msgctxt "#70065"
+msgid "NGU"
+msgstr ""
+
+msgctxt "#70066"
+msgid "NGU (Low)"
+msgstr ""
+
+msgctxt "#70067"
+msgid "NGU (Medium)"
+msgstr ""
+
+msgctxt "#70068"
+msgid "NGU (High)"
+msgstr ""
+
+msgctxt "#70069"
+msgid "NGU (Very High)"
+msgstr ""
+
+msgctxt "#70070"
+msgid "luma doubling"
+msgstr ""
+
+msgctxt "#70071"
+msgid "chroma quality"
+msgstr ""
+
+msgctxt "#70072"
+msgid "downscale quality"
+msgstr "
+
+msgctxt "#70073"
+msgid "activate"
+msgstr "
+
+msgctxt "#70074"
+msgid "only if it's useful"
+msgstr "
+
+msgctxt "#70075"
+msgid "luma quality"
+msgstr "
+
+msgctxt "#70100"
+msgid "Double Luma resolution"
+msgstr ""
+
+msgctxt "#70101"
+msgid "Double Chroma resolution"
+msgstr ""
+
+msgctxt "#70102"
+msgid "Quadruple Luma resolution"
+msgstr ""
+
+msgctxt "#70103"
+msgid "Quadruple Chroma resolution"
+msgstr ""
+
+msgctxt "#70104"
+msgid "use (16 Neurons)"
+msgstr ""
+
+msgctxt "#70105"
+msgid "use (32 Neurons)"
+msgstr ""
+
+msgctxt "#70106"
+msgid "use (64 Neurons)"
+msgstr ""
+
+msgctxt "#70107"
+msgid "use (128 Neurons)"
+msgstr ""
+
+msgctxt "#70108"
+msgid "use (256 Neurons)"
+msgstr ""
+
+msgctxt "#70109"
+msgid "only if scaling factor is 2.0x (or bigger)"
+msgstr ""
+
+msgctxt "#70110"
+msgid "only if scaling factor is 1.5x (or bigger)"
+msgstr ""
+
+msgctxt "#70111"
+msgid "only if scaling factor is 1.2x (or bigger)"
+msgstr ""
+
+msgctxt "#70112"
+msgid "only if upscaling is needed"
+msgstr ""
+
+msgctxt "#70113"
+msgid "only if scaling factor is 4.0x (or bigger)"
+msgstr ""
+
+msgctxt "#70114"
+msgid "only if scaling factor is 3.0x (or bigger)"
+msgstr ""
+
+msgctxt "#70115"
+msgid "only if scaling factor is 2.4x (or bigger)"
+msgstr ""
+
+msgctxt "#70116"
+msgid "scaling condition"
+msgstr ""
+
+msgctxt "#70117"
+msgid "(disabled)"
+msgstr ""
+
+msgctxt "#70118"
+msgid "Fine Sharp (image enhancement)"
+msgstr ""
+
+msgctxt "#70119"
+msgid "Luma Sharpen (image enhancement)"
+msgstr ""
+
+msgctxt "#70120"
+msgid "Adaptive Sharpen (image enhancement)"
+msgstr ""
+
+msgctxt "#70121"
+msgid "Super Resolution (up refinement)"
+msgstr ""
+
+msgctxt "#70122"
+msgid "strength"
+msgstr ""
+
+msgctxt "#70123"
+msgid "Fine Sharp (up refinement)"
+msgstr ""
+
+msgctxt "#70124"
+msgid "Luma Sharpen (up refinement)"
+msgstr ""
+
+msgctxt "#70125"
+msgid "Adaptive Sharpen (up refinement)"
+msgstr ""
+
+msgctxt "#70126"
+msgid "Refine image (2x upscaling step)"
+msgstr ""
+
+msgctxt "#70127"
+msgid "apply super-res first"
+msgstr ""
+
+msgctxt "#70128"
+msgid "- clamp"
+msgstr ""
+
+msgctxt "#70129"
+msgid "- radius"
+msgstr ""
+
+msgctxt "#70130"
+msgid "- passes"
+msgstr ""
+
+msgctxt "#70131"
+msgid "- softness"
+msgstr ""
+
+msgctxt "#70132"
+msgid "- sharpness"
+msgstr ""
+
+msgctxt "#70133"
+msgid "use linear light"
+msgstr ""
+
+msgctxt "#70134"
+msgid "Sharpen Edges (image enhancement)"
+msgstr ""
+
+msgctxt "#70135"
+msgid "Crispen Edges (image enhancement)"
+msgstr ""
+
+msgctxt "#70136"
+msgid "Thin Edges (image enhancement)"
+msgstr ""
+
+msgctxt "#70137"
+msgid "Enhace Detail (image enhancement)"
+msgstr ""
+
+msgctxt "#70138"
+msgid "Sharpen Edges (up refinement)"
+msgstr ""
+
+msgctxt "#70139"
+msgid "Crispen Edges (up refinement)"
+msgstr ""
+
+msgctxt "#70140"
+msgid "Thin Edges (up refinement)"
+msgstr ""
+
+msgctxt "#70141"
+msgid "Enhance Detail (up refinement)"
+msgstr ""
+
+msgctxt "#70142"
+msgid "Sharpen anti-ringing (up refinement)"
+msgstr ""
+
+msgctxt "#70143"
+msgid "Sharpen anti-ringing (image enhancement)"
+msgstr ""
+
+msgctxt "#70144"
+msgid "always - 2x supersampling"
+msgstr ""
+
+msgctxt "#70145"
+msgid "relaxed"
+msgstr ""
+
+msgctxt "#70146"
+msgid "strict (soft)"
+msgstr ""
+
+msgctxt "#70147"
+msgid "anti-bloating filter"
+msgstr ""
+
+msgctxt "#70148"
+msgid "25%"
+msgstr ""
+
+msgctxt "#70149"
+msgid "50%"
+msgstr ""
+
+msgctxt "#70150"
+msgid "75%"
+msgstr ""
+
+msgctxt "#70151"
+msgid "100%"
+msgstr ""
+
+msgctxt "#70152"
+msgid "125%"
+msgstr ""
+
+msgctxt "#70153"
+msgid "150%"
+msgstr ""
+
+msgctxt "#70154"
+msgid "Sharpen anti-bloating (up refinement)"
+msgstr ""
+
+msgctxt "#70155"
+msgid "Sharpen anti-bloating (image enhancement)"
+msgstr ""
+
+msgctxt "#70156"
+msgid "16 neurons"
+msgstr ""
+
+msgctxt "#70157"
+msgid "32 neurons"
+msgstr ""
+
+msgctxt "#70158"
+msgid "64 neurons"
+msgstr ""
+
+msgctxt "#70159"
+msgid "128 neurons"
+msgstr ""
+
+msgctxt "#70160"
+msgid "256 neurons"
+msgstr ""
+
+msgctxt "#70161"
+msgid "16 neurons, 4x: 16 neurons"
+msgstr ""
+
+msgctxt "#70162"
+msgid "32 neurons, 4x: 16 neurons"
+msgstr ""
+
+msgctxt "#70163"
+msgid "64 neurons, 4x: 16 neurons"
+msgstr ""
+
+msgctxt "#70164"
+msgid "64 neurons, 4x: 32 neurons"
+msgstr ""
+
+msgctxt "#70165"
+msgid "128 neurons, 4x: 16 neurons"
+msgstr ""
+
+msgctxt "#70166"
+msgid "128 neurons, 4x: 32 neurons"
+msgstr ""
+
+msgctxt "#70167"
+msgid "256 neurons, 4x: 16 neurons"
+msgstr ""
+
+msgctxt "#70168"
+msgid "256 neurons, 4x: 32 neurons"
+msgstr ""
+
+msgctxt "#70169"
+msgid "256 neurons, 4x: 64 neurons"
+msgstr ""
+
+msgctxt "#70170"
+msgid "automatic"
+msgstr ""
+
+msgctxt "#70171"
+msgid "low"
+msgstr ""
+
+msgctxt "#70172"
+msgid "medium"
+msgstr ""
+
+msgctxt "#70173"
+msgid "normal"
+msgstr ""
+
+msgctxt "#70174"
+msgid "high"
+msgstr ""
+
+msgctxt "#70175"
+msgid "very high"
+msgstr ""
+
+msgctxt "#70176"
+msgid "Soften Edges (up refinement)"
+msgstr ""
+
+msgctxt "#70177"
+msgid "Add Grain (up refinement)"
+msgstr ""
+
+msgctxt "#70200"
+msgid "Deinterlace auto-activation"
+msgstr ""
+
+msgctxt "#70201"
+msgid "Deinterlace detection type"
+msgstr ""
+
+msgctxt "#70202"
+msgid "(auto-detection)"
+msgstr ""
+
+msgctxt "#70203"
+msgid "force film mode"
+msgstr ""
+
+msgctxt "#70204"
+msgid "force video mode"
+msgstr ""
+
+msgctxt "#70205"
+msgid "if doubt, active"
+msgstr ""
+
+msgctxt "#70206"
+msgid "if doubt, deactive"
+msgstr ""
+
+msgctxt "#70206"
+msgid "force video mode"
+msgstr ""
+
+msgctxt "#70207"
+msgid "Deinterlace only pixels in the frame center"
+msgstr ""
+
+msgctxt "#70208"
+msgid "Disable scaling if image size changes by only"
+msgstr ""
+
+msgctxt "#70209"
+msgid "1 lines or less"
+msgstr ""
+
+msgctxt "#70210"
+msgid "2 lines or less"
+msgstr ""
+
+msgctxt "#70211"
+msgid "3 lines or less"
+msgstr ""
+
+msgctxt "#70212"
+msgid "5 lines or less"
+msgstr ""
+
+msgctxt "#70213"
+msgid "7 lines or less"
+msgstr ""
+
+msgctxt "#70214"
+msgid "10 lines or less"
+msgstr ""
+
+msgctxt "#70215"
+msgid "15 lines or less"
+msgstr ""
+
+msgctxt "#70216"
+msgid "25 lines or less"
+msgstr ""
+
+msgctxt "#70217"
+msgid "Move subtitles"
+msgstr ""
+
+msgctxt "#70218"
+msgid "to bottom of the screen/window"
+msgstr ""
+
+msgctxt "#70219"
+msgid "into active area"
+msgstr ""
+
+msgctxt "#70220"
+msgid "Auto detect hard coded black bars"
+msgstr ""
+
+msgctxt "#70221"
+msgid "If black bars change"
+msgstr ""
+
+msgctxt "#70222"
+msgid "doesn't lose any image content"
+msgstr ""
+
+msgctxt "#70223"
+msgid "reduces black bar size by 25%"
+msgstr ""
+
+msgctxt "#70224"
+msgid "reduces black bar size by 50%"
+msgstr ""
+
+msgctxt "#70225"
+msgid "reduces black bar size by 75%"
+msgstr ""
+
+msgctxt "#70226"
+msgid "doesn't show any black bars"
+msgstr ""
+
+msgctxt "#70227"
+msgid "If black bars change quickly"
+msgstr ""
+
+msgctxt "#70228"
+msgid "don't switch more than once every 2 secs"
+msgstr ""
+
+msgctxt "#70229"
+msgid "don't switch more than once every 5 secs"
+msgstr ""
+
+msgctxt "#70230"
+msgid "don't switch more than once every 15 secs"
+msgstr ""
+
+msgctxt "#70231"
+msgid "don't switch more than once every 45 secs"
+msgstr ""
+
+msgctxt "#70232"
+msgid "Always shift the image"
+msgstr ""
+
+msgctxt "#70233"
+msgid "to the top of the screen"
+msgstr ""
+
+msgctxt "#70234"
+msgid "to the bottom of the screen"
+msgstr ""
+
+msgctxt "#70235"
+msgid "Keep bars with subs visible"
+msgstr ""
+
+msgctxt "#70236"
+msgid "for 5 seconds"
+msgstr ""
+
+msgctxt "#70237"
+msgid "for 15 seconds"
+msgstr ""
+
+msgctxt "#70238"
+msgid "for 45 seconds"
+msgstr ""
+
+msgctxt "#70239"
+msgid "for 3 minutes"
+msgstr ""
+
+msgctxt "#70240"
+msgid "for 10 minutes"
+msgstr ""
+
+msgctxt "#70241"
+msgid "for 30 minutes"
+msgstr ""
+
+msgctxt "#70242"
+msgid "for 90 minutes"
+msgstr ""
+
+msgctxt "#70243"
+msgid "forever"
+msgstr ""
+
+msgctxt "#70244"
+msgid "Cleanup image borders by cropping"
+msgstr ""
+
+msgctxt "#70245"
+msgid "1 line from the all black bars borders"
+msgstr ""
+
+msgctxt "#70246"
+msgid "2 lines from the all black bars borders"
+msgstr ""
+
+msgctxt "#70247"
+msgid "3 lines from the all black bars borders"
+msgstr ""
+
+msgctxt "#70248"
+msgid "4 lines from the all black bars borders"
+msgstr ""
+
+msgctxt "#70249"
+msgid "5 lines from the all black bars borders"
+msgstr ""
+
+msgctxt "#70250"
+msgid "7 lines from the all black bars borders"
+msgstr ""
+
+msgctxt "#70251"
+msgid "1 line from the all 4 image borders"
+msgstr ""
+
+msgctxt "#70252"
+msgid "2 lines from the all 4 image borders"
+msgstr ""
+
+msgctxt "#70253"
+msgid "3 lines from the all 4 image borders"
+msgstr ""
+
+msgctxt "#70254"
+msgid "4 lines from the all 4 image borders"
+msgstr ""
+
+msgctxt "#70255"
+msgid "5 lines from the all 4 image borders"
+msgstr ""
+
+msgctxt "#70256"
+msgid "7 lines from the all 4 image borders"
+
+msgctxt "#70257"
+msgid "If there are big black bars"
+msgstr ""
+
+msgctxt "#70258"
+msgid "reduce bar size by 25%"
+msgstr ""
+
+msgctxt "#70259"
+msgid "reduce bar size by 50%"
+msgstr ""
+
+msgctxt "#70260"
+msgid "reduce bar size by 75%"
+msgstr ""
+
+msgctxt "#70261"
+msgid "reduce bar size completely"
+msgstr ""
+
+msgctxt "#70262"
+msgid "Zoom small back bars away"
+msgstr ""
+
+msgctxt "#70263"
+msgid "Crop Black Bars"
+msgstr ""
+
+msgctxt "#70264"
+msgid "Zoom Control..."
+msgstr ""
+
+msgctxt "#70300"
+msgid "Smooth motion"
+msgstr ""
+
+msgctxt "#70301"
+msgid "avoid judder"
+msgstr ""
+
+msgctxt "#70302"
+msgid "almost always"
+msgstr ""
+
+msgctxt "#70303"
+msgid "always"
+msgstr ""
+
+msgctxt "#70400"
+msgid "Dithering"
+msgstr ""
+
+msgctxt "#70401"
+msgid "random dithering"
+msgstr ""
+
+msgctxt "#70402"
+msgid "ordered dithering"
+msgstr ""
+
+msgctxt "#70403"
+msgid "error diffusion 1 (no patterns) (dx11)"
+msgstr ""
+
+msgctxt "#70404"
+msgid "error diffusion 2 (mild patterns) (dx11)"
+msgstr ""
+
+msgctxt "#70405"
+msgid "use colored noise"
+msgstr ""
+
+msgctxt "#70406"
+msgid "change dither for every frame"
+msgstr ""
+
+msgctxt "#70500"
+msgid "Reduce banding artifacts"
+msgstr ""
+
+msgctxt "#70501"
+msgid "default debanding strength"
+msgstr ""
+
+msgctxt "#70502"
+msgid "strength during fade in/out"
+msgstr ""
+
+msgctxt "#70503"
+msgid "low"
+msgstr ""
+
+msgctxt "#70504"
+msgid "medium"
+msgstr ""
+
+msgctxt "#70505"
+msgid "high"
+msgstr ""
+
+msgctxt "#70600"
+msgid "Save settings..."
+msgstr ""
+
+msgctxt "#70601"
+msgid "Save for SD videos"
+msgstr ""
+
+msgctxt "#70602"
+msgid "Save for 720p videos"
+msgstr ""
+
+msgctxt "#70603"
+msgid "Save for 1080p videos"
+msgstr ""
+
+msgctxt "#70604"
+msgid "Save for 2160p videos"
+msgstr ""
+
+msgctxt "#70605"
+msgid "Save for \"%s\" episodes"
+msgstr ""
+
+msgctxt "#70606"
+msgid "Save for all videos"
+msgstr ""
+
+msgctxt "#70607"
+msgid "Reset to default for all videos"
+msgstr ""
+
+msgctxt "#71000"
+msgid "Processing..."
+msgstr ""
+
+msgctxt "#71001"
+msgid "Reduce ringing artifacts"
+msgstr ""
+
+msgctxt "#71002"
+msgid "Reduce dark halos around bright edges"
+msgstr ""
+
+msgctxt "#72000"
+msgid "Rendering..."
+msgstr ""
+
+msgctxt "#72001"
+msgid "Use Direct3D 11 for presentation"
+msgstr ""
+
+msgctxt "#72002"
+msgid "present a frame for every VSync"
+msgstr ""
+
+msgctxt "#72003"
+msgid "Number of pre-presented frames (windowed mode)"
+msgstr ""
+
+msgctxt "#72004"
+msgid "Number of pre-presented frames (exclusive mode)"
+msgstr ""
+
+msgctxt "#72005"
+msgid "1 frame"
+msgstr ""
+
+msgctxt "#72006"
+msgid "2 frames"
+msgstr ""
+
+msgctxt "#72007"
+msgid "3 frames"
+msgstr ""
+
+msgctxt "#72008"
+msgid "4 frames"
+msgstr ""
+
+msgctxt "#72009"
+msgid "6 frames"
+msgstr ""
+
+msgctxt "#72010"
+msgid "8 frames"
+msgstr ""
+
+msgctxt "#72011"
+msgid "10 frames"
+msgstr ""
+
+msgctxt "#72012"
+msgid "12 frames"
+msgstr ""
+
+msgctxt "#72013"
+msgid "14 frames"
+msgstr ""
+
+msgctxt "#72014"
+msgid "16 frames"
+msgstr ""
+
+msgctxt "#73000"
+msgid "Image enhancements..."
+msgstr ""
+
+msgctxt "#74000"
+msgid "Upscaling refinement..."
+msgstr ""
+
+msgctxt "#75000"
+msgid "Trade quality for performance..."
+msgstr ""
+
+msgctxt "#75001"
+msgid "Optimize subtitle quality for perfomance instead of quality"
+msgstr ""
+
+msgctxt "#75002"
+msgid "Use DXVA chroma upscaling when doing native DXVA decoding"
+msgstr ""
+
+msgctxt "#75003"
+msgid "Use DXVA chroma upscaling when doing DXVA deinterlacing"
+msgstr ""
+
+msgctxt "#75004"
+msgid "Store custom pixel shader results in 16bit buffer instead of 32bit"
+msgstr ""
+
+msgctxt "#75005"
+msgid "Don't use linear light for dithering"
+msgstr ""
+
+msgctxt "#75006"
+msgid "Don't analyze gradient angles for debanding"
+msgstr ""
+
+msgctxt "#75007"
+msgid "Don't rerender frames when fade in/out is detected"
+msgstr ""
+
+msgctxt "#75008"
+msgid "Scale chroma separately, if saves perfomance"
+msgstr ""
+
+msgctxt "#75009"
+msgid "Lose BTB and WTW if it improves performance"
+msgstr ""
+
+msgctxt "#75010"
+msgid "Don't use linear light for smooth motion frame blending"
+msgstr ""
+
+msgctxt "#75011"
+msgid "Use 10bit chroma buffer instead of 16bit"
+msgstr ""
+
+msgctxt "#75012"
+msgid "Use 10bit image buffer instead of 16bit"
+msgstr ""
+
+msgctxt "#75013"
+msgid "Run custom pixel shaders in video levels instead of PC levels"
+msgstr ""
+
+msgctxt "#80001"
+msgid "Enable system tray icon"
+msgstr ""
+
+msgctxt "#80002"
+msgid "Use stream aspect ratio"
+msgstr ""
+
+msgctxt "#80003"
+msgid "Thread for multi-threading"
+msgstr ""
+
+msgctxt "#80004"
+msgid "RGB output levels (for YUV -> RGB conversion)"
+msgstr ""
+
+msgctxt "#80005"
+msgid "Hardware decoder to use"
+msgstr ""
+
+msgctxt "#80006"
+msgid "Hardware/GPU deinterlacing (CUVID/QS only)"
+msgstr ""
+
+msgctxt "#80007"
+msgid "- output mode"
+msgstr ""
+
+msgctxt "#80008"
+msgid "- high quality processing"
+msgstr ""
+
+msgctxt "#80009"
+msgid "Field Order"
+msgstr ""
+
+msgctxt "#80010"
+msgid "Deinterlacing Mode"
+msgstr ""
+
+msgctxt "#80011"
+msgid "Software deinterlacing"
+msgstr ""
+
+msgctxt "#80012"
+msgid "Dithering mode"
+msgstr ""
+
+msgctxt "#80013"
+msgid "Open property page"
+msgstr ""
+
+msgctxt "#80100"
+msgid "Auto"
+msgstr ""
+
+msgctxt "#80101"
+msgid "1"
+msgstr ""
+
+msgctxt "#80102"
+msgid "2"
+msgstr ""
+
+msgctxt "#80103"
+msgid "3"
+msgstr ""
+
+msgctxt "#80104"
+msgid "4"
+msgstr ""
+
+msgctxt "#80105"
+msgid "5"
+msgstr ""
+
+msgctxt "#80106"
+msgid "6"
+msgstr ""
+
+msgctxt "#80107"
+msgid "7"
+msgstr ""
+
+msgctxt "#80108"
+msgid "8"
+msgstr ""
+
+msgctxt "#80109"
+msgid "9"
+msgstr ""
+
+msgctxt "#80110"
+msgid "10"
+msgstr ""
+
+msgctxt "#80111"
+msgid "11"
+msgstr ""
+
+msgctxt "#80112"
+msgid "12"
+msgstr ""
+
+msgctxt "#80113"
+msgid "13"
+msgstr ""
+
+msgctxt "#80114"
+msgid "14"
+msgstr ""
+
+msgctxt "#80115"
+msgid "15"
+msgstr ""
+
+msgctxt "#80116"
+msgid "16"
+msgstr ""
+
+msgctxt "#80200"
+msgid "None"
+msgstr ""
+
+msgctxt "#80201"
+msgid "NVIDIA CUVID"
+msgstr ""
+
+msgctxt "#80202"
+msgid "Intel QuickSync"
+msgstr ""
+
+msgctxt "#80203"
+msgid "DXVA2 (copy-back)"
+msgstr ""
+
+msgctxt "#80204"
+msgid "DXVA2 (native)"
+msgstr ""
+
+msgctxt "#80205"
+msgid "Top-Field first"
+msgstr ""
+
+msgctxt "#80206"
+msgid "Bottom-Field first"
+msgstr ""
+
+msgctxt "#80207"
+msgid "Aggressive"
+msgstr ""
+
+msgctxt "#80208"
+msgid "Force"
+msgstr ""
+
+msgctxt "#80209"
+msgid "Disabled (progressive)"
+msgstr ""
+
+msgctxt "#80210"
+msgid "25p/30p (Film)"
+msgstr ""
+
+msgctxt "#80211"
+msgid "50p/60p (Video)"
+msgstr ""
+
+msgctxt "#80212"
+msgid "Ordered Dithering"
+msgstr ""
+
+msgctxt "#80213"
+msgid "Random Dithering"
+msgstr ""
+
+msgctxt "#80214"
+msgid "TV (16/235)"
+msgstr ""
+
+msgctxt "#80215"
+msgid "PC (0-255)"
+msgstr ""
+
+msgctxt "#80216"
+msgid "Untouched (as input)"
+msgstr ""
+
+msgctxt "#80217"
+msgid "YADIF"
+msgstr ""
+
+msgctxt "#80218"
+msgid "Weston Three Field (simple)"
+msgstr ""
+
+msgctxt "#80219"
+msgid "Weston Three Field (complex)"
+msgstr ""
+
+msgctxt "#81001"
+msgid "Dynamic range compression (AC3, EAC3)"
+msgstr ""
+
+msgctxt "#81002"
+msgid "- level"
+msgstr ""
+
+msgctxt "#81003"
+msgid "Bitstreaming Dolby Digital (AC-3)"
+msgstr ""
+
+msgctxt "#81004"
+msgid "Bitstreaming Dolby Digital Plus (E-AC3)"
+msgstr ""
+
+msgctxt "#81005"
+msgid "Bitstreaming Dolby TrueHD"
+msgstr ""
+
+msgctxt "#81006"
+msgid "Bitstreaming DTS"
+msgstr ""
+
+msgctxt "#81007"
+msgid "Bitstreaming DTS-HD"
+msgstr ""
+
+msgctxt "#81008"
+msgid "Use DTS-HD framing for all DTS types"
+msgstr ""
+
+msgctxt "#81009"
+msgid "Auto A/V sync correction"
+msgstr ""
+
+msgctxt "#81010"
+msgid "Convert output to standard channel layouts"
+msgstr ""
+
+msgctxt "#81011"
+msgid "Expand mono to stereo"
+msgstr ""
+
+msgctxt "#81012"
+msgid "Expand 6.1 to 7.1"
+msgstr ""
+
+msgctxt "#81013"
+msgid "Enable mixing"
+msgstr ""
+
+msgctxt "#81014"
+msgid "- output speaker configuration"
+msgstr "
+
+msgctxt "#81015"
+msgid "Mono"
+msgstr "
+
+msgctxt "#81016"
+msgid "Stereo"
+msgstr "
+
+msgctxt "#81017"
+msgid "4.0"
+msgstr "
+
+msgctxt "#81018"
+msgid "5.1"
+msgstr "
+
+msgctxt "#81019"
+msgid "6.1"
+msgstr "
+
+msgctxt "#81020"
+msgid "7.1"
+msgstr "
+
+msgctxt "#81021"
+msgid "- center mix level"
+msgstr ""
+
+msgctxt "#81022"
+msgid "- surround mix level"
+msgstr ""
+
+msgctxt "#81023"
+msgid "- lfe mix level"
+msgstr ""
+
+msgctxt "#81024"
+msgid "Don't mix stereo sources"
+msgstr ""
+
+msgctxt "#81025"
+msgid "Normalize matrix"
+msgstr ""
+
+msgctxt "#81026"
+msgid "Clipping protection"
+msgstr ""
+
+msgctxt "#81027"
+msgid "Matrix Encoding"
+msgstr ""
+
+msgctxt "#81028"
+msgid "None"
+msgstr ""
+
+msgctxt "#81029"
+msgid "Dolby Pro Logic"
+msgstr ""
+
+msgctxt "#81030"
+msgid "Dolby Pro Logic II"
+msgstr ""
+
+msgctxt "#81031"
+msgid "Use Legacy 5.1 channel layout"
+msgstr ""
+
+msgctxt "#82001"
+msgid "Preferred audio language"
+msgstr ""
+
+msgctxt "#82002"
+msgid "Preferred subtitles language"
+msgstr ""
+
+msgctxt "#82003"
+msgid "Subtitle selection mode"
+msgstr ""
+
+msgctxt "#82004"
+msgid "No subtitles"
+msgstr ""
+
+msgctxt "#82005"
+msgid "Only forced subtitles"
+msgstr ""
+
+msgctxt "#82006"
+msgid "Default"
+msgstr ""
+
+msgctxt "#82007"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "#82008"
+msgid "BluRay (PGS) enable automatic forced subtitle"
+msgstr ""
+
+msgctxt "#82009"
+msgid "BluRay (PGS) deliver only forced subtitles"
+msgstr ""
+
+msgctxt "#82010"
+msgid "Enable VC-1 timestamp correction"
+msgstr ""
+
+msgctxt "#82011"
+msgid "Load matroska segments from external files"
+msgstr ""
+
+msgctxt "#82012"
+msgid "Demux sub-stream separately"
+msgstr ""
+
+msgctxt "#82013"
+msgid "Remove audio decoder on audio stream switch"
+msgstr ""
+
+msgctxt "#82014"
+msgid "Prefer audio stream with the hightest quality"
+msgstr ""
+
+msgctxt "#82015"
+msgid "Prefer audio stream for the hearing/visually impaired"
+msgstr ""
+
+msgctxt "#82016"
+msgid "Preferred subtitles language (advanced)"
+msgstr ""
+
+msgctxt "#90000"
+msgid "DSPlayer is set as default player for all media. Unchecking this box, DSPlayer can be accessed from the Context Menu (C) through Play using -> DSPlayer."
+msgstr ""
+
+msgctxt "#90001"
+msgid "This menu allows rules to be created governing what media should be played by DVDPlayer."
+msgstr ""
+
+msgctxt "#90002"
+msgid "DSPlayer uses the madshi Video Renderer (madVR). madVR must be installed manually before playback."
+msgstr ""
+
+msgctxt "#90003"
+msgid "These settings determine the way madVR settings are managed: [CR][Never] The Kodi madVR GUI is disabled. [CR][Load and Save with DSPlayer database] madVR settings are configurable in OSD Video Settings. Global profiles will be loaded and saved in the DSPlayer database. [CR][Load from madVR active profile] madVR settings are configurable in OSD Video Settings. Settings profiles are loaded externally from madVR."
+msgstr ""
+
+msgctxt "#90004"
+msgid "Delay the start of video playback until the amount frames set in the pre-buffer are rendered. This can improve the stability of the Kodi refresh rate change mechanism when interacting with madVR."
+msgstr ""
+
+msgctxt "#90005"
+msgid "Enable madVR’s fullscreen exclusive mode, which takes full control of the display during playback making it impossible to take screen captures or steal focus away from the player. This may reduce screen tearing and improve player stability slightly but can cause compatibility issues with some graphics cards."
+msgstr ""
+
+msgctxt "#90006"
+msgid "This setting should only be used if experiencing problems during playback stop. Black screens and failure to return to the Kodi menu can often be countered by forcing madVR to exit fullscreen before stopping."
+msgstr ""
+
+msgctxt "#90007"
+msgid "The choice of audio renderer in this menu overrides the same setting in System -> Audio output. DSPlayer is compatible with any DirectShow audio renderer."
+msgstr ""
+
+msgctxt "#90008"
+msgid "Defines the source of audio & video filters: [CR][Internal filters] Internal LAV Filters and XySubFilter with preconfigured media rules for all compatible media. [CR][Media rules and Filters configuration] Media rules are used to provide instruction on what combination of filters and shaders are used when a media file is played. [CR][System filters (DirectShow merits)] DSPlayer will rely on the default system directshow merits when selecting filters."
+msgstr ""
+
+msgctxt "#90009"
+msgid "Allows a selection of the video stream for Blu-ray folder structures (BDMV). Also, some MKV files contain multi-chapter list support. LAV Filters supports multiple chapter lists through Matroska Editions."
+msgstr ""
+
+msgctxt "#90010"
+msgid "Sets the minimum title length for a video stream to appear in the list of selectable titles when playing Blu-ray folder structures (BDMV)."
+msgstr ""
+
+msgctxt "#90011"
+msgid "Adds an option in the Audio Settings menu during playback allowing the selection of an audio stream for the current playing video."
+msgstr ""
+
+msgctxt "#90012"
+msgid "Adds an option in the Audio Settings menu during playback allowing the selection of a subtitle stream for the current playing video."
+msgstr ""
+
+msgctxt "#90013"
+msgid "Stream details from LAV Splitter provides more accurate and detailed information about the audio stream including the codec, channel layout and bitrate. This information is provided by DSPlayer by default. DSPlayer is localized for the selected language, but may lack information such as the codec and bitrate. This setting also impacts the information displayed when pressing O (codec info)."
+msgstr ""
+
+msgctxt "#90014"
+msgid "Configure the Internal filter LAV Splitter."
+msgstr ""
+
+msgctxt "#90015"
+msgid "Configure the Internal decoder LAV Video."
+msgstr ""
+
+msgctxt "#90016"
+msgid "Configure the Internal decoder LAV Audio."
+msgstr ""
+
+msgctxt "#90017"
+msgid "Configure the Internal filter XySubFilter."
+msgstr ""
+
+msgctxt "#90018"
+msgid "Add an extra external filter to the configuration. The Extra filter will be applied to all media based on its defined type."
+msgstr ""
+
+msgctxt "#90019"
+msgid "Media rules are used to provide instruction on what combination of filters and shaders are used when a media file is played. Using any combination of custom filters requires the creation of player rules from this menu. "
+msgstr ""
+
+msgctxt "#90020"
+msgid "Filters configuration provides a master list of all filters available to DSPlayer. External filters are added from this menu."
+msgstr ""
+
+msgctxt "#90021"
+msgid "Disable Kodi Fullscreen-mode."
+msgstr ""
+
+msgctxt "#90022"
+msgid "System > Video output > Use fullscreen window [checked]"
+msgstr ""
+
+msgctxt "#90023"
+msgid "madVR not installed."
+msgstr ""
+
+msgctxt "#90024"
+msgid "Download and install madVR from http://madshi.net/madVR.zip"
+msgstr ""
+
+msgctxt "#90025"
+msgid "This category contains settings governing how DSPlayer is configured."
+msgstr ""
+
+msgctxt "#90026"
+msgid "Configure the Internal filter Xy-VSFilter."
+msgstr ""
+
+msgctxt "#90027"
+msgid ""
+msgstr ""
+
+msgctxt "#90028"
+msgid "Force to select the preferred audio track that will match the priority codec string defined in the option (ex. dts|ac3) and the language GUI defined in Kodi"
+msgstr ""
+
+msgctxt "#909001"
+msgid "Rus"
+msgstr ""
+
+msgctxt "#909002"
+msgid "IP"
 msgstr ""
