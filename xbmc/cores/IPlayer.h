@@ -199,6 +199,18 @@ enum ESCALINGMETHOD
   VS_SCALINGMETHOD_MAX // do not use and keep as last enum value.
 };
 
+#ifdef HAS_DS_PLAYER
+enum EDSSCALINGMETHOD
+{
+  DS_SCALINGMETHOD_NEAREST_NEIGHBOR = 0,
+  DS_SCALINGMETHOD_BILINEAR,
+  DS_SCALINGMETHOD_BILINEAR_2,
+  DS_SCALINGMETHOD_BILINEAR_2_60,
+  DS_SCALINGMETHOD_BILINEAR_2_75,
+  DS_SCALINGMETHOD_BILINEAR_2_100
+};
+#endif
+
 enum ERENDERFEATURE
 {
   RENDERFEATURE_GAMMA,
@@ -285,6 +297,15 @@ public:
   virtual int GetVideoStreamCount() const { return 0; }
   virtual void GetVideoStreamInfo(int streamId, SPlayerVideoStreamInfo &info) {}
   virtual void SetVideoStream(int iStream) {}
+
+#ifdef HAS_DS_PLAYER
+  virtual int  GetEditionsCount()      { return 0; }
+  virtual int  GetEdition()            { return -1; }
+  virtual void GetEditionInfo(int iEdition, std::string &strEditionName, REFERENCE_TIME *prt){};
+  virtual void SetEdition(int iEdition){};
+  virtual bool IsMatroskaEditions()    { return false; }
+  virtual void ShowEditionDlg(bool playStart){};
+#endif
 
   virtual TextCacheStruct_t* GetTeletextCache() { return NULL; };
   virtual void LoadPage(int p, int sp, unsigned char* buffer) {};
