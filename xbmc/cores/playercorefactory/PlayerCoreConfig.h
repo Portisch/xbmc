@@ -104,6 +104,12 @@ public:
       pPlayer = new UPNP::CUPnPPlayer(callback, m_id.c_str());
     }
 #endif
+#ifdef HAS_DS_PLAYER
+    else if (m_type.compare("dsplayer") == 0)
+    {
+      pPlayer = new CDSPlayer(callback);
+    }
+#endif
     else
       return nullptr;
 
