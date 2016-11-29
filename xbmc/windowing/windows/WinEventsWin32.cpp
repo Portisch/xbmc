@@ -626,9 +626,6 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
         g_Windowing.ShowOSMouse(true);
       break;
     case WM_MOUSEMOVE:
-<<<<<<< HEAD
-      newEvent.type = XBMC_MOUSEMOTION;
-=======
 #ifdef HAS_DS_PLAYER
       if (g_application.GetCurrentPlayer() == "DSPlayer")
       {
@@ -640,7 +637,6 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
       }
 #endif
 	  newEvent.type = XBMC_MOUSEMOTION;
->>>>>>> 55a3badba5... [DSPLAYER] xbmc/ (general update to krypton)
       newEvent.motion.x = GET_X_LPARAM(lParam);
       newEvent.motion.y = GET_Y_LPARAM(lParam);
       newEvent.motion.state = 0;
