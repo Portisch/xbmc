@@ -27,6 +27,7 @@ set(SYSTEM_DEFINES -DNOMINMAX -D_USE_32BIT_TIME_T -DHAS_DX -D__STDC_CONSTANT_MAC
                    -DTAGLIB_STATIC -DNPT_CONFIG_ENABLE_LOGGING
                    -DPLT_HTTP_DEFAULT_USER_AGENT="UPnP/1.0 DLNADOC/1.50 Kodi"
                    -DPLT_HTTP_DEFAULT_SERVER="UPnP/1.0 DLNADOC/1.50 Kodi"
+                   -DHAS_DS_PLAYER
                    $<$<CONFIG:Debug>:-DD3D_DEBUG_INFO -D_ITERATOR_DEBUG_LEVEL=0>)
 
 # Make sure /FS is set for Visual Studio in order to prevent simultanious access to pdb files.
@@ -49,7 +50,7 @@ link_directories(${PROJECT_SOURCE_DIR}/../../lib/win32/ffmpeg/bin
 
 # Additional libraries
 list(APPEND DEPLIBS d3d11.lib DInput8.lib DSound.lib winmm.lib Mpr.lib Iphlpapi.lib
-                    PowrProf.lib setupapi.lib dwmapi.lib yajl.lib dxguid.lib DelayImp.lib)
+                    PowrProf.lib setupapi.lib dwmapi.lib yajl.lib dxguid.lib DelayImp.lib comctl32.lib)
 
 # NODEFAULTLIB option
 set(_nodefaultlibs_RELEASE libcmt)

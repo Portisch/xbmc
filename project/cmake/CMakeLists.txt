@@ -89,6 +89,8 @@ set(INCLUDES ${CORE_SOURCE_DIR}
              ${CORE_SOURCE_DIR}/xbmc
              ${CORE_SOURCE_DIR}/xbmc/${PLATFORM_DIR}
              ${CORE_SOURCE_DIR}/xbmc/cores/VideoPlayer
+             ${CORE_SOURCE_DIR}/xbmc/cores/DSPlayer
+             ${CORE_SOURCE_DIR}/xbmc/cores/DSPlayer/BaseClasses
              ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR})
 
 find_package(PkgConfig)
@@ -102,8 +104,8 @@ find_package(Threads REQUIRED QUIET)
 list(APPEND DEPLIBS ${CMAKE_THREAD_LIBS_INIT})
 
 # Required dependencies
-set(required_deps Sqlite3 FreeType PCRE Cpluff LibDvd
-                  TinyXML Python Yajl Cdio
+set(required_deps DSExternals DirectX Sqlite3 FreeType PCRE Cpluff LibDvd
+                  TinyXML Python Yajl
                   Lzo2 Fribidi TagLib FFMPEG CrossGUID)
 if(NOT WIN32)
   list(APPEND required_deps ZLIB)
@@ -267,6 +269,8 @@ set_target_properties(gtest PROPERTIES FOLDER "External Projects")
 copy_files_from_filelist_to_buildtree(${PROJECT_SOURCE_DIR}/installdata/common/*.txt
                                       ${PROJECT_SOURCE_DIR}/installdata/${CORE_SYSTEM_NAME}/*.txt)
 
+copy_files_from_filelist_to_buildtree(${PROJECT_SOURCE_DIR}/installdata/windows/dsplayer.txt NO_INSTALL)
+
 list(APPEND SKINS "${CORE_SOURCE_DIR}/addons/skin.estuary\;${CORE_SOURCE_DIR}")
 list(APPEND SKINS "${CORE_SOURCE_DIR}/addons/skin.estouchy\;${CORE_SOURCE_DIR}")
 
@@ -282,6 +286,7 @@ add_custom_target(pack-skins ALL
 set_target_properties(pack-skins PROPERTIES FOLDER "Build Utilities")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/system/players/VideoPlayer)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/system/players/dsplayer)
 
 set(LIBCEC_SONAME "${CEC_SONAME}")
 if(NOT CORE_SYSTEM_NAME STREQUAL windows AND NOT CORE_SYSTEM_NAME STREQUAL android)
@@ -295,7 +300,7 @@ endif()
 # main library (used for main binary and tests)
 add_library(lib${APP_NAME_LC} STATIC $<TARGET_OBJECTS:compileinfo>)
 set_target_properties(lib${APP_NAME_LC} PROPERTIES PREFIX "")
-add_dependencies(lib${APP_NAME_LC} libcpluff ffmpeg dvdnav crossguid)
+add_dependencies(lib${APP_NAME_LC} libcpluff ffmpeg dvdnav crossguid dsexternals)
 
 # Codegen
 add_subdirectory(${CORE_SOURCE_DIR}/xbmc/interfaces/swig build/swig)
