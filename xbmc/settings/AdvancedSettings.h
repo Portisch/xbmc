@@ -353,6 +353,7 @@ class CAdvancedSettings : public ISettingCallback, public ISettingsHandler
     bool m_bDSPlayerFastChannelSwitching; // Live TV fast channel switching (don't stop timeshift), only for MediaPortal TV-Server and ArgusTV PVR backends
     bool m_bDSPlayerUseUNCPathsForLiveTV; // Use UNC paths for Live TV, only for MediaPortal TV-Server and ArgusTV PVR backends
     bool m_bIgnoreSystemAppcommand;
+    bool m_bNotWaitKodiRendering; // default false, madVR for each processed frame will wait up to 100ms that kodi completes the rendering of the GUI, this could be useful in case of GUI flickering.
 #endif
 
     bool m_guiVisualizeDirtyRegions;

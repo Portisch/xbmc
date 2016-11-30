@@ -25,12 +25,13 @@
 #include "guilib/GraphicContext.h"
 #include "windowing/WindowingFactory.h"
 #include "settings/Settings.h"
+#include "settings/AdvancedSettings.h"
 
 CMadvrSharedRender::CMadvrSharedRender()
 {
   CDSRendererCallback::Get()->Register(this);
   m_bSkipRender = false;
-  m_bWaitKodiRendering = CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_WAITKODIRENDERING);
+  m_bWaitKodiRendering = !g_advancedSettings.m_bNotWaitKodiRendering;
 }
 
 CMadvrSharedRender::~CMadvrSharedRender()

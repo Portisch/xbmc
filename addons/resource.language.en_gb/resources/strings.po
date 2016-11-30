@@ -19928,7 +19928,7 @@ msgid "DVDPlayer"
 msgstr ""
 
 msgctxt "#55073"
-msgid "Extra Options"
+msgid ""
 msgstr ""
 
 msgctxt "#55074"

@@ -440,7 +440,6 @@ const std::string CSettings::SETTING_DSPLAYER_MANAGEMADVRWITHKODI = "dsplayer.ma
 const std::string CSettings::SETTING_DSPLAYER_DELAYMADVRPLAYBACK = "dsplayer.delaymadvrplayback";
 const std::string CSettings::SETTING_DSPLAYER_EXCLUSIVEMODE = "dsplayer.exclusivemode";
 const std::string CSettings::SETTING_DSPLAYER_EXITMADVRFULLSCREEN = "dsplayer.exitmadvrfullscreen";
-const std::string CSettings::SETTING_DSPLAYER_WAITKODIRENDERING = "dsplayer.waitkodirendering";
 const std::string CSettings::SETTING_DSPLAYER_MINTITLELENGTH = "dsplayer.mintitlelength";
 const std::string CSettings::SETTING_DSPLAYER_SHOWBDTITLECHOICE = "dsplayer.showbdtitlechoice";
 const std::string CSettings::SETTING_DSPLAYER_BDAUTOLOADINDEX = "dsplayer.bdautoloadindex";
