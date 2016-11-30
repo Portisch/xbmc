@@ -99,13 +99,10 @@ private:
   void ActivateProfile(const std::string &path, const std::string &profile);
 
   void UpdateSettings(const std::string &settingId, CSettingsManager* settingsManager);
-  void UpdateImageDouble();
 
   float IntToFloat(int iValue, const std::string &format);
   int FloatToInt(float fValue, const std::string &format);
 
-  bool IsNNEDI3(const std::string &sValue) { return sValue.find("NNEDI3") != std::string::npos; }
-  bool IsEnabled(const std::string &sValue) { return sValue != "-1"; }
   std::string FixedStr(const std::string &str);
 
   IUnknown* m_pDXR;

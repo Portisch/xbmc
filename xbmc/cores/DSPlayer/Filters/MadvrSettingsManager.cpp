@@ -393,33 +393,7 @@ std::string CMadvrSettingsManager::GetBoolStr(const std::string &path, const std
 
 std::string CMadvrSettingsManager::GetCustom(const std::string &path, const std::string &type)
 {
-  if (type == "list_imagedouble")
-  {
-    std::string strBool = "nnedi" + path + "Enable";
-    std::string strInt = "nnedi" + path + "Quality";
-    std::string strAlgo = path + "Algo";    
-    
-    if (GetBool(strBool, false, type))
-    {
-      std::string sValue = GetStr(strAlgo, type);
-     
-      if (sValue == "NNEDI3")
-      {
-        int iValue = GetInt(strInt, type);
-        sValue = "NNEDI316";
-        if (iValue == 1)
-          sValue = "NNEDI332";
-        if (iValue == 2)
-          sValue = "NNEDI364";
-        if (iValue == 3)
-          sValue = "NNEDI3128";
-        if (iValue == 4)
-          sValue = "NNEDI3256";
-      }
-      return sValue;
-    }
-  }
-  else if (type == "list_quickar")
+  if (type == "list_quickar")
   {
     int iValue = -1;
     bool bArChange = GetBool("arChange", false, type);
@@ -536,38 +510,7 @@ void CMadvrSettingsManager::SetBoolStr(const std::string &path, const std::strin
 
 void CMadvrSettingsManager::SetCustom(const std::string &path, const std::string &sValue, const std::string &type)
 {
-  if (type == "list_imagedouble")
-  {
-    std::string strBool = "nnedi" + path + "Enable";
-    std::string strInt = "nnedi" + path + "Quality";
-    std::string strAlgo = path + "Algo";
-    std::string str = sValue;
-
-    bool b = sValue != "-1";
-    SetBool(strBool, (b), false, type);
-    if (b)
-    {
-      if (sValue.find("NNEDI3") != std::string::npos)
-      {
-        int iValue = 0;
-        if (sValue == "NNEDI332")
-          iValue = 1;
-        if (sValue == "NNEDI364")
-          iValue = 2;
-        if (sValue == "NNEDI3128")
-          iValue = 3;
-        if (sValue == "NNEDI3256")
-          iValue = 4;
-
-        str = "NNEDI3";
-
-        SetInt(strInt, iValue, type);
-      }
-
-      SetStr(strAlgo, str, type);
-    }
-  }
-  else if (type == "list_quickar")
+  if (type == "list_quickar")
   { 
     int iValue = atoi(sValue.c_str());
     bool bQuickZoom = (iValue == 0 || iValue == 25 || iValue == 50 || iValue == 75 || iValue == 100);
@@ -837,66 +780,6 @@ void CMadvrSettingsManager::OnSettingChanged(int iSectionId, CSettingsManager* s
   } 
 }
 
-void CMadvrSettingsManager::UpdateImageDouble()
-{
-  CMadvrSettings &madvrSettings = CMediaSettings::GetInstance().GetCurrentMadvrSettings();
-
-  std::string sDoubleLuma = madvrSettings.m_db["DL"].asString();
-  std::string sDoubleChroma = madvrSettings.m_db["DC"].asString();
-  std::string sQuadrupleLuma = madvrSettings.m_db["QL"].asString();
-  std::string sQuadrupleChroma = madvrSettings.m_db["QC"].asString();
-  std::string sDoubleLumaFactor = madvrSettings.m_db["nnediDLScalingFactor"].asString();
-  std::string sDoubleChromaFactor = madvrSettings.m_db["nnediDCScalingFactor"].asString();
-  std::string sQuadrupleLumaFactor = madvrSettings.m_db["nnediQLScalingFactor"].asString();
-  std::string sQuadrupleChromaFactor = madvrSettings.m_db["nnediQCScalingFactor"].asString();
-
-  // Update double factor
-  if (!IsNNEDI3(sDoubleLuma)
-    || (IsNNEDI3(sDoubleLuma) && sDoubleChromaFactor > sDoubleLumaFactor))
-    sDoubleChromaFactor = sDoubleLumaFactor;
-
-  // Update quadruple factor
-  if (!IsNNEDI3(sQuadrupleLuma)
-    || (IsNNEDI3(sQuadrupleLuma) && sQuadrupleChromaFactor > sQuadrupleLumaFactor))
-    sQuadrupleChromaFactor = sQuadrupleLumaFactor;
-
-  // Update double chroma
-  if (!IsNNEDI3(sDoubleLuma)
-    || (IsNNEDI3(sDoubleLuma) && sDoubleChroma > sDoubleLuma))
-    sDoubleChroma = sDoubleLuma;
-
-  // Update quadruple luma
-  if (((!IsNNEDI3(sDoubleLuma) && IsNNEDI3(sQuadrupleLuma))
-    || (IsNNEDI3(sDoubleLuma) && IsNNEDI3(sQuadrupleLuma) && sQuadrupleLuma > sDoubleLuma)
-    || (!IsEnabled(sDoubleLuma)))
-    && IsEnabled(sQuadrupleLuma))
-    sQuadrupleLuma = sDoubleLuma;
-
-  // Update quadruple chroma
-  if (!IsNNEDI3(sQuadrupleLuma)
-    || (IsNNEDI3(sQuadrupleLuma) && sQuadrupleChroma > sQuadrupleLuma))
-    sQuadrupleChroma = sQuadrupleLuma;
-
-  if (IsNNEDI3(sQuadrupleLuma) && sQuadrupleChroma > sDoubleChroma)
-    sQuadrupleChroma = sDoubleChroma;
-
-  // Set New settings in madVR  
-  
-  SetCustom("DC", sDoubleChroma, "list_imagedouble");
-  SetCustom("QL", sQuadrupleLuma, "list_imagedouble");
-  SetCustom("QC", sQuadrupleChroma, "list_imagedouble");    
-  SetStr("nnediDCScalingFactor", sDoubleChromaFactor, "list_string");
-  SetStr("nnediQCScalingFactor", sQuadrupleChromaFactor, "list_string");
-
-  // Set New settings in db
-  madvrSettings.m_db["DC"] = sDoubleChroma;
-  madvrSettings.m_db["QL"] = sQuadrupleLuma;
-  madvrSettings.m_db["QC"] = sQuadrupleChroma;  
-  madvrSettings.m_db["nnediDCScalingFactor"] = sDoubleChromaFactor;
-  madvrSettings.m_db["nnediQCScalingFactor"] = sQuadrupleChromaFactor;
-  
-}
-
 void CMadvrSettingsManager::UpdateSettings(const std::string &settingId, CSettingsManager* settingsManager)
 {
   if (!m_bAllowChanges)
@@ -904,25 +787,6 @@ void CMadvrSettingsManager::UpdateSettings(const std::string &settingId, CSettin
 
   m_bAllowChanges = false;
   CMadvrSettings &madvrSettings = CMediaSettings::GetInstance().GetCurrentMadvrSettings();
-
-  // UPDATE IMAGE DOUBLE
-  if (settingId == SET_IMAGE_DOUBLE_LUMA
-    || settingId == SET_IMAGE_DOUBLE_CHROMA
-    || settingId == SET_IMAGE_QUADRUPLE_LUMA
-    || settingId == SET_IMAGE_QUADRUPLE_CHROMA
-    || settingId == SET_IMAGE_DOUBLE_LUMA_FACTOR
-    || settingId == SET_IMAGE_DOUBLE_CHROMA_FACTOR
-    || settingId == SET_IMAGE_QUADRUPLE_LUMA_FACTOR
-    || settingId == SET_IMAGE_QUADRUPLE_CHROMA_FACTOR
-    )
-  {
-    UpdateImageDouble();
-    settingsManager->SetString(SET_IMAGE_DOUBLE_CHROMA, madvrSettings.m_db["DC"].asString());
-    settingsManager->SetString(SET_IMAGE_QUADRUPLE_LUMA, madvrSettings.m_db["QL"].asString());
-    settingsManager->SetString(SET_IMAGE_QUADRUPLE_CHROMA, madvrSettings.m_db["QC"].asString());
-    settingsManager->SetString(SET_IMAGE_DOUBLE_CHROMA_FACTOR, madvrSettings.m_db["nnediDCScalingFactor"].asString());
-    settingsManager->SetString(SET_IMAGE_QUADRUPLE_CHROMA_FACTOR, madvrSettings.m_db["nnediQCScalingFactor"].asString());
-  }
 
   // UPDATE ZOOM ARCHANGE
   if (settingId == SET_ZOOM_ARCHANGE
