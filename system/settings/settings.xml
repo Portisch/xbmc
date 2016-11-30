@@ -852,7 +852,7 @@
       </group>
     </category>
     <category id="dsplayer" label="55000" help="90025">
-      <group id="1">
+      <group id="1" label="55000">
         <setting id="dsplayer.defaultvideoplayer" type="boolean" label="55031" help="90000">
           <level>0</level>
           <default>true</default>
@@ -865,6 +865,8 @@
           </dependencies>
           <control type="button" format="action" />
         </setting>
+      </group>
+      <group id="2" label="55095">
         <setting id="dsplayer.videorenderer" type="string" label="55001" help="90002">
           <level>0</level>
           <default>madVR</default>
@@ -922,7 +924,7 @@
           <control type="list" format="string" />
         </setting>
       </group>
-      <group id="2">
+      <group id="3" label="55002">
         <setting id="dsplayer.filtersmanagement" type="integer" label="55021" help="90008">
           <level>0</level>
           <default>0</default> <!-- internal lav filters -->
@@ -1031,29 +1033,7 @@
           <control type="list" format="string" />
         </setting>
       </group>
-      <group id="3">
-        <setting id="dsplayer.showbdtitlechoice" type="boolean" label="55030" help="90008">
-          <level>0</level>
-          <default>true</default>
-          <control type="toggle" />
-        </setting>
-        <setting id="dsplayer.showbdtitlechoice" type="boolean" label="55032" help="90009">
-          <level>0</level>
-          <default>true</default>
-          <control type="toggle" />
-        </setting>
-        <setting id="dsplayer.mintitlelength" type="integer" label="55022" help="90010">
-          <level>0</level>
-          <default>30</default>
-          <constraints>
-            <minimum>0</minimum>
-            <step>1</step>
-            <maximum>300</maximum>
-          </constraints>
-          <control type="spinner" format="integer" />
-        </setting>
-      </group>
-      <group id="4">
+      <group id="4" label="55073">
         <setting id="dsplayer.prefaudiocodec" type="string" label="55096" help="90028">
           <level>0</level>
           <default></default>
@@ -1087,6 +1067,28 @@
         </setting>
       </group>
       <group id="5">
+        <setting id="dsplayer.showbdtitlechoice" type="boolean" label="55030" help="90008">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="dsplayer.showbdtitlechoice" type="boolean" label="55032" help="90009">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="dsplayer.mintitlelength" type="integer" label="55022" help="90010">
+          <level>0</level>
+          <default>30</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>300</maximum>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+      </group>
+      <group id="6" label="631">
         <setting id="dsplayer.osdintoactivearea" type="boolean" label="55091" help="">
           <level>0</level>
           <default>false</default>
