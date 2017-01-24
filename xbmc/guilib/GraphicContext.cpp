@@ -63,6 +63,9 @@ CGraphicContext::CGraphicContext(void) :
   , m_stereoMode(RENDER_STEREO_MODE_OFF)
   , m_nextStereoMode(RENDER_STEREO_MODE_OFF)
 {
+#ifdef HAS_DS_PLAYER
+  m_oldDsActiveArea.SetRect(0, 0, 0, 0);
+#endif
 }
 
 CGraphicContext::~CGraphicContext(void)
@@ -726,6 +729,10 @@ void CGraphicContext::SetResInfo(RESOLUTION res, const RESOLUTION_INFO& info)
 
 void CGraphicContext::GetGUIScaling(const RESOLUTION_INFO &res, float &scaleX, float &scaleY, TransformMatrix *matrix /* = NULL */)
 {
+#ifdef HAS_DS_PLAYER
+  CRect activeRect(0, 0, 0, 0);
+#endif
+
   if (m_Resolution != RES_INVALID)
   {
     // calculate necessary scalings
@@ -802,6 +809,16 @@ void CGraphicContext::GetGUIScaling(const RESOLUTION_INFO &res, float &scaleX, f
     if (matrix)
       matrix->Reset();
   }
+
+#ifdef HAS_DS_PLAYER
+  if (CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_OSDINTOACTIVEAREA)
+    && (m_oldDsActiveArea != activeRect))
+  {
+    m_oldDsActiveArea = activeRect;
+    CGUIMessage msg(GUI_MSG_NOTIFY_ALL, 0, 0, GUI_MSG_WINDOW_RESIZE);
+    g_windowManager.SendThreadMessage(msg);
+  }
+#endif
 }
 
 void CGraphicContext::SetScalingResolution(const RESOLUTION_INFO &res, bool needsScaling)

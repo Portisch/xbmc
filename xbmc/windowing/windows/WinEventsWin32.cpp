@@ -50,6 +50,11 @@
 #include "Util.h"
 #include "messaging/ApplicationMessenger.h"
 
+#ifdef HAS_DS_PLAYER
+#include "DSPlayer.h"
+#include "DSRendererCallback.h"
+#endif
+
 #ifdef TARGET_WINDOWS
 
 using namespace PERIPHERALS;
@@ -653,7 +658,7 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
         }
       }
 #endif
-  	case WM_MBUTTONDOWN:
+	case WM_MBUTTONDOWN:
     case WM_RBUTTONDOWN:
       newEvent.type = XBMC_MOUSEBUTTONDOWN;
       newEvent.button.state = XBMC_PRESSED;
@@ -737,6 +742,9 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
       }
       return(0);  
     case WM_SIZE:
+#ifdef HAS_DS_PLAYER
+      PostMessage(CDSPlayer::GetDShWnd(), uMsg, wParam, lParam);
+#endif
       newEvent.type = XBMC_VIDEORESIZE;
       newEvent.resize.w = GET_X_LPARAM(lParam);
       newEvent.resize.h = GET_Y_LPARAM(lParam);
@@ -864,7 +872,12 @@ LRESULT CALLBACK CWinEventsWin32::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
       CZeroconfBrowser::GetInstance()->ProcessResults();
       break;
   }
+#ifdef HAS_DS_PLAYER
+  LRESULT ret = 0;
+  return (CDSRendererCallback::Get()->ParentWindowProc(hWnd, uMsg, &wParam, &lParam, &ret)) ? ret : DefWindowProc(hWnd, uMsg, wParam, lParam);
+#else
   return(DefWindowProc(hWnd, uMsg, wParam, lParam));
+#endif
 }
 
 void CWinEventsWin32::RegisterDeviceInterfaceToHwnd(GUID InterfaceClassGuid, HWND hWnd, HDEVNOTIFY *hDeviceNotify)

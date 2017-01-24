@@ -150,6 +150,10 @@
 #include "dialogs/GUIDialogButtonMenu.h"
 #include "dialogs/GUIDialogSimpleMenu.h"
 #include "addons/GUIDialogAddonSettings.h"
+#ifdef HAS_DS_PLAYER
+#include "DSRendererCallback.h"
+#include "DSPlayerDatabase.h"
+#endif
 
 // PVR related include Files
 #include "pvr/PVRManager.h"
@@ -177,6 +181,9 @@
 
 #ifdef TARGET_WINDOWS
 #include "win32util.h"
+#ifdef HAS_DS_PLAYER
+#include "cores/DSPlayer/Filters/RendererSettings.h"
+#endif
 #endif
 
 #ifdef TARGET_DARWIN_OSX
@@ -1424,7 +1431,17 @@ void CApplication::OnSettingChanged(const CSetting *setting)
       CApplicationMessenger::GetInstance().PostMsg(TMSG_EXECUTE_BUILT_IN, -1, -1, nullptr, builtin);
     }
   }
+#ifdef HAS_DS_PLAYER
+  else if (settingId == CSettings::SETTING_LOOKANDFEEL_SKINZOOM
+    || settingId == CSettings::SETTING_DSPLAYER_DEFINEDSAREA
+    || settingId == CSettings::SETTING_DSPLAYER_DSAREALEFT
+    || settingId == CSettings::SETTING_DSPLAYER_DSAREARIGHT
+    || settingId == CSettings::SETTING_DSPLAYER_DSAREATOP
+    || settingId == CSettings::SETTING_DSPLAYER_DSAREABOTTOM
+    )
+#else
   else if (settingId == CSettings::SETTING_LOOKANDFEEL_SKINZOOM)
+#endif
   {
     CGUIMessage msg(GUI_MSG_NOTIFY_ALL, 0, 0, GUI_MSG_WINDOW_RESIZE);
     g_windowManager.SendThreadMessage(msg);
@@ -1910,6 +1927,9 @@ void CApplication::Render()
   if(!g_Windowing.BeginRender())
     return;
 
+#ifdef HAS_DS_PLAYER
+  CDSRendererCallback::Get()->RenderToUnderTexture();
+#endif
   CDirtyRegionList dirtyRegions;
 
   // render gui layer
@@ -1945,6 +1965,9 @@ void CApplication::Render()
   g_windowManager.RenderEx();
 
   g_Windowing.EndRender();
+#ifdef HAS_DS_PLAYER
+  CDSRendererCallback::Get()->EndRender();
+#endif
 
   // reset our info cache - we do this at the end of Render so that it is
   // fresh for the next process(), or after a windowclose animation (where process()
@@ -3245,7 +3268,10 @@ PlayBackRet CApplication::PlayFile(CFileItem item, const std::string& player, bo
     m_nextPlaylistItem = -1;
     m_currentStackPosition = 0;
     m_currentStack->Clear();
-
+#ifdef HAS_DS_PLAYER
+    m_progressTrackingVideoResumeBookmark.edition.editionNumber = 0;
+    m_progressTrackingVideoResumeBookmark.edition.editionName = "";
+#endif
     if (item.IsVideo())
       CUtil::ClearSubtitles();
   }
@@ -3742,7 +3768,12 @@ void CApplication::SaveFileState(bool bForeground /* = false */)
       m_progressTrackingVideoResumeBookmark,
       m_progressTrackingPlayCountUpdate,
       CMediaSettings::GetInstance().GetCurrentVideoSettings(),
-      CMediaSettings::GetInstance().GetCurrentAudioSettings());
+      CMediaSettings::GetInstance().GetCurrentAudioSettings()
+#ifdef HAS_DS_PLAYER
+      ,
+      CMediaSettings::GetInstance().GetCurrentMadvrSettings()
+#endif
+      );
   
   if (bForeground)
   {
@@ -3918,6 +3949,14 @@ void CApplication::StopPlaying()
 
   if ( m_pPlayer->IsPlaying() )
   {
+
+#ifdef HAS_DS_PLAYER
+  if (m_pPlayer->GetEditionsCount() > 1)
+  {
+    m_progressTrackingVideoResumeBookmark.edition.editionNumber = m_pPlayer->GetEdition();
+    m_pPlayer->GetEditionInfo(m_progressTrackingVideoResumeBookmark.edition.editionNumber, m_progressTrackingVideoResumeBookmark.edition.editionName, NULL);
+   }
+#endif
     m_pPlayer->CloseFile();
 
     // turn off visualisation window when stopping

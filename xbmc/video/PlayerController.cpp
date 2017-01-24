@@ -90,6 +90,15 @@ bool CPlayerController::OnAction(const CAction &action)
       case ACTION_NEXT_SUBTITLE:
       case ACTION_CYCLE_SUBTITLE:
       {
+
+#ifdef HAS_DS_PLAYER
+		  if (CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_VIDEOSUBSEX))
+		  {
+			  CGUIDialogAudioSubtitleSettings::ShowSubsSelector();
+			  return true;
+		  }
+#endif
+
         if (g_application.m_pPlayer->GetSubtitleCount() == 0)
           return true;
 
@@ -203,6 +212,13 @@ bool CPlayerController::OnAction(const CAction &action)
 
       case ACTION_AUDIO_NEXT_LANGUAGE:
       {
+#ifdef HAS_DS_PLAYER
+		  if (CSettings::GetInstance().GetBool(CSettings::SETTING_DSPLAYER_VIDEOAUDIOEX))
+		  {
+			  CGUIDialogAudioSubtitleSettings::ShowAudioSelector();
+			  return true;
+		  }
+#endif
         if (g_application.m_pPlayer->GetAudioStreamCount() == 1)
           return true;
 

@@ -442,7 +442,7 @@ void CGUIDialogVideoSettings::InitializeSettings()
   entries.push_back(std::make_pair(16322, VS_SCALINGMETHOD_SPLINE36));
   entries.push_back(std::make_pair(16305, VS_SCALINGMETHOD_LANCZOS3));
   entries.push_back(std::make_pair(16306, VS_SCALINGMETHOD_SINC8));
-//  entries.push_back(make_pair(?????, VS_SCALINGMETHOD_NEDI));
+  // entries.push_back(std::make_pair(?????, VS_SCALINGMETHOD_NEDI));
   entries.push_back(std::make_pair(16307, VS_SCALINGMETHOD_BICUBIC_SOFTWARE));
   entries.push_back(std::make_pair(16308, VS_SCALINGMETHOD_LANCZOS_SOFTWARE));
   entries.push_back(std::make_pair(16309, VS_SCALINGMETHOD_SINC_SOFTWARE));
@@ -535,6 +535,7 @@ void CGUIDialogVideoSettings::InitializeSettings()
     AddButton(groupSaveAsDefault, SETTING_VIDEO_MAKE_DEFAULT, 12376, 0);
 #else
   AddButton(groupSaveAsDefault, SETTING_VIDEO_MAKE_DEFAULT, 12376, 0);
+#endif
   AddButton(groupSaveAsDefault, SETTING_VIDEO_CALIBRATION, 214, 0);
 }
 

@@ -34,6 +34,12 @@ public:
     VIDEO,
     AUDIO,
     SUBTITLE
+#ifdef HAS_DS_PLAYER
+    ,
+    EDITION = 18,
+    BD_TITLE,
+    PROGRAMM
+#endif
   };
 
   CStreamDetail(StreamType type) : m_eType(type), m_pParent(NULL) {};
@@ -92,6 +98,17 @@ public:
 
   std::string m_strLanguage;
 };
+
+#ifdef HAS_DS_PLAYER
+class CStreamDetailEditon : public CStreamDetail
+{
+public:
+  CStreamDetailEditon();
+  virtual void Archive(CArchive& ar);
+  virtual void Serialize(CVariant& value);
+  std::string m_strName;
+};
+#endif
 
 class CStreamDetails : public IArchivable, public ISerializable
 {

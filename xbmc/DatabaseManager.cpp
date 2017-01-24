@@ -68,6 +68,9 @@ void CDatabaseManager::Initialize(bool addonsOnly)
   { CPVRDatabase db; UpdateDatabase(db, &g_advancedSettings.m_databaseTV); }
   { CEpgDatabase db; UpdateDatabase(db, &g_advancedSettings.m_databaseEpg); }
   { CActiveAEDSPDatabase db; UpdateDatabase(db, &g_advancedSettings.m_databaseADSP); }
+#ifdef HAS_DS_PLAYER
+  { CDSPlayerDatabase db; UpdateDatabase(db, &g_advancedSettings.m_databaseDSPlayer); }
+#endif
   CLog::Log(LOGDEBUG, "%s, updating databases... DONE", __FUNCTION__);
   m_bIsUpgrading = false;
 }

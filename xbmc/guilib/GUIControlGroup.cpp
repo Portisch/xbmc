@@ -22,6 +22,9 @@
 
 #include <cassert>
 #include <utility>
+#ifdef HAS_DS_PLAYER
+#include "DSRendererCallback.h"
+#endif
 
 #include "guiinfo/GUIInfoLabels.h"
 
@@ -122,7 +125,17 @@ void CGUIControlGroup::Render()
     if (m_renderFocusedLast && control->HasFocus())
       focusedControl = control;
     else
+#ifdef HAS_DS_PLAYER
+    {
+      if (control->GetControlType() == GUICONTROL_VIDEO && control->IsVisible())
+        CDSRendererCallback::Get()->RenderToOverTexture();
+
       control->DoRender();
+    }
+#else      
+      control->DoRender();
+#endif
+
   }
   if (focusedControl)
     focusedControl->DoRender();

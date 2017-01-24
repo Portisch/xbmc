@@ -41,7 +41,7 @@ public:
   std::string m_SubtitleExtTrackName;
 #endif
   EINTERLACEMETHOD m_InterlaceMethod;
-  ESCALINGMETHOD   m_ScalingMethod;
+  int m_ScalingMethod;
   int m_ViewMode;   // current view mode
   float m_CustomZoomAmount; // custom setting zoom amount
   float m_CustomPixelRatio; // custom setting pixel ratio

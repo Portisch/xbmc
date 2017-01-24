@@ -1147,8 +1147,8 @@ bool CGUIDialogVideoInfo::UpdateVideoItemTitle(const CFileItemPtr &pItem)
   }
 
   CVideoDatabase database;
-  if (!database.Open())
-    return false;
+  if (!database.Open()) return false;
+
 
   int iDbId = pItem->GetVideoInfoTag()->m_iDbId;
   MediaType mediaType = pItem->GetVideoInfoTag()->m_type;

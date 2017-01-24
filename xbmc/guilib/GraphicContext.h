@@ -281,6 +281,9 @@ private:
   RENDER_STEREO_MODE m_nextStereoMode;
 
   CRect m_scissors;
+#ifdef HAS_DS_PLAYER
+  CRect m_oldDsActiveArea;
+#endif
 };
 
 /*!

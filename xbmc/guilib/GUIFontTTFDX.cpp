@@ -25,6 +25,9 @@
 #include "Texture.h"
 #include "windowing/WindowingFactory.h"
 #include "utils/log.h"
+#ifdef HAS_DS_PLAYER
+#include "DSRendererCallback.h"
+#endif
 
 // stuff for freetype
 #include <ft2build.h>

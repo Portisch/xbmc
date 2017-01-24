@@ -172,8 +172,11 @@ bool CSaveFileStateJob::DoWork()
             updateListing = true;
           }
         }
-
+#ifdef HAS_DS_PLAYER
+        if (m_videoSettings != CMediaSettings::GetInstance().GetAtStartVideoSettings())
+#else
         if (m_videoSettings != CMediaSettings::GetInstance().GetDefaultVideoSettings())
+#endif
         {
           videodatabase.SetVideoSettings(progressTrackingFile, m_videoSettings);
         }

@@ -123,10 +123,10 @@ PlayBackRet CApplicationPlayer::OpenFile(const CFileItem& item, const CPlayerOpt
   return iResult;
 }
 
-bool CApplicationPlayer::HasPlayer() const 
-{ 
+bool CApplicationPlayer::HasPlayer() const
+{
   std::shared_ptr<IPlayer> player = GetInternal();
-  return player != NULL; 
+  return player != NULL;
 }
 
 int CApplicationPlayer::GetChapter()
@@ -134,7 +134,7 @@ int CApplicationPlayer::GetChapter()
   std::shared_ptr<IPlayer> player = GetInternal();
   if (player)
     return player->GetChapter();
-  else 
+  else
     return -1;
 }
 
@@ -143,7 +143,7 @@ int CApplicationPlayer::GetChapterCount()
   std::shared_ptr<IPlayer> player = GetInternal();
   if (player)
     return player->GetChapterCount();
-  else 
+  else
     return 0;
 }
 
@@ -764,7 +764,7 @@ void CApplicationPlayer::SetPlaySpeed(float speed)
     return;
 
   if (!IsPlayingAudio() && !IsPlayingVideo())
-    return ;
+    return;
 
   SetSpeed(speed);
   m_speedUpdate.SetExpired();

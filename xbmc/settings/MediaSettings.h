@@ -27,6 +27,10 @@
 #include "settings/lib/ISubSettings.h"
 #include "settings/AudioDSPSettings.h"
 #include "settings/VideoSettings.h"
+#ifdef HAS_DS_PLAYER
+#include "cores/DSplayer/Filters/MadvrSettings.h"
+#include "cores/DSplayer/Filters/LavSettings.h"
+#endif
 #include "threads/CriticalSection.h"
 
 #define VOLUME_DRC_MINIMUM 0    // 0dB

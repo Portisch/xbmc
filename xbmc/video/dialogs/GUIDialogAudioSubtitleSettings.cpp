@@ -48,6 +48,14 @@
 #include "utils/URIUtils.h"
 #include "utils/Variant.h"
 #include "video/VideoDatabase.h"
+#ifdef HAS_DS_PLAYER
+#include "guilib/GUIWindowManager.h"
+#include "dialogs/GUIDialogSelect.h"
+#include "dialogs/GUIDialogKaiToast.h"
+#include "GUIInfoManager.h"
+#include "input/Key.h"
+#include "cores/DSPlayer/dsgraph.h"
+#endif
 
 #define SETTING_AUDIO_VOLUME                   "audio.volume"
 #define SETTING_AUDIO_VOLUME_AMPLIFICATION     "audio.volumeamplification"
@@ -63,6 +71,12 @@
 #define SETTING_SUBTITLE_BROWSER               "subtitles.browser"
 
 #define SETTING_AUDIO_MAKE_DEFAULT             "audio.makedefault"
+
+#ifdef HAS_DS_PLAYER
+// separator
+#define EDITONS_SETTINGS		          "editions.settings"
+#endif
+
 
 CGUIDialogAudioSubtitleSettings::CGUIDialogAudioSubtitleSettings()
   : CGUIDialogSettingsManualBase(WINDOW_DIALOG_AUDIO_OSD_SETTINGS, "DialogSettings.xml"),
@@ -83,11 +97,16 @@ void CGUIDialogAudioSubtitleSettings::FrameMove()
   if (g_application.m_pPlayer->HasPlayer())
   {
     const CVideoSettings &videoSettings = CMediaSettings::GetInstance().GetCurrentVideoSettings();
-    
+
     // these settings can change on the fly
     //! @todo (needs special handling): m_settingsManager->SetInt(SETTING_AUDIO_STREAM, g_application.m_pPlayer->GetAudioStream());
     if (!m_dspEnabled) //< The follow settings are on enabled DSP system separated to them and need no update here.
     {
+#ifdef HAS_DS_PLAYER
+    if (m_bIsDSPlayer)
+      m_settingsManager->SetNumber(SETTING_AUDIO_DELAY, -videoSettings.m_AudioDelay);
+    else
+#endif
       m_settingsManager->SetNumber(SETTING_AUDIO_DELAY, videoSettings.m_AudioDelay);
       m_settingsManager->SetBool(SETTING_AUDIO_OUTPUT_TO_ALL_SPEAKERS, videoSettings.m_OutputToAllSpeakers);
     }
@@ -133,7 +152,7 @@ void CGUIDialogAudioSubtitleSettings::OnSettingChanged(const CSetting *setting)
     return;
 
   CGUIDialogSettingsManualBase::OnSettingChanged(setting);
-  
+
   CVideoSettings &videoSettings = CMediaSettings::GetInstance().GetCurrentVideoSettings();
   const std::string &settingId = setting->GetId();
   if (settingId == SETTING_AUDIO_VOLUME)
@@ -148,7 +167,12 @@ void CGUIDialogAudioSubtitleSettings::OnSettingChanged(const CSetting *setting)
   }
   else if (settingId == SETTING_AUDIO_DELAY)
   {
+#ifdef HAS_DS_PLAYER
+    double dValue = static_cast<float>(static_cast<const CSettingNumber*>(setting)->GetValue());
+    m_bIsDSPlayer ? videoSettings.m_AudioDelay = -dValue : videoSettings.m_AudioDelay = dValue;
+#else
     videoSettings.m_AudioDelay = static_cast<float>(static_cast<const CSettingNumber*>(setting)->GetValue());
+#endif
     g_application.m_pPlayer->SetAVDelay(videoSettings.m_AudioDelay);
   }
   else if (settingId == SETTING_AUDIO_STREAM)
@@ -178,7 +202,12 @@ void CGUIDialogAudioSubtitleSettings::OnSettingChanged(const CSetting *setting)
   }
   else if (settingId == SETTING_SUBTITLE_DELAY)
   {
+#ifdef HAS_DS_PLAYER
+    double dValue = static_cast<float>(static_cast<const CSettingNumber*>(setting)->GetValue());
+    m_bIsDSPlayer ? videoSettings.m_SubtitleDelay = -dValue : videoSettings.m_SubtitleDelay = dValue;
+#else
     videoSettings.m_SubtitleDelay = static_cast<float>(static_cast<const CSettingNumber*>(setting)->GetValue());
+#endif
     g_application.m_pPlayer->SetSubTitleDelay(videoSettings.m_SubtitleDelay);
   }
   else if (settingId == SETTING_SUBTITLE_STREAM)
@@ -194,7 +223,7 @@ void CGUIDialogAudioSubtitleSettings::OnSettingAction(const CSetting *setting)
     return;
 
   CGUIDialogSettingsManualBase::OnSettingAction(setting);
-  
+
   const std::string &settingId = setting->GetId();
   if (settingId == SETTING_AUDIO_DSP)
   {
@@ -218,7 +247,7 @@ void CGUIDialogAudioSubtitleSettings::OnSettingAction(const CSetting *setting)
       std::vector<std::string> paths;
       paths.push_back(URIUtils::GetDirectory(strPath));
       paths.push_back(CSettings::GetInstance().GetString(CSettings::SETTING_SUBTITLES_CUSTOMPATH));
-      share.FromNameAndPaths("video",g_localizeStrings.Get(21367),paths);
+      share.FromNameAndPaths("video", g_localizeStrings.Get(21367), paths);
       shares.push_back(share);
       strPath = share.strPath;
       URIUtils::AddSlashAtEnd(strPath);
@@ -230,19 +259,24 @@ void CGUIDialogAudioSubtitleSettings::OnSettingAction(const CSetting *setting)
         if (XFILE::CFile::Exists(URIUtils::ReplaceExtension(strPath, ".idx")))
           strPath = URIUtils::ReplaceExtension(strPath, ".idx");
       }
-      
+
       g_application.m_pPlayer->AddSubtitle(strPath);
       Close();
     }
   }
   else if (settingId == SETTING_AUDIO_MAKE_DEFAULT)
     Save();
+
+#ifdef HAS_DS_PLAYER
+  else if (settingId == EDITONS_SETTINGS)
+    g_application.m_pPlayer->ShowEditionDlg(false);
+#endif
 }
 
 void CGUIDialogAudioSubtitleSettings::Save()
 {
   if (!g_passwordManager.CheckSettingLevelLock(SettingLevelExpert) &&
-      CProfilesManager::GetInstance().GetMasterProfile().getLockMode() != LOCK_MODE_EVERYONE)
+    CProfilesManager::GetInstance().GetMasterProfile().getLockMode() != LOCK_MODE_EVERYONE)
     return;
 
   // prompt user if they are sure
@@ -301,6 +335,16 @@ void CGUIDialogAudioSubtitleSettings::InitializeSettings()
     CLog::Log(LOGERROR, "CGUIDialogAudioSubtitleSettings: unable to setup settings");
     return;
   }
+
+#ifdef HAS_DS_PLAYER
+  CSettingGroup *groupEdition = AddGroup(category);
+  if (groupEdition == NULL)
+  {
+    CLog::Log(LOGERROR, "CGUIDialogAudioSubtitleSettings: unable to setup settings");
+    return;
+  }
+#endif
+
   CSettingGroup *groupSaveAsDefault = AddGroup(category);
   if (groupSaveAsDefault == NULL)
   {
@@ -308,10 +352,11 @@ void CGUIDialogAudioSubtitleSettings::InitializeSettings()
     return;
   }
 
+
   bool usePopup = g_SkinInfo->HasSkinFile("DialogSlider.xml");
 
   CVideoSettings &videoSettings = CMediaSettings::GetInstance().GetCurrentVideoSettings();
-  
+
   if (g_application.m_pPlayer->HasPlayer())
   {
     g_application.m_pPlayer->GetAudioCapabilities(m_audioCaps);
@@ -353,7 +398,7 @@ void CGUIDialogAudioSubtitleSettings::InitializeSettings()
     CSettingNumber *settingAudioDelay = AddSlider(groupAudio, SETTING_AUDIO_DELAY, 297, 0, videoSettings.m_AudioDelay, 0, -g_advancedSettings.m_videoAudioDelayRange, 0.025f, g_advancedSettings.m_videoAudioDelayRange, 297, usePopup);
     static_cast<CSettingControlSlider*>(settingAudioDelay->GetControl())->SetFormatter(SettingFormatterDelay);
   }
-  
+
   // audio stream setting
   if (SupportsAudioFeature(IPC_AUD_SELECT_STREAM))
     AddAudioStreams(groupAudio, SETTING_AUDIO_STREAM);
@@ -389,6 +434,13 @@ void CGUIDialogAudioSubtitleSettings::InitializeSettings()
   // subtitle browser setting
   if (SupportsSubtitleFeature(IPC_SUBS_EXTERNAL))
     AddButton(groupSubtitles, SETTING_SUBTITLE_BROWSER, 13250, 0);
+
+#ifdef HAS_DS_PLAYER
+  if (g_application.m_pPlayer->GetEditionsCount() > 1)
+  {
+    AddButton(groupEdition, EDITONS_SETTINGS, g_application.m_pPlayer->IsMatroskaEditions() ? 55023 : 55024, 0);
+  }
+#endif
 
   // subtitle stream setting
   AddButton(groupSaveAsDefault, SETTING_AUDIO_MAKE_DEFAULT, 12376, 0);
@@ -531,8 +583,6 @@ std::string CGUIDialogAudioSubtitleSettings::SettingFormatterDelay(const CSettin
 
   if (fabs(fValue) < 0.5f * fStep)
     return StringUtils::Format(g_localizeStrings.Get(22003).c_str(), 0.0);
-  if (fValue < 0)
-    return StringUtils::Format(g_localizeStrings.Get(22004).c_str(), fabs(fValue));
 
 #ifdef HAS_DS_PLAYER
   if (g_application.GetCurrentPlayer() == "DSPlayer")

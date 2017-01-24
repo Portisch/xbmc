@@ -27,6 +27,9 @@
 #include "FileItem.h"
 #include "profiles/ProfilesManager.h"
 #include "settings/AdvancedSettings.h"
+#ifdef HAS_DS_PLAYER
+#include "DSPlayer.h"
+#endif
 #include "PlayerCoreConfig.h"
 #include "PlayerSelectionRule.h"
 #include "guilib/LocalizeStrings.h"

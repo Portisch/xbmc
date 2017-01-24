@@ -93,6 +93,11 @@ public:
   bool                    Interlaced() const          { return m_interlaced; }
   int                     GetBackbufferCount() const  { return 2; }
   void                    SetAlphaBlendEnable(bool enable);
+#ifdef HAS_DS_PLAYER
+  void                    SetWindowedForMadvr();
+  void                    GetParamsForDSPlayer(bool &useWindowedDX, unsigned int &nBackBufferWidth, unsigned int &nBackBufferHeight, bool &bVSync, float &refreshRate, bool &interlaced);
+  bool                    m_UseWindowedDX_DSPlayer;
+#endif
 
   static std::string GetErrorDescription(HRESULT hr);
   void FixRefreshRateIfNecessary(const D3D10DDIARG_CREATERESOURCE* pResource);

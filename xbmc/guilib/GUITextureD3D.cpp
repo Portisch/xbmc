@@ -25,7 +25,9 @@
 #include "GUITextureD3D.h"
 #include "Texture.h"
 #include "windowing/WindowingFactory.h"
-
+#ifdef HAS_DS_PLAYER
+#include "DSRendererCallback.h"
+#endif
 CGUITextureD3D::CGUITextureD3D(float posX, float posY, float width, float height, const CTextureInfo &texture)
 : CGUITextureBase(posX, posY, width, height, texture)
 {

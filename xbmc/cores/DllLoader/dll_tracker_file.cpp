@@ -23,6 +23,7 @@
 #include "DllLoader.h"
 #include "threads/SingleLock.h"
 #include "utils/log.h"
+#include "utils/CharsetConverter.h"
 #include <stdlib.h>
 
 #ifdef TARGET_POSIX
@@ -112,6 +113,18 @@ extern "C"
     tracker_file_free(loc, fd, FILE_XBMC_OPEN);
     return dll_close(fd);
   }
+
+#ifdef HAS_DS_PLAYER
+  FILE* track_wfopen(const wchar_t* swFileName, const wchar_t* wmode)
+  {
+	  std::string filename;
+	  std::string mode;
+
+	  g_charsetConverter.wToUTF8(swFileName, filename);
+	  g_charsetConverter.wToUTF8(wmode, mode);
+	  return track_fopen(filename.c_str(), mode.c_str());
+  }
+#endif
 
   FILE* track_fopen(const char* sFileName, const char* mode)
   {

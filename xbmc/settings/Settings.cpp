@@ -85,6 +85,11 @@
 #include "view/ViewStateSettings.h"
 #include "input/InputManager.h"
 
+#ifdef HAS_DS_PLAYER  
+#include "FGLoader.h"
+#include "cores/DSPlayer/Dialogs/GUIDialogDSManager.h"
+#endif
+
 #define SETTINGS_XML_FOLDER "special://xbmc/system/settings/"
 #define SETTINGS_XML_ROOT   "settings"
 
@@ -601,6 +606,11 @@ void CSettings::Uninitialize()
   m_settingsManager->UnregisterSettingOptionsFiller("audiocdencoders");
   m_settingsManager->UnregisterSettingOptionsFiller("aequalitylevels");
   m_settingsManager->UnregisterSettingOptionsFiller("audiodevices");
+#ifdef HAS_DS_PLAYER 
+  m_settingsManager->UnregisterSettingOptionsFiller("dsvideorenderer");
+  m_settingsManager->UnregisterSettingOptionsFiller("dsaudiorenderer");
+  m_settingsManager->UnregisterSettingOptionsFiller("dsextrafilter");
+#endif
   m_settingsManager->UnregisterSettingOptionsFiller("audiodevicespassthrough");
   m_settingsManager->UnregisterSettingOptionsFiller("audiostreamsilence");
   m_settingsManager->UnregisterSettingOptionsFiller("charsets");
@@ -963,6 +973,11 @@ void CSettings::InitializeOptionFillers()
 #endif
   m_settingsManager->RegisterSettingOptionsFiller("aequalitylevels", CAEFactory::SettingOptionsAudioQualityLevelsFiller);
   m_settingsManager->RegisterSettingOptionsFiller("audiodevices", CAEFactory::SettingOptionsAudioDevicesFiller);
+#ifdef HAS_DS_PLAYER  
+  m_settingsManager->RegisterSettingOptionsFiller("dsvideorenderer", CFGLoader::SettingOptionsDSVideoRendererFiller);
+  m_settingsManager->RegisterSettingOptionsFiller("dsaudiorenderer", CFGLoader::SettingOptionsDSAudioRendererFiller);
+  m_settingsManager->RegisterSettingOptionsFiller("dsextrafilter", CGUIDialogDSManager::AllFiltersConfigOptionFiller);
+#endif
   m_settingsManager->RegisterSettingOptionsFiller("audiodevicespassthrough", CAEFactory::SettingOptionsAudioDevicesPassthroughFiller);
   m_settingsManager->RegisterSettingOptionsFiller("audiostreamsilence", CAEFactory::SettingOptionsAudioStreamsilenceFiller);
   m_settingsManager->RegisterSettingOptionsFiller("charsets", CCharsetConverter::SettingOptionsCharsetsFiller);
@@ -1076,6 +1091,17 @@ void CSettings::InitializeISettingCallbacks()
   settingSet.insert(CSettings::SETTING_VIDEOLIBRARY_CLEANUP);
   settingSet.insert(CSettings::SETTING_VIDEOLIBRARY_IMPORT);
   settingSet.insert(CSettings::SETTING_VIDEOLIBRARY_EXPORT);
+#ifdef HAS_DS_PLAYER
+  settingSet.insert(CSettings::SETTING_DSPLAYER_RULES);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_FILTERS);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_PLAYCORE);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_LAVSPLITTER);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_LAVVIDEO);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_LAVAUDIO);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_XYSUBFILTER);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_XYVSFILTER);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DSAREARESET);
+#endif
   m_settingsManager->RegisterCallback(&CMediaSettings::GetInstance(), settingSet);
 
   settingSet.clear();
@@ -1126,6 +1152,13 @@ void CSettings::InitializeISettingCallbacks()
   settingSet.insert(CSettings::SETTING_LOOKANDFEEL_SKINTHEME);
   settingSet.insert(CSettings::SETTING_LOOKANDFEEL_SKINCOLORS);
   settingSet.insert(CSettings::SETTING_LOOKANDFEEL_SKINZOOM);
+#ifdef HAS_DS_PLAYER
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DEFINEDSAREA);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DSAREALEFT);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DSAREARIGHT);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DSAREATOP);
+  settingSet.insert(CSettings::SETTING_DSPLAYER_DSAREABOTTOM);
+#endif
   settingSet.insert(CSettings::SETTING_MUSICPLAYER_REPLAYGAINPREAMP);
   settingSet.insert(CSettings::SETTING_MUSICPLAYER_REPLAYGAINNOGAINPREAMP);
   settingSet.insert(CSettings::SETTING_MUSICPLAYER_REPLAYGAINTYPE);

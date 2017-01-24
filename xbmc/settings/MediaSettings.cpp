@@ -44,6 +44,13 @@
 #include "video/VideoDatabase.h"
 #include "cores/AudioEngine/Engines/ActiveAE/AudioDSPAddons/ActiveAEDSP.h"
 
+#ifdef HAS_DS_PLAYER
+#include "cores/DSPlayer/Dialogs/GUIDialogDSRules.h"
+#include "cores/DSPlayer/Dialogs/GUIDialogDSFilters.h"
+#include "cores/DSPlayer/Dialogs/GUIDialogDSPlayercoreFactory.h"
+#include "DSRendererCallback.h"
+#include "GraphFilters.h"
+#endif
 using namespace KODI::MESSAGING;
 
 using KODI::MESSAGING::HELPERS::DialogResponse;
@@ -332,6 +339,29 @@ void CMediaSettings::OnSettingAction(const CSetting *setting)
   }
   else if (settingId == CSettings::SETTING_VIDEOLIBRARY_EXPORT)
     CBuiltins::GetInstance().Execute("exportlibrary(video)");
+#ifdef HAS_DS_PLAYER
+  else if (settingId == CSettings::SETTING_DSPLAYER_RULES)
+    CGUIDialogDSRules::ShowDSRulesList();
+  else if (settingId == CSettings::SETTING_DSPLAYER_FILTERS)
+    CGUIDialogDSFilters::ShowDSFiltersList();
+  else if (settingId == CSettings::SETTING_DSPLAYER_PLAYCORE)
+    CGUIDialogDSPlayercoreFactory::ShowDSPlayercoreFactory();
+  else if (settingId == CSettings::SETTING_DSPLAYER_LAVSPLITTER)
+    CGraphFilters::Get()->ShowInternalPPage(LAVSPLITTER, false);
+  else if (settingId == CSettings::SETTING_DSPLAYER_LAVVIDEO)
+    CGraphFilters::Get()->ShowInternalPPage(LAVVIDEO, false);
+  else if (settingId == CSettings::SETTING_DSPLAYER_LAVAUDIO)
+    CGraphFilters::Get()->ShowInternalPPage(LAVAUDIO, false);
+  else if (settingId == CSettings::SETTING_DSPLAYER_XYSUBFILTER || settingId == CSettings::SETTING_DSPLAYER_XYVSFILTER)
+    CGraphFilters::Get()->ShowInternalPPage(XYSUBFILTER, true);
+  else if (settingId == CSettings::SETTING_DSPLAYER_DSAREARESET)
+  {
+    CSettings::GetInstance().SetInt(CSettings::SETTING_DSPLAYER_DSAREALEFT, 0);
+    CSettings::GetInstance().SetInt(CSettings::SETTING_DSPLAYER_DSAREARIGHT, 0);
+    CSettings::GetInstance().SetInt(CSettings::SETTING_DSPLAYER_DSAREATOP, 0);
+    CSettings::GetInstance().SetInt(CSettings::SETTING_DSPLAYER_DSAREABOTTOM, 0);
+  }
+#endif
   else if (settingId == CSettings::SETTING_VIDEOLIBRARY_IMPORT)
   {
     std::string path;

@@ -286,6 +286,41 @@ inline void DXWait(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
   SAFE_RELEASE(wait);
 }
 
+#ifdef HAS_DS_PLAYER
+void CRenderSystemDX::SetWindowedForMadvr()
+{
+  if (!m_bRenderCreated)
+    return;
+
+  HRESULT hr;
+  BOOL bFullScreen;
+  m_pSwapChain->GetFullscreenState(&bFullScreen, NULL);
+
+  if (!!bFullScreen)
+  {
+    CLog::Log(LOGDEBUG, "%s - Switching swap chain to windowed mode.", __FUNCTION__);
+    hr = m_pSwapChain->SetFullscreenState(false, NULL);
+    m_bResizeRequred = S_OK == hr;
+
+    if (S_OK != hr)
+      CLog::Log(LOGERROR, "%s - Failed switch full screen state: %s.", __FUNCTION__, GetErrorDescription(hr).c_str());
+    // wait until switching screen state is done
+    DXWait(m_pD3DDev, m_pImdContext);
+    return;
+  }
+}
+
+void CRenderSystemDX::GetParamsForDSPlayer(bool &useWindowedDX, unsigned int &nBackBufferWidth, unsigned int &nBackBufferHeight, bool &bVSync, float &refreshRate, bool &interlaced)
+{
+  useWindowedDX = m_UseWindowedDX_DSPlayer;
+  nBackBufferWidth = m_nBackBufferWidth;
+  nBackBufferHeight = m_nBackBufferHeight;
+  bVSync = m_bVSync;
+  refreshRate = m_refreshRate;
+  interlaced = m_interlaced;
+}
+#endif
+
 void CRenderSystemDX::SetFullScreenInternal()
 {
   if (!m_bRenderCreated)
@@ -1018,6 +1053,10 @@ bool CRenderSystemDX::CreateWindowSizeDependentResources()
 
   m_resizeInProgress = false;
   m_bResizeRequred = false;
+
+#ifdef HAS_DS_PLAYER
+  CDSPlayer::PostGraphMessage(new CDSMsg(CDSMsg::RESET_DEVICE), true);
+#endif
 
   return true;
 }

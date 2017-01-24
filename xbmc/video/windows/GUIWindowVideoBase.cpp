@@ -66,6 +66,9 @@
 #include "URL.h"
 #include "utils/GroupUtils.h"
 #include "TextureDatabase.h"
+#ifdef HAS_DS_PLAYER
+#include "DSPlayerDatabase.h"
+#endif
 
 using namespace XFILE;
 using namespace PLAYLIST;
@@ -555,7 +558,11 @@ void CGUIWindowVideoBase::AddItemToPlayList(const CFileItemPtr &pItem, CFileItem
   }
 }
 
+#ifdef HAS_DS_PLAYER
+void CGUIWindowVideoBase::GetResumeItemOffset(const CFileItem *item, int& startoffset, int& partNumber, std::string& strEdition)
+#else
 void CGUIWindowVideoBase::GetResumeItemOffset(const CFileItem *item, int& startoffset, int& partNumber)
+#endif
 {
   // do not resume livetv
   if (item->IsLiveTV())
@@ -566,6 +573,14 @@ void CGUIWindowVideoBase::GetResumeItemOffset(const CFileItem *item, int& starto
 
   if (!item->IsNFO() && !item->IsPlayList())
   {
+#ifdef HAS_DS_PLAYER
+    CEdition edition;
+    CDSPlayerDatabase dspdb;
+    if (!dspdb.Open())
+      CLog::Log(LOGERROR, "%s - Cannot open DSPlayer database", __FUNCTION__);
+    else if (dspdb.GetResumeEdition(item, edition))
+      strEdition = edition.editionName;
+#endif 
     if (item->HasVideoInfoTag() && item->GetVideoInfoTag()->m_resumePoint.IsSet())
     {
       startoffset = (int)(item->GetVideoInfoTag()->m_resumePoint.timeInSeconds*75);
@@ -597,7 +612,12 @@ void CGUIWindowVideoBase::GetResumeItemOffset(const CFileItem *item, int& starto
 bool CGUIWindowVideoBase::HasResumeItemOffset(const CFileItem *item)
 {
   int startoffset = 0, partNumber = 0;
+#ifdef HAS_DS_PLAYER
+  std::string editionString;
+  GetResumeItemOffset(item, startoffset, partNumber, editionString);
+#else
   GetResumeItemOffset(item, startoffset, partNumber);
+#endif
   return startoffset > 0;
 }
 
@@ -747,7 +767,12 @@ std::string CGUIWindowVideoBase::GetResumeString(const CFileItem &item)
 {
   std::string resumeString;
   int startOffset = 0, startPart = 0;
+#ifdef HAS_DS_PLAYER
+  std::string editionString;
+  GetResumeItemOffset(&item, startOffset, startPart, editionString);
+#else
   GetResumeItemOffset(&item, startOffset, startPart);
+#endif
   if (startOffset > 0)
   {
     resumeString = StringUtils::Format(g_localizeStrings.Get(12022).c_str(),
@@ -757,6 +782,14 @@ std::string CGUIWindowVideoBase::GetResumeString(const CFileItem &item)
       std::string partString = StringUtils::Format(g_localizeStrings.Get(23051).c_str(), startPart);
       resumeString += " (" + partString + ")";
     }
+#ifdef HAS_DS_PLAYER
+    else if (!editionString.empty())
+    {
+      resumeString += " [";
+      resumeString += editionString;
+      resumeString += "]";
+    }
+#endif
   }
   return resumeString;
 }
@@ -926,9 +959,14 @@ bool CGUIWindowVideoBase::OnPlayStackPart(int iItem)
         choices.Add(SELECT_ACTION_RESUME, resumeString);
         choices.Add(SELECT_ACTION_PLAY, 12021);   // Start from beginning
         int value = CGUIDialogContextMenu::ShowAndGetChoice(choices);
-        if (value == SELECT_ACTION_RESUME)
+        if (value == SELECT_ACTION_RESUME) {
+#ifdef HAS_DS_PLAYER
+          std::string editionString;
+          GetResumeItemOffset(parts[selectedFile - 1].get(), stack->m_lStartOffset, stack->m_lStartPartNumber, editionString);
+#else
           GetResumeItemOffset(parts[selectedFile].get(), stack->m_lStartOffset, stack->m_lStartPartNumber);
-        else if (value != SELECT_ACTION_PLAY)
+#endif
+        } else if (value != SELECT_ACTION_PLAY)
           return false; // if not selected PLAY, then we changed our mind so return
       }
       stack->m_lStartPartNumber = selectedFile + 1;

@@ -1085,6 +1085,10 @@ void CGUIWindowManager::RenderPass() const
           continue;
       }
       (*it)->DoRender();
+    }
+#else
+      (*it)->DoRender();
+#endif
   }
 }
 

@@ -364,6 +364,7 @@ static const ActionMapping windows[] =
     { "osdcmssettings"           , WINDOW_DIALOG_CMS_OSD_SETTINGS },
     { "osdvideosettings"         , WINDOW_DIALOG_VIDEO_OSD_SETTINGS },
     { "osdaudiosettings"         , WINDOW_DIALOG_AUDIO_OSD_SETTINGS },
+
     { "audiodspmanager"          , WINDOW_DIALOG_AUDIO_DSP_MANAGER },
     { "osdaudiodspsettings"      , WINDOW_DIALOG_AUDIO_DSP_OSD_SETTINGS },
     { "videobookmarks"           , WINDOW_DIALOG_VIDEO_BOOKMARKS },
@@ -396,6 +397,14 @@ static const ActionMapping windows[] =
     { "fullscreenradio"          , WINDOW_FULLSCREEN_RADIO },          // virtual window for fullscreen radio, uses WINDOW_VISUALISATION as fallback
     { "visualisation"            , WINDOW_VISUALISATION },
     { "slideshow"                , WINDOW_SLIDESHOW },
+#ifdef HAS_DS_PLAYER
+    {"dsrulesettings"           , WINDOW_DIALOG_DSRULES},
+    {"dsfiltersettings"         , WINDOW_DIALOG_DSFILTERS},
+    {"dsplayercoresettings"     , WINDOW_DIALOG_DSPLAYERCORE},
+        {"dsplayerlavvideo"         , WINDOW_DIALOG_LAVVIDEO},
+        {"dsplayerlavaudio"         , WINDOW_DIALOG_LAVAUDIO},
+        {"dsplayerlavsplitter"      , WINDOW_DIALOG_LAVSPLITTER},
+#endif
     { "weather"                  , WINDOW_WEATHER },
     { "screensaver"              , WINDOW_SCREENSAVER },
     { "videoosd"                 , WINDOW_DIALOG_VIDEO_OSD },
