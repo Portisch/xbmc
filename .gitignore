@@ -255,6 +255,7 @@ lib/cpluff/stamp-h1
 
 # /project/BuildDependencies
 /project/BuildDependencies/downloads
+/project/BuildDependencies/downloads1
 /project/BuildDependencies/downloads2
 /project/BuildDependencies/include
 /project/BuildDependencies/lib
@@ -300,9 +301,13 @@ lib/cpluff/stamp-h1
 /system/libmysql.dll
 /system/python27.dll
 /system/zlib.dll
+/system/libsubs.dll
 
 # /system/players/VideoPlayer
 /system/players/VideoPlayer/*
+
+# /system/players/dsplayer
+/system/players/dsplayer/*
 
 # /system
 /system/profiles.xml
@@ -437,6 +442,8 @@ lib/cpluff/stamp-h1
 /xbmc/cores/playercorefactory/Makefile
 /xbmc/cores/Makefile
 /xbmc/cores/VideoPlayer/VideoRenderers/Makefile
+xbmc/cores/DSPlayer/Libs/src/*
+xbmc/cores/DSPlayer/Libs/tmp/*
 
 # /xbmc/filesystem/
 /xbmc/filesystem/Makefile
