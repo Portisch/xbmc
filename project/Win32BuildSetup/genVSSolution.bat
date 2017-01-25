@@ -36,7 +36,7 @@ SET exitcode=0
 SET useshell=rxvt
 SET BRANCH=na
 FOR %%b in (%1) DO (
-  IF %%b==clean SET createdmode=clean
+  IF %%b==clean SET createmode=clean
   IF %%b==noclean SET createmode=noclean
 )
 
