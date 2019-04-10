@@ -168,7 +168,8 @@ bool CVideoPlayerVideo::OpenStream(CDVDStreamInfo hint)
 
 void CVideoPlayerVideo::OpenStream(CDVDStreamInfo& hint, std::unique_ptr<CDVDVideoCodec> codec)
 {
-  CLog::Log(LOGDEBUG, "CVideoPlayerVideo::OpenStream - open stream with codec id: {}", hint.codec);
+  CLog::Log(LOGDEBUG, "CVideoPlayerVideo::OpenStream - open stream with codec id: {:d} fps:{:d}/{:d} options:{:02x}",
+    hint.codec, hint.fpsrate, hint.fpsscale, hint.codecOptions);
 
   m_processInfo.GetVideoBufferManager().ReleasePools();
 
@@ -219,7 +220,8 @@ void CVideoPlayerVideo::OpenStream(CDVDStreamInfo& hint, std::unique_ptr<CDVDVid
 
   if (!codec)
   {
-    CLog::Log(LOGINFO, "Creating video codec with codec id: {}", hint.codec);
+    CLog::Log(LOGNOTICE, "CVideoPlayerVideo::OpenStream: - Creating video codec with codec id: {:d} fps:{:d}/{:d} options:{:02x}",
+      hint.codec, hint.fpsrate, hint.fpsscale, hint.codecOptions);
     hint.codecOptions |= CODEC_ALLOW_FALLBACK;
     codec = CDVDFactoryCodec::CreateVideoCodec(hint, m_processInfo);
     if (!codec)
