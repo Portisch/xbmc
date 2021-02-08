@@ -16,6 +16,7 @@
 #include "interfaces/legacy/ModuleXbmcvfs.h"
 #include "interfaces/legacy/File.h"
 #include "interfaces/legacy/Stat.h"
+#include "interfaces/legacy/configini.h"
 #include "utils/log.h"
 
 using namespace XBMCAddon;

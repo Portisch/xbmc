@@ -12,48 +12,39 @@
 #include "filesystem/File.h"
 #include "utils/StringUtils.h"
 
+#include <stdlib.h>
+#include <regex>
+
 namespace XBMCAddon
 {
   namespace xbmcvfs
   {
     //
-    /// \defgroup python_stat Stat
+    /// \defgroup python_xbmcvfs configini
     /// \ingroup python_xbmcvfs
     /// @{
-    /// @brief **Get file or file system status.**
+    /// @brief **Get/Set CoreELEC config.ini value.**
     ///
-    /// \python_class{ xbmcvfs.Stat(path) }
-    ///
-    /// These class return information about a file. Execute (search) permission
-    /// is required on all of the directories in path that lead to the file.
-    ///
-    /// @param path                  [string] file or folder
-    ///
+    /// \python_class{ xbmcvfs.configini.get(key) }
+    /// \python_class{ xbmcvfs.configini.set(key, value) }
     ///
     /// ------------------------------------------------------------------------
-    /// @python_v12 New function added
-    ///
-    /// **Example:**
-    /// ~~~~~~~~~~~~~{.py}
-    /// ..
-    ///   st = xbmcvfs.Stat(path)
-    ///   modified = st.st_mtime()
-    /// ..
-    /// ~~~~~~~~~~~~~
     //
     class configini : public AddonClass
     {
       const std::string configini_path = "/flash/config.ini";
-      XFILE::CFile* configini_file;
+      XFILE::CFile configini_file;
     public:
 #ifndef DOXYGEN_SHOULD_USE_THIS
       inline std::string get(std::string var)
       {
+        std::string ret = std::string();
+
         if (XFILE::CFile::Exists(configini_path.c_str(), true))
         {
           char szLine[1024];
           std::string strLine;
-          std::string ret = std::string();
+          std::regex re(StringUtils::Format("^[^#]*\b%s=([^#]*)#*", var.c_str()));
           std::smatch match;
 
           if (!configini_file.Open(configini_path.c_str()))
@@ -67,7 +58,7 @@ namespace XBMCAddon
             strLine = szLine;
             StringUtils::RemoveCRLF(strLine);
 
-            if (std::regex_match(strLine.c_str(), match, std::regex(StringUtils::Format("^[^#]*\b%s=([^#]*)#*", var.c_str()))))
+            if (std::regex_match(strLine, match, re))
             {
               if (match.size() == 2)
               {
@@ -88,6 +79,7 @@ namespace XBMCAddon
         return ret;
       };
 #endif
+    };
   }
 }
 
