@@ -46,22 +46,15 @@ namespace XBMCAddon
       const std::string configini_path = "/flash/config.ini";
       XFILE::CFile* configini_file;
     public:
-#ifdef DOXYGEN_SHOULD_USE_THIS
-      ///
-      /// \ingroup python_stat
-      /// @brief \python_func{ st_mode() }
-      /// To get file protection.
-      ///
-      /// @return                        st_mode
-      ///
-      st_mode();
-#else
+#ifndef DOXYGEN_SHOULD_USE_THIS
       inline std::string get(std::string var)
       {
         if (XFILE::CFile::Exists(configini_path.c_str(), true))
         {
-          char szLine[4096];
+          char szLine[1024];
           std::string strLine;
+          std::string ret = std::string();
+          std::smatch match;
 
           if (!configini_file.Open(configini_path.c_str()))
           {
@@ -74,14 +67,25 @@ namespace XBMCAddon
             strLine = szLine;
             StringUtils::RemoveCRLF(strLine);
 
-            if (std::regex_match(strLine.c_str(), std::regex(StringUtils::Format("^[^#]*\b%s=([^#]*)#*", var.c_str()))))
+            if (std::regex_match(strLine.c_str(), match, std::regex(StringUtils::Format("^[^#]*\b%s=([^#]*)#*", var.c_str()))))
             {
-              
+              if (match.size() == 2)
+              {
+                std::ssub_match value = match[1];
+                ret = value.str();
+                // Remove all double-quote characters
+                ret.erase(remove(ret.begin(), ret.end(), '\"' ), ret.end());
+                // Remove all single-quote characters
+                ret.erase(remove(ret.begin(), ret.end(), '\'' ), ret.end());
+                break;
+              }
             }
           }
 
           configini_file.Close();
         }
+
+        return ret;
       };
 #endif
   }
