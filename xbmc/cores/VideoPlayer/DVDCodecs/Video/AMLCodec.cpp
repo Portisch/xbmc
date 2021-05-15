@@ -2195,7 +2195,6 @@ float CAMLCodec::GetTimeSize()
 
 CDVDVideoCodec::VCReturn CAMLCodec::GetPicture(VideoPicture *pVideoPicture)
 {
-  std::string vfmt;
   struct vdec_info vi;
 
   if (!m_opened)
@@ -2232,9 +2231,6 @@ CDVDVideoCodec::VCReturn CAMLCodec::GetPicture(VideoPicture *pVideoPicture)
     return CDVDVideoCodec::VC_EOF;
   else if (timesize < 1.0)
     return CDVDVideoCodec::VC_BUFFER;
-
-  if (!SysfsUtils::GetString("/sys/class/deinterlace/di0/frame_format", vfmt) && (vfmt.size() > 4))
-    m_processInfo.SetVideoInterlaced(vfmt.compare("progressive"));
 
   return CDVDVideoCodec::VC_NONE;
 }
