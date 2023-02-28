@@ -94,8 +94,9 @@ private:
   void          CloseAmlVideo();
   std::string   GetVfmMap(const std::string &name);
   void          SetVfmMap(const std::string &name, const std::string &map);
+  float         GetBufferLevel();
+  float         GetBufferLevel(int new_chunk, int &data_len, int &free_len);
   int           DequeueBuffer();
-  float         GetTimeSize();
   unsigned int  GetDecoderVideoRate();
   std::string   GetHDRStaticMetadata();
 
@@ -129,10 +130,9 @@ private:
   PosixFilePtr     m_amlVideoFile;
   std::string      m_defaultVfmMap;
 
-  std::deque<uint32_t> m_frameSizes;
-  std::uint32_t m_frameSizeSum;
-
   static std::atomic_flag  m_pollSync;
   static int m_pollDevice;
   CProcessInfo &m_processInfo;
+  int m_decoder_timeout;
+  std::chrono::time_point<std::chrono::system_clock> m_tp_last_frame;
 };
