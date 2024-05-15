@@ -2722,5 +2722,9 @@ StreamHdrType CDVDDemuxFFmpeg::DetermineHdrType(AVStream* pStream)
                                    AV_PKT_DATA_MASTERING_DISPLAY_METADATA))
     hdrType = StreamHdrType::HDR_TYPE_HDR10;
 
+  // fake Dolby Vision type when using Dolby Vision VS-Engine
+  if (aml_convert_to_dv_by_vs_engine(hdrType))
+    hdrType = StreamHdrType::HDR_TYPE_DOLBYVISION;
+
   return hdrType;
 }

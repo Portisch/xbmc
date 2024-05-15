@@ -348,6 +348,9 @@ bool CDVDVideoCodecAmlogic::Open(CDVDStreamInfo &hints, CDVDCodecOptions &option
             m_hints.dovi.el_present_flag = false;
             m_bitstream->SetConvertDovi(convertDovi);
           }
+
+          if (m_hints.dovi.dv_profile == 0)
+            m_bitstream->SetRemoveHdr10Plus(true);
         }
       }
 
