@@ -1332,7 +1332,7 @@ bool aml_set_drmDevice_mode(unsigned int width, unsigned int height, std::string
       drmModeFBPtr drm_fb = drmModeGetFB(fd, crtc->buffer_id);
 
       if (force_mode_switch)
-        drmModeSetCrtc(fd, crtc->crtc_id, 0, 0, 0, NULL, 0, NULL);
+        set_drmProp(fd, connector->connector_id, "color_force", DRM_MODE_OBJECT_CONNECTOR, 1, NULL);
 
       ret = drmModeSetCrtc(fd, crtc->crtc_id, drm_fb->fb_id, 0, 0,
         resources->connectors, 1, &connector->modes[i]);
