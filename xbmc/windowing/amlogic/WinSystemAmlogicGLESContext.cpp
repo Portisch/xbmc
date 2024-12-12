@@ -122,7 +122,7 @@ bool CWinSystemAmlogicGLESContext::CreateNewWindow(const std::string& name,
   // check if mode switch is needed
   if (current_resolution.iWidth == res.iWidth && current_resolution.iHeight == res.iHeight &&
       current_resolution.iScreenWidth == res.iScreenWidth && current_resolution.iScreenHeight == res.iScreenHeight &&
-      m_bFullScreen == fullScreen && current_resolution.fRefreshRate == res.fRefreshRate &&
+      m_bFullScreen == fullScreen && (std::abs(current_resolution.fRefreshRate - res.fRefreshRate) < 0.05f) &&
       (current_resolution.dwFlags & D3DPRESENTFLAG_MODEMASK) == (res.dwFlags & D3DPRESENTFLAG_MODEMASK) &&
       m_stereo_mode == stereo_mode && m_bWindowCreated &&
       !force_mode_switch_by_dv &&
@@ -138,7 +138,7 @@ bool CWinSystemAmlogicGLESContext::CreateNewWindow(const std::string& name,
   // check if a forced mode switch is required
   if (((current_resolution.iWidth == res.iWidth && current_resolution.iHeight == res.iHeight &&
         current_resolution.iScreenWidth == res.iScreenWidth && current_resolution.iScreenHeight == res.iScreenHeight &&
-        current_resolution.fRefreshRate == res.fRefreshRate) &&
+       (std::abs(current_resolution.fRefreshRate - res.fRefreshRate) < 0.05f)) &&
        (force_mode_switch_by_dv ||
        (fractional_rate != cur_fractional_rate))) ||
        (m_stereo_mode != stereo_mode))
