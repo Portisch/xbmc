@@ -1235,6 +1235,11 @@ void CRenderManager::PrepareNextRender()
       if (renderPts < m_Queue[*iter].pts + x * frametime)
         break;
       lateframes++;
+
+      CLog::LogFC(LOGDEBUG, LOGAVTIMING,
+                  "{:d}: {:.3f} < {:.3f} + {:.2f} * {:.3f}",
+                  lateframes, renderPts / DVD_TIME_BASE, m_Queue[*iter].pts / DVD_TIME_BASE, x, frametime);
+
       idx = *iter;
       ++iter;
     }
