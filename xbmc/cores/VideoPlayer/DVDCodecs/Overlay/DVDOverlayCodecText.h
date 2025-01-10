@@ -35,6 +35,7 @@ public:
 
 private:
   std::shared_ptr<CDVDOverlay> m_pOverlay;
+  std::shared_ptr<CDVDOverlay> m_pOverlay_clone;
   CDVDStreamInfo m_hints;
   int m_prevSubId{-1};
   bool m_changePrevStopTime{false};

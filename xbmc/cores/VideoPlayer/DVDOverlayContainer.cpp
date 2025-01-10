@@ -44,6 +44,10 @@ void CDVDOverlayContainer::ProcessAndAddOverlayIfValid(const std::shared_ptr<CDV
   }
 
   m_overlays.emplace_back(pOverlay);
+
+  CLog::Log(LOGINFO, "CDVDOverlayContainer::{}({}) emplace_back, count: {}, iPTSStartTime: {:.3f}, iPTSStopTime: {:.3f}",
+    __FUNCTION__, __LINE__,
+    m_overlays.size(), pOverlay->iPTSStartTime / 1000000.0, pOverlay->iPTSStopTime / 1000000.0);
 }
 
 VecOverlays* CDVDOverlayContainer::GetOverlays()
@@ -73,7 +77,7 @@ void CDVDOverlayContainer::CleanUp(double pts)
     if (!pOverlay->bForced && pOverlay->iPTSStopTime <= pts && pOverlay->iPTSStopTime != 0)
     {
       //CLog::Log(LOGDEBUG,"CDVDOverlay::CleanUp, removing {}", (int)(pts / 1000));
-      //CLog::Log(LOGDEBUG,"CDVDOverlay::CleanUp, remove, start : {}, stop : {}", (int)(pOverlay->iPTSStartTime / 1000), (int)(pOverlay->iPTSStopTime / 1000));
+      CLog::Log(LOGINFO,"CDVDOverlay::CleanUp, remove <= {:.3f}: start : {:.3f}, stop : {:.3f}", pts / 1000000, pOverlay->iPTSStartTime / 1000000, pOverlay->iPTSStopTime / 1000000);
       it = Remove(it);
       continue;
     }

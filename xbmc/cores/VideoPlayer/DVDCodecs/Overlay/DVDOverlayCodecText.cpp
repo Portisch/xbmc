@@ -29,6 +29,7 @@ constexpr double DEFAULT_DURATION = 20.0 * static_cast<double>(DVD_TIME_BASE);
 
 CDVDOverlayCodecText::CDVDOverlayCodecText()
   : CDVDOverlayCodec("Text Subtitle Decoder"), m_pOverlay(nullptr)
+  , m_pOverlay_clone(nullptr)
 {
 }
 
@@ -41,6 +42,9 @@ bool CDVDOverlayCodecText::Open(CDVDStreamInfo& hints, CDVDCodecOptions& options
   m_codecId = hints.codec;
 
   m_pOverlay.reset();
+
+  //if (!m_pOverlay)
+  //  m_pOverlay = CreateOverlay();
 
   return Initialize();
 }
@@ -95,11 +99,16 @@ OverlayMessage CDVDOverlayCodecText::Decode(DemuxPacket* pPacket)
     }
 
     m_prevSubId = AddSubtitle(text, PTSStartTime, PTSStopTime);
+    m_pOverlay_clone = CreateOverlay();//m_pOverlay->Clone();
+    m_pOverlay_clone->iPTSStartTime = PTSStartTime;
+    m_pOverlay_clone->iPTSStopTime = PTSStopTime;
+    CLog::Log(LOGINFO, "CDVDOverlayCodecText::{}({}), m_prevSubId: {}, text: \"{}\", PTSStartTime: {:.3f}, PTSStartTime: {:.3f}",
+      __FUNCTION__, __LINE__, m_prevSubId, text, PTSStartTime / DVD_TIME_BASE, PTSStopTime / DVD_TIME_BASE);
   }
   else
     CLog::Log(LOGERROR, "{} - Failed to initialize tag converter", __FUNCTION__);
 
-  return m_pOverlay ? OverlayMessage::OC_DONE : OverlayMessage::OC_OVERLAY;
+  return (m_pOverlay_clone && m_prevSubId == NO_SUBTITLE_ID) ? OverlayMessage::OC_DONE : OverlayMessage::OC_OVERLAY;
 }
 
 void CDVDOverlayCodecText::PostProcess(std::string& text)
@@ -123,8 +132,5 @@ void CDVDOverlayCodecText::Flush()
 
 std::shared_ptr<CDVDOverlay> CDVDOverlayCodecText::GetOverlay()
 {
-  if (m_pOverlay)
-    return nullptr;
-  m_pOverlay = CreateOverlay();
-  return m_pOverlay;
+  return m_pOverlay_clone;
 }

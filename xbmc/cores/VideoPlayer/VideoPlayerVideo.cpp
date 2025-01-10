@@ -885,19 +885,29 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
     std::unique_lock<CCriticalSection> lock(*m_pOverlayContainer);
 
     VecOverlays* pVecOverlays = m_pOverlayContainer->GetOverlays();
-    auto it = pVecOverlays->begin();
+    //auto it = pVecOverlays->begin();
 
     //Check all overlays and render those that should be rendered, based on time and forced
     //Both forced and subs should check timing
-    while (it != pVecOverlays->end())
+    //while (it != pVecOverlays->end())
+    //{
+    int loop = 0;
+    for(auto it = pVecOverlays->begin(); it != pVecOverlays->end(); it++)
     {
-      std::shared_ptr<CDVDOverlay>& pOverlay = *it++;
+      std::shared_ptr<CDVDOverlay>& pOverlay = *it;
+
+      loop++;
+
       if(!pOverlay->bForced && !m_bRenderSubs)
         continue;
 
       double pts2 = pOverlay->bForced ? pts : pts - m_iSubtitleDelay;
 
-      if((pOverlay->iPTSStartTime <= pts2 && (pOverlay->iPTSStopTime > pts2 || pOverlay->iPTSStopTime == 0LL)))
+      CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) size: {}, loop: {}, m_iSubtitleDelay: {:.3f}, pts2: {:.3f}, bForced: {}, iPTSStartTime: {:.3f}, iPTSStopTime: {:.3f}",
+        __FUNCTION__, __LINE__, pVecOverlays->size(), loop, m_iSubtitleDelay / DVD_TIME_BASE,
+        pts2 / DVD_TIME_BASE, pOverlay->bForced, pOverlay->iPTSStartTime / DVD_TIME_BASE, pOverlay->iPTSStopTime / DVD_TIME_BASE);
+
+      if((pOverlay->iPTSStartTime <= pts2 && ((pOverlay->iPTSStopTime - m_iSubtitleDelay) > pts2 || pOverlay->iPTSStopTime == 0LL)))
       {
 
         pOverlay->m_3dSubtitleDepth = pSource->m_3dSubtitleDepth;
@@ -908,14 +918,31 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
                           static_cast<CDVDOverlayGroup&>(*pOverlay).m_overlays.end());
         else
           overlays.push_back(pOverlay);
+
+        CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) iPTSStartTime: {:.3f} added",
+          __FUNCTION__, __LINE__,
+        pOverlay->iPTSStartTime / DVD_TIME_BASE);
       }
+      /*
+      else if(pts2 > pOverlay->iPTSStopTime)
+      {
+        CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) pts2: {}, iPTSStopTime: {:.3f} removed",
+          __FUNCTION__, __LINE__,
+        pts2 / DVD_TIME_BASE, pOverlay->iPTSStopTime / DVD_TIME_BASE);
+        it = m_pOverlayContainer->Remove(it);
+      }
+      */
     }
 
-    for(it = overlays.begin(); it != overlays.end(); ++it)
+    for(auto it = overlays.begin(); it != overlays.end(); ++it)
     {
       double pts2 = (*it)->bForced ? pts : pts - m_iSubtitleDelay;
       m_renderManager.AddOverlay(*it, pts2);
+      CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) pts: {:.3f}, AddOverlay: {:.3f}",
+        __FUNCTION__, __LINE__,
+      pts2, (*it)->iPTSStartTime / DVD_TIME_BASE);
     }
+    //m_pOverlayContainer->Clear();
   }
 }
 
