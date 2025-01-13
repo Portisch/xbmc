@@ -49,16 +49,10 @@ void CVideoPlayerSubtitle::SendMessage(std::shared_ptr<CDVDMsg> pMsg, int priori
     if (m_pOverlayCodec)
     {
       OverlayMessage result = m_pOverlayCodec->Decode(pPacket);
-
+      CLog::Log(LOGINFO, "CVideoPlayerSubtitle::{}({}) OverlayMessage::result: {}",
+        __FUNCTION__, __LINE__, result);
       if (result == OverlayMessage::OC_OVERLAY)
-      {
-        std::shared_ptr<CDVDOverlay> overlay;
-
-        while ((overlay = m_pOverlayCodec->GetOverlay()))
-        {
-          m_pOverlayContainer->ProcessAndAddOverlayIfValid(overlay);
-        }
-      }
+        m_pOverlayContainer->ProcessAndAddOverlayIfValid(m_pOverlayCodec->GetOverlay());
     }
     else if (m_streaminfo.codec == AV_CODEC_ID_DVD_SUBTITLE)
     {

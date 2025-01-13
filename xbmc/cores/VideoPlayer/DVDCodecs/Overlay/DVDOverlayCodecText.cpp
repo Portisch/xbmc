@@ -95,11 +95,16 @@ OverlayMessage CDVDOverlayCodecText::Decode(DemuxPacket* pPacket)
     }
 
     m_prevSubId = AddSubtitle(text, PTSStartTime, PTSStopTime);
+    m_pOverlay = CreateOverlay();
+    m_pOverlay->iPTSStartTime = PTSStartTime;
+    m_pOverlay->iPTSStopTime = PTSStopTime;
+    CLog::Log(LOGINFO, "CDVDOverlayCodecText::{}({}), m_prevSubId: {}, text: \"{}\", PTSStartTime: {:.3f}, PTSStartTime: {:.3f}",
+      __FUNCTION__, __LINE__, m_prevSubId, text, PTSStartTime / DVD_TIME_BASE, PTSStopTime / DVD_TIME_BASE);
   }
   else
     CLog::Log(LOGERROR, "{} - Failed to initialize tag converter", __FUNCTION__);
 
-  return m_pOverlay ? OverlayMessage::OC_DONE : OverlayMessage::OC_OVERLAY;
+  return (m_pOverlay && m_prevSubId == NO_SUBTITLE_ID) ? OverlayMessage::OC_DONE : OverlayMessage::OC_OVERLAY;
 }
 
 void CDVDOverlayCodecText::PostProcess(std::string& text)
@@ -123,8 +128,5 @@ void CDVDOverlayCodecText::Flush()
 
 std::shared_ptr<CDVDOverlay> CDVDOverlayCodecText::GetOverlay()
 {
-  if (m_pOverlay)
-    return nullptr;
-  m_pOverlay = CreateOverlay();
   return m_pOverlay;
 }
