@@ -886,6 +886,7 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
 
     VecOverlays* pVecOverlays = m_pOverlayContainer->GetOverlays();
     auto it = pVecOverlays->begin();
+    int loop = 1;
 
     //Check all overlays and render those that should be rendered, based on time and forced
     //Both forced and subs should check timing
@@ -898,6 +899,9 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
       double pts2 = pOverlay->bForced ? pts : pts - m_iSubtitleDelay;
 
       if((pOverlay->iPTSStartTime <= pts2 && (pOverlay->iPTSStopTime > pts2 || pOverlay->iPTSStopTime == 0LL)))
+      CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) size: {}, loop: {}, m_iSubtitleDelay: {:.3f}, pts2: {:.3f}, bForced: {}, iPTSStartTime: {:.3f}, iPTSStopTime: {:.3f}",
+        __FUNCTION__, __LINE__, pVecOverlays->size(), loop++, m_iSubtitleDelay / DVD_TIME_BASE,
+        pts2 / DVD_TIME_BASE, pOverlay->bForced, pOverlay->iPTSStartTime / DVD_TIME_BASE, pOverlay->iPTSStopTime / DVD_TIME_BASE);
       {
 
         pOverlay->m_3dSubtitleDepth = pSource->m_3dSubtitleDepth;
@@ -908,6 +912,9 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
                           static_cast<CDVDOverlayGroup&>(*pOverlay).m_overlays.end());
         else
           overlays.push_back(pOverlay);
+        CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) iPTSStartTime: {:.3f} added",
+          __FUNCTION__, __LINE__,
+        pOverlay->iPTSStartTime / DVD_TIME_BASE);
       }
     }
 
@@ -915,6 +922,9 @@ void CVideoPlayerVideo::ProcessOverlays(const VideoPicture* pSource, double pts)
     {
       double pts2 = (*it)->bForced ? pts : pts - m_iSubtitleDelay;
       m_renderManager.AddOverlay(*it, pts2);
+      CLog::Log(LOGINFO, "CVideoPlayerVideo::{}({}) pts: {:.3f}, AddOverlay: {:.3f}",
+        __FUNCTION__, __LINE__,
+      pts2, (*it)->iPTSStartTime / DVD_TIME_BASE);
     }
   }
 }

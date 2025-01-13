@@ -713,6 +713,9 @@ void CRenderManager::Render(bool clear, DWORD flags, DWORD alpha, bool gui)
       return;
   }
 
+  CLog::Log(LOGINFO, "CRenderManager::{}({}) gui: {}, HasOverlay: {}",
+    __FUNCTION__, __LINE__, gui, m_overlays.HasOverlay(m_presentsource));
+
   if (!gui && m_pRenderer->IsGuiLayer())
     return;
 
@@ -738,6 +741,8 @@ void CRenderManager::Render(bool clear, DWORD flags, DWORD alpha, bool gui)
     m_pRenderer->GetVideoRect(src, dst, view);
     m_overlays.SetVideoRect(src, dst, view);
     m_overlays.Render(m_presentsource);
+    CLog::Log(LOGINFO, "CRenderManager::{}({}) did render m_overlays",
+      __FUNCTION__, __LINE__);
 
     if (m_renderDebug)
     {
@@ -1087,6 +1092,8 @@ void CRenderManager::AddOverlay(std::shared_ptr<CDVDOverlay> o, double pts)
   }
   std::unique_lock<CCriticalSection> lock(m_datalock);
   m_overlays.AddOverlay(std::move(o), pts, idx);
+  CLog::Log(LOGINFO, "CRenderManager::{}({}) AddOverlay frame: {}, pts: {:.3f}",
+    __FUNCTION__, __LINE__, idx, pts / DVD_TIME_BASE);
 }
 
 bool CRenderManager::Supports(ERENDERFEATURE feature) const
@@ -1204,7 +1211,7 @@ void CRenderManager::PrepareNextRender()
     m_dvdClock.SetVsyncAdjust(0);
   }
 
-  CLog::LogFC(LOGDEBUG, LOGAVTIMING,
+  CLog::Log(LOGINFO,
               "frameOnScreen: {:.3f} renderPts: {:.3f} nextFramePts: {:.3f} -> diff: {:.3f}  render: {:d} "
               "forceNext: {:d}",
               frameOnScreen / DVD_TIME_BASE, renderPts / DVD_TIME_BASE, nextFramePts / DVD_TIME_BASE,
