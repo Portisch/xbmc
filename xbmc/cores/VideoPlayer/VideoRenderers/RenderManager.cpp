@@ -728,12 +728,12 @@ void CRenderManager::Render(bool clear, DWORD flags, DWORD alpha, bool gui)
       PresentSingle(clear, flags, alpha);
   }
 
-  if (gui)
+  m_renderedOverlay = m_overlays.HasOverlay(m_presentsource);
+  if (gui || m_renderedOverlay)
   {
     if (!m_pRenderer->IsGuiLayer())
       m_pRenderer->Update();
 
-    m_renderedOverlay = m_overlays.HasOverlay(m_presentsource);
     CRect src, dst, view;
     m_pRenderer->GetVideoRect(src, dst, view);
     m_overlays.SetVideoRect(src, dst, view);
