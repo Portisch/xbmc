@@ -368,7 +368,8 @@ void CGUIWindowFullScreen::Process(unsigned int currentTime, CDirtyRegionList &d
 {
   const auto& components = CServiceBroker::GetAppComponents();
   const auto appPlayer = components.GetComponent<CApplicationPlayer>();
-  if (appPlayer->IsRenderingGuiLayer())
+  if (appPlayer->IsRenderingGuiLayer() &&
+      CServiceBroker::GetSettingsComponent()->GetAdvancedSettings()->m_guiAlgorithmDirtyRegions == DIRTYREGION_SOLVER_FILL_VIEWPORT_ALWAYS)
     MarkDirtyRegion();
 
   m_controlStats->Reset();
