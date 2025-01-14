@@ -17,6 +17,8 @@
 #include "cores/VideoPlayer/DVDCodecs/Overlay/DVDOverlayImage.h"
 #include "cores/VideoPlayer/DVDCodecs/Overlay/DVDOverlayLibass.h"
 #include "cores/VideoPlayer/DVDCodecs/Overlay/DVDOverlaySpu.h"
+#include "guilib/GUIComponent.h"
+#include "guilib/GUIWindowManager.h"
 #include "settings/DisplaySettings.h"
 #include "settings/Settings.h"
 #include "settings/SettingsComponent.h"
@@ -243,6 +245,7 @@ void CRenderer::Render(COverlay* o)
 
   state.x += GetStereoscopicDepth(o->m_pgsSubtitle, o->m_3dSubtitleDepth);
 
+  CServiceBroker::GetGUI()->GetWindowManager().MarkDirty(CRect(state.x, state.y, state.width, state.height));
   o->Render(state);
 }
 
