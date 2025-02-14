@@ -8966,16 +8966,6 @@ msgctxt "#14411"
 msgid "Force colour subsampling to set value. Requires resolution change to get active."
 msgstr ""
 
-#: system/settings/settings.xml
-msgctxt "#14412"
-msgid "Disable GUI scaling"
-msgstr ""
-
-#: system/settings/settings.xml
-msgctxt "#14413"
-msgid "For optimal performance across all devices, the GUI is rendered at 1080P and scaled to 4K by default, this option disables that scaling and renders the GUI at 4K. This can make thumbnails and other textures sharper, however some devices may have issues with this option being set. Requires reboot."
-msgstr ""
-
 #. Force colour subsampling
 #: system/settings/settings.xml
 msgctxt "#14414"

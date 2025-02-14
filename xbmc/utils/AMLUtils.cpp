@@ -381,7 +381,6 @@ bool aml_mode_to_resolution(const char *mode, RESOLUTION_INFO *res)
   if(!mode)
     return false;
 
-  const bool nativeGui = CServiceBroker::GetSettingsComponent()->GetSettings()->GetBool(CSettings::SETTING_COREELEC_AMLOGIC_DISABLEGUISCALING);
   std::string fromMode = mode;
   StringUtils::Trim(fromMode);
   // strips, for example, 720p* to 720p
@@ -391,8 +390,8 @@ bool aml_mode_to_resolution(const char *mode, RESOLUTION_INFO *res)
 
   if (StringUtils::EqualsNoCase(fromMode, "4k2ksmpte") || StringUtils::EqualsNoCase(fromMode, "smpte24hz"))
   {
-    res->iWidth = nativeGui ? 4096 : 1920;
-    res->iHeight= nativeGui ? 2160 : 1080;
+    res->iWidth = 4096;
+    res->iHeight= 2160;
     res->iScreenWidth = 4096;
     res->iScreenHeight= 2160;
     res->fRefreshRate = 24;
@@ -450,8 +449,8 @@ bool aml_mode_to_resolution(const char *mode, RESOLUTION_INFO *res)
       return false;
     }
 
-    res->iWidth = nativeGui ? width : std::min(width, 1920);
-    res->iHeight= nativeGui ? height : std::min(height, 1080);
+    res->iWidth = width;
+    res->iHeight= height;
     res->iScreenWidth = width;
     res->iScreenHeight = height;
     res->dwFlags = (*smode == 'p') ? D3DPRESENTFLAG_PROGRESSIVE : D3DPRESENTFLAG_INTERLACED;
