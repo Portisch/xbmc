@@ -1243,8 +1243,33 @@ bool aml_set_hotplug_mode(std::string mode)
   return ret;
 }
 
-bool aml_set_drmDevice_mode(unsigned int width, unsigned int height, std::string mode,
-  bool force_mode_switch)
+void aml_set_framebuffer_resolution(unsigned int width, unsigned int height, std::string framebuffer_name)
+{
+  int fd0;
+  std::string framebuffer = "/dev/" + framebuffer_name;
+
+  if ((fd0 = open(framebuffer.c_str(), O_RDWR)) >= 0)
+  {
+    struct fb_var_screeninfo vinfo;
+    if (ioctl(fd0, FBIOGET_VSCREENINFO, &vinfo) == 0)
+    {
+      if (width != vinfo.xres || height != vinfo.yres)
+      {
+        vinfo.xres = width;
+        vinfo.yres = height;
+        vinfo.xres_virtual = width;
+        vinfo.yres_virtual = height * 2;
+        vinfo.bits_per_pixel = 32;
+        vinfo.activate = FB_ACTIVATE_ALL;
+        ioctl(fd0, FBIOPUT_VSCREENINFO, &vinfo);
+      }
+    }
+    close(fd0);
+  }
+}
+
+bool aml_set_drmDevice_mode(const RESOLUTION_INFO &res, std::string mode,
+  std::string framebuffer_name, bool force_mode_switch)
 {
   std::string current_mode = aml_get_drmDevice_mode();
   bool ret = false;
@@ -1319,6 +1344,8 @@ bool aml_set_drmDevice_mode(unsigned int width, unsigned int height, std::string
     {
       CLog::Log(LOGDEBUG, "AMLUtils::{} - found mode in connector mode list: [{:d}]:{}", __FUNCTION__, i, mode);
       drmModeFBPtr drm_fb = drmModeGetFB(fd, crtc->buffer_id);
+
+      aml_set_framebuffer_resolution(res.iWidth, res.iHeight, framebuffer_name);
 
       if (force_mode_switch)
         set_drmProp(fd, connector->connector_id, "color_force", DRM_MODE_OBJECT_CONNECTOR, 1, NULL);
@@ -1489,9 +1516,7 @@ bool aml_set_display_resolution(const RESOLUTION_INFO &res, std::string framebuf
     force_mode_switch = false;
   }
 
-  aml_set_framebuffer_resolution(res.iScreenWidth, res.iScreenHeight, framebuffer_name);
-  aml_set_drmDevice_mode(res.iWidth, res.iHeight, mode, force_mode_switch);
-  aml_set_framebuffer_resolution(res.iWidth, res.iHeight, framebuffer_name);
+  aml_set_drmDevice_mode(res, mode, framebuffer_name, force_mode_switch);
 
   return true;
 }
@@ -1529,31 +1554,6 @@ void aml_handle_display_stereo_mode(const int stereo_mode)
     CLog::Log(LOGDEBUG, "AMLUtils::{} setting new mode: {}", __FUNCTION__, command);
     CSysfsPath("/sys/class/amhdmitx/amhdmitx0/config", command);
     kernel_stereo_mode = stereo_mode;
-  }
-}
-
-void aml_set_framebuffer_resolution(unsigned int width, unsigned int height, std::string framebuffer_name)
-{
-  int fd0;
-  std::string framebuffer = "/dev/" + framebuffer_name;
-
-  if ((fd0 = open(framebuffer.c_str(), O_RDWR)) >= 0)
-  {
-    struct fb_var_screeninfo vinfo;
-    if (ioctl(fd0, FBIOGET_VSCREENINFO, &vinfo) == 0)
-    {
-      if (width != vinfo.xres || height != vinfo.yres)
-      {
-        vinfo.xres = width;
-        vinfo.yres = height;
-        vinfo.xres_virtual = width;
-        vinfo.yres_virtual = height * 2;
-        vinfo.bits_per_pixel = 32;
-        vinfo.activate = FB_ACTIVATE_ALL;
-        ioctl(fd0, FBIOPUT_VSCREENINFO, &vinfo);
-      }
-    }
-    close(fd0);
   }
 }
 
