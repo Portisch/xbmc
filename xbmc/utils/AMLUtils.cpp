@@ -1529,10 +1529,7 @@ bool aml_set_display_resolution(const RESOLUTION_INFO &res, std::string framebuf
   int fractional_rate = (res.fRefreshRate == floor(res.fRefreshRate)) ? 0 : 1;
 
   if (aml_get_drmProperty("FRAC_RATE_POLICY", DRM_MODE_OBJECT_CONNECTOR) != fractional_rate)
-  {
     aml_set_drmProperty("FRAC_RATE_POLICY", DRM_MODE_OBJECT_CONNECTOR, fractional_rate);
-    force_mode_switch = false;
-  }
 
   aml_set_drmDevice_mode(res, mode, framebuffer_name, force_mode_switch);
 

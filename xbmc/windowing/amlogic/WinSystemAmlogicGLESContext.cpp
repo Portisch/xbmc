@@ -10,6 +10,7 @@
 #include "WinSystemAmlogicGLESContext.h"
 #include "platform/linux/SysfsPath.h"
 #include "utils/AMLUtils.h"
+#include "utils/MathUtils.h"
 #include "utils/log.h"
 #include "threads/SingleLock.h"
 #include "windowing/GraphicContext.h"
@@ -131,13 +132,16 @@ bool CWinSystemAmlogicGLESContext::CreateNewWindow(const std::string& name,
   DestroyWindow();
 
   // check if a forced mode switch is required
-  if (((current_resolution.iWidth == res.iWidth && current_resolution.iHeight == res.iHeight &&
-        current_resolution.iScreenWidth == res.iScreenWidth && current_resolution.iScreenHeight == res.iScreenHeight &&
-        current_resolution.fRefreshRate == res.fRefreshRate) && force_mode_switch_by_dv) ||
-       (m_stereo_mode != stereo_mode))
+  if (current_resolution.iWidth == res.iWidth && current_resolution.iHeight == res.iHeight &&
+      current_resolution.iScreenWidth == res.iScreenWidth && current_resolution.iScreenHeight == res.iScreenHeight &&
+      MathUtils::FloatEquals(current_resolution.fRefreshRate, res.fRefreshRate, 0.06f))
   {
-    m_force_mode_switch = true;
-    CLog::Log(LOGDEBUG, "CWinSystemAmlogicGLESContext::{}: force mode switch", __FUNCTION__);
+    // same resolution, check frac rate and other parameter
+    if ((cur_fractional_rate != fractional_rate) || force_mode_switch_by_dv || (m_stereo_mode != stereo_mode))
+    {
+      m_force_mode_switch = true;
+      CLog::Log(LOGDEBUG, "CWinSystemAmlogicGLESContext::{}: force mode switch", __FUNCTION__);
+    }
   }
 
   // refresh backup data
