@@ -1530,7 +1530,6 @@ bool CAMLCodec::OpenDecoder(CDVDStreamInfo &hints)
   m_state = 0;
   m_frameSizes.clear();
   m_frameSizeSum = 0;
-  m_hints.pClock = hints.pClock;
 
   if (!OpenAmlVideo(hints))
   {
@@ -1847,7 +1846,6 @@ void CAMLCodec::CloseAmlVideo()
 {
   m_amlVideoFile.reset();
   SetVfmMap("default", m_defaultVfmMap);
-  m_amlVideoFile = NULL;
 }
 
 void CAMLCodec::Reset()
@@ -2015,7 +2013,6 @@ bool CAMLCodec::AddData(uint8_t *pData, size_t iSize, double dts, double pts)
 }
 
 int CAMLCodec::m_pollDevice;
-double CAMLCodec::m_ttd = 0;
 
 int CAMLCodec::PollFrame()
 {
