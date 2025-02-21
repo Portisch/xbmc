@@ -481,22 +481,11 @@ void CDVDVideoCodecAmlogic::FrameRateTracking(uint8_t *pData, int iSize, double 
 
       CLog::Log(LOGDEBUG, "{}::{} fps:{:d}/{:d} mpeg2_fps:{:d}/{:d} options:0x{:2x}", __MODULE_NAME__, __FUNCTION__,
               m_hints.fpsrate, m_hints.fpsscale, m_mpeg2_sequence->fps_rate, m_mpeg2_sequence->fps_scale, m_hints.codecOptions);
-      if  (!(m_hints.codecOptions & CODEC_INTERLACED))
-      {
-        m_hints.fpsrate = m_mpeg2_sequence->fps_rate;
-        m_hints.fpsscale = m_mpeg2_sequence->fps_scale;
-      }
-      if (m_hints.fpsrate && m_hints.fpsscale)
-      {
-        m_framerate = static_cast<float>(m_hints.fpsrate) / m_hints.fpsscale;
-        if (m_hints.codecOptions & CODEC_UNKNOWN_I_P)
-          if (std::abs(m_framerate - 25.0f) < 0.02f || std::abs(m_framerate - 29.97f) < 0.02f)
-          {
-            m_framerate += m_framerate;
-            m_hints.fpsrate += m_hints.fpsrate;
-          }
-        m_video_rate = (int)(0.5 + (96000.0 / m_framerate));
-      }
+      m_hints.fpsrate = m_mpeg2_sequence->fps_rate;
+      m_hints.fpsscale = m_mpeg2_sequence->fps_scale;
+      m_framerate = static_cast<float>(m_mpeg2_sequence->fps_rate) / m_mpeg2_sequence->fps_scale;
+      m_video_rate = (int)(0.5f + (96000.0f / m_framerate));
+
       m_hints.width    = m_mpeg2_sequence->width;
       m_hints.height   = m_mpeg2_sequence->height;
       m_hints.aspect   = m_mpeg2_sequence->ratio;
