@@ -1365,11 +1365,11 @@ bool aml_set_drmDevice_mode(const RESOLUTION_INFO &res, std::string mode,
 
       aml_set_framebuffer_resolution(res.iWidth, res.iHeight, framebuffer_name);
 
-      if (force_mode_switch)
-        set_drmProp(fd, connector->connector_id, "color_force", DRM_MODE_OBJECT_CONNECTOR, 1, NULL);
-
       ret = drmModeSetCrtc(fd, crtc->crtc_id, drm_fb->fb_id, 0, 0,
         resources->connectors, 1, &connector->modes[i]);
+
+      if (force_mode_switch)
+        set_drmProp(fd, connector->connector_id, "UPDATE", DRM_MODE_OBJECT_CONNECTOR, 1, NULL);
 
       drmModeFreeFB(drm_fb);
       break;
